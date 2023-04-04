@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>2. 异或运算</title>
+    <link href="/2023/04/03/%E7%AE%97%E6%B3%95/2.%E5%BC%82%E6%88%96%E7%AE%97%E6%B3%95/"/>
+    <url>/2023/04/03/%E7%AE%97%E6%B3%95/2.%E5%BC%82%E6%88%96%E7%AE%97%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol><li>异或的符号 ^</li><li>如果两个数不相同，则异或的结果为1；如果两个数相同，则异或的结果为0</li><li>基础异或概念 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> ^ <span class="hljs-number">0</span> # 结果为<span class="hljs-number">1</span><br><span class="hljs-attribute">1</span> ^ <span class="hljs-number">1</span> # 结果为<span class="hljs-number">0</span><br><span class="hljs-attribute">x</span> ^ (-<span class="hljs-number">1</span>) = -x<br></code></pre></td></tr></table></figure></li><li>异或是二进制的数按位进行异或 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">例如：5 ^ 3<br>就是101 ^<span class="hljs-number"> 011 </span><br>按位置：<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 0 </span>= 1,<span class="hljs-number"> 0 </span>^<span class="hljs-number"> 1 </span>= 1,<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 0 </span>结果为<span class="hljs-number"> 110 </span>转10进制 6<br></code></pre></td></tr></table></figure></li><li>满足交换律，结合律，自反率（ A ^ B ^ B = A ^ 0 = A）</li><li>将两个数异或的结果与其中一个数异或能得到另一个结果：例如 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">x</span> = <span class="hljs-number">4</span><br><span class="hljs-attribute">b</span> = <span class="hljs-number">5</span><br><span class="hljs-attribute">z</span> = x ^ b <br><span class="hljs-attribute">z</span> ^ b = x = <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure></li></ol><h2 id="题目一、-a-3-b-2-交换两个数"><a href="#题目一、-a-3-b-2-交换两个数" class="headerlink" title="题目一、 a = 3,  b = 2 交换两个数"></a>题目一、 a = 3,  b = 2 交换两个数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">方法一: 用异或实现<br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> <br>    <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    解析：<br>        使用原理<span class="hljs-number">4</span><br>        <span class="hljs-number">1</span>. 两个数异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>        <span class="hljs-number">2</span>. 与其中一个异或能拿到另一个数<br>            <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候b存的就是之前a的值)<br>        <span class="hljs-number">3</span>. <span class="hljs-selector-tag">b</span> 在与<span class="hljs-selector-tag">a</span> 异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候, <span class="hljs-selector-tag">a</span> 拿到的就是b之前的值，因为b现在里边存的是之前a的值)<br>            <br>方法二： python<br>    <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">b</span>, a<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法学习</category>
+      
+      <category>异或运算</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>异或运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>1 机器学习sklearn 库</title>
     <link href="/2023/03/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/1.sklearn%E5%BA%93/"/>
     <url>/2023/03/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/1.sklearn%E5%BA%93/</url>
     
-    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ol><li>集成了常用的机器学习方法，再进行机器学习任务时，并不需要实现算法，简单调用即可</li><li>在 Numpy、Scipy 和 matplotlib 的基础上开发</li></ol><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li>安装 Numpy</li><li>安装 Scipy 库</li><li>安装 matplotlib 库</li><li>安装 sklearn 库</li></ol><h2 id="基础了解"><a href="#基础了解" class="headerlink" title="基础了解"></a>基础了解</h2><ol><li>数据集</li></ol><img src="sklearn库/sk_data_info.png"><p><img src="/images/sk_data_info.png" alt="xx"></p><ol start="2"><li>主要功能<br>用于完成分类任务、回归任务、聚类任务、降维任务、模型选择以及数据预处理。</li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ol><li>集成了常用的机器学习方法，再进行机器学习任务时，并不需要实现算法，简单调用即可</li><li>在 Numpy、Scipy 和 matplotlib 的基础上开发</li></ol><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li>安装 Numpy</li><li>安装 Scipy 库</li><li>安装 matplotlib 库</li><li>安装 sklearn 库</li></ol><h2 id="基础了解"><a href="#基础了解" class="headerlink" title="基础了解"></a>基础了解</h2><ol><li>数据集</li></ol><p><img src="/images/sk_data_info.png" alt="数据集"></p><ol start="2"><li>主要功能<br>用于完成分类任务、回归任务、聚类任务、降维任务、模型选择以及数据预处理。</li></ol>]]></content>
     
     
     <categories>
