@@ -16,24 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="单例模式概念一个类只有会创建一个实例. 注意： 一个类只会被创建一次，每次创建的时候，这个对象属性会被刷新。 应用场景 需要频繁创建的一些类，使用单例可以降低系统的内存压力（日志对象） 某类要求只生成一个对象的时候 某些创建实例时占用资源较多，或实例化耗时较长，且经常使用 对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。 当对象需要被共享的场">
+    <meta name="description" content="抽象工厂模式概念是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。 在工厂方法中，一个工厂只生产一种产品，抽象工厂可以理解为一个产品族（系列产品、生态）, 例如：小米工厂， 可以生产手机、生产电视、音响。 结构 抽象工厂， 提供工厂的创建产品接口 具体工厂, 实现抽象工厂并创建具体产品，同一个产品族的产品由一个工厂创建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2.单例模式">
-<meta property="og:url" content="https://sweetshance.github.io/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="4.抽象工厂模式">
+<meta property="og:url" content="https://sweetshance.github.io/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="单例模式概念一个类只有会创建一个实例. 注意： 一个类只会被创建一次，每次创建的时候，这个对象属性会被刷新。 应用场景 需要频繁创建的一些类，使用单例可以降低系统的内存压力（日志对象） 某类要求只生成一个对象的时候 某些创建实例时占用资源较多，或实例化耗时较长，且经常使用 对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。 当对象需要被共享的场">
+<meta property="og:description" content="抽象工厂模式概念是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。 在工厂方法中，一个工厂只生产一种产品，抽象工厂可以理解为一个产品族（系列产品、生态）, 例如：小米工厂， 可以生产手机、生产电视、音响。 结构 抽象工厂， 提供工厂的创建产品接口 具体工厂, 实现抽象工厂并创建具体产品，同一个产品族的产品由一个工厂创建">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-13T08:22:08.000Z">
-<meta property="article:modified_time" content="2023-04-14T08:01:57.988Z">
+<meta property="article:published_time" content="2023-04-14T08:32:18.000Z">
+<meta property="article:modified_time" content="2023-04-18T11:01:44.413Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="单例">
+<meta property="article:tag" content="抽象工厂模式">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>2.单例模式 - ShanCe的博客</title>
+  <title>4.抽象工厂模式 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="2.单例模式"></span>
+            <span id="subtitle" data-typed-text="4.抽象工厂模式"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-13 16:22" pubdate>
-          2023年4月13日 下午
+        <time datetime="2023-04-14 16:32" pubdate>
+          2023年4月14日 下午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.8k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          10 分钟
+          15 分钟
         
       </span>
     
@@ -284,43 +284,44 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">2.单例模式</h1>
+            <h1 style="display: none">4.抽象工厂模式</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>一个类只有会创建一个实例.</p>
-<p>注意： 一个类只会被创建一次，每次创建的时候，这个对象属性会被刷新。</p>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
-<li>需要频繁创建的一些类，使用单例可以降低系统的内存压力（日志对象）</li>
-<li>某类要求只生成一个对象的时候</li>
-<li>某些创建实例时占用资源较多，或实例化耗时较长，且经常使用</li>
-<li>对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。</li>
-<li>当对象需要被共享的场合。由于单例模式只允许创建一个对象，共享该对象可以节省内存，并加快对象访问速度。如 Web 中的配置对象、数据库的连接池等。</li>
+                <h1 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。</p>
+<p>在工厂方法中，一个工厂只生产一种产品，抽象工厂可以理解为一个产品族（系列产品、生态）, 例如：小米工厂， 可以生产手机、生产电视、音响。</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ol>
+<li>抽象工厂， 提供工厂的创建产品接口</li>
+<li>具体工厂, 实现抽象工厂并创建具体产品，同一个产品族的产品由一个工厂创建</li>
+<li>抽象产品，代表的一个大类的产品</li>
+<li>具体产品，对抽象产品的具体化</li>
 </ol>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
+<li>系统中有多个产品族，每个工厂创建一族单属于不同等级的产品，系统一次只能消费某一组的产品，即同族产品一起使用</li>
+</ol>
+<p>例如：在支付的时候，微信支付和支付宝支付应该是两个工厂，其中，微信支付包含，单次扣费，周期扣费，签约，免密，调起支付； 支付宝支付同样。微信支付和支付宝支付分别属于两个产品族。在使用微信支付的时候只会用微信支付的实现方式，在使用支付宝支付的时候只会使用支付宝的实现方式</p>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>单例模式可以保证内存中只有一个实例，减少内存开销</li>
-<li>避免对资源的多重占用</li>
-<li>设置全局访问点，可以优化和共享资源访问</li>
+<li>可以在类的内部对产品中相关联的多等级产品共同管理，而不必专门引入新的类来进行管理</li>
+<li>需要产品族时，抽象工厂可以保证客户端始终只使用一个产品的产品组。</li>
+<li>增强了产品的可扩展性，当需要增加一个行的产品族时，不需要修改原代码，满足开闭原则。</li>
 </ol>
 <h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>单例模式一般没有接口，扩展困难，只能修改原来代码，违背开闭原则。</li>
-<li>在并发测试中，不利于代码调试。在调试过程中，如果单例中的代码没有执行完，也不能模拟生成一个新的对象。</li>
-<li>单例模式在功能代码通常卸载一个类中，如果功能涉及不合理，很容易违背单一职责原理。</li>
+<li>当产品族中需要增加一个新的产品时，所有的工厂类都需要进行修改。增加了系统的抽象性和理解难度</li>
 </ol>
-<h2 id="实现（python）"><a href="#实现（python）" class="headerlink" title="实现（python）"></a>实现（python）</h2><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>在python中使用 import 引入对象使用，则就是单例模式（因为在第一次使用import加载后，会生成 .pyc文件，后面读都只会读这个文件），且这种方式是线程安全的。</p>
-<p>在test1.py中，创建一个类并实例化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>)<br>test = Test()<br></code></pre></td></tr></table></figure>
+<h2 id="代码实现-实现小米工厂"><a href="#代码实现-实现小米工厂" class="headerlink" title="代码实现(实现小米工厂)"></a>代码实现(实现小米工厂)</h2><ol>
+<li><p>抽象工厂</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> abc <span class="hljs-keyword">import</span> ABCMeta, abstractmethod<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AbsFactory</span>(metaclass=ABCMeta):<br><br><span class="hljs-meta">    @abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_phone</span>(<span class="hljs-params">self </span>):<br>        <span class="hljs-comment"># 造手机</span><br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-meta">    @abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">createTV</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 造电视</span><br>        <span class="hljs-keyword">pass</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>定义抽象产品</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AbsPhone</span>(metaclass=ABCMeta):<br><span class="hljs-meta">    @abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment">#手机</span><br>        <span class="hljs-keyword">pass</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AbsTV</span>(metaclass=ABCMeta):<br><span class="hljs-meta">    @abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 电视</span><br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure></li>
+<li><p>具体产品</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MiPhone</span>(<span class="hljs-title class_ inherited__">AbsPhone</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;创建一个小米手机&quot;</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MiTV</span>(<span class="hljs-title class_ inherited__">AbsTV</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;创建一个小米电视&quot;</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HuaPhone</span>(<span class="hljs-title class_ inherited__">AbsPhone</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;创建一个华为手机&quot;</span>)<br><br><br><span class="hljs-comment"># 具体产品</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HuaTV</span>(<span class="hljs-title class_ inherited__">AbsTV</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;创建一个华为电视&quot;</span>)<br><br></code></pre></td></tr></table></figure></li>
+<li><p>具体工厂</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MiFactory</span>(<span class="hljs-title class_ inherited__">AbsFactory</span>):<br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_phone</span>(<span class="hljs-params">cls</span>):<br>        miphone = MiPhone()<br>        <span class="hljs-keyword">return</span> miphone<br><br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_tv</span>(<span class="hljs-params">cls</span>):<br>        miTV = MiTV()<br>        <span class="hljs-keyword">return</span> miTV<br><br><br><span class="hljs-comment"># 华为工厂</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HuaFacrory</span>(<span class="hljs-title class_ inherited__">AbsFactory</span>):<br>    <span class="hljs-comment"># 类方法</span><br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_phone</span>(<span class="hljs-params">cls</span>):<br>        huaphone = HuaPhone()<br>        <span class="hljs-keyword">return</span> huaphone<br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_tv</span>(<span class="hljs-params">cls</span>):<br>        huaTV = HuaTV()<br>        <span class="hljs-keyword">return</span> huaTV<br></code></pre></td></tr></table></figure></li>
+<li><p>客户</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    miphone = MiFactory.create_phone()<br>    miphone.show()<br>    miTV = MiFactory.create_tv()<br>    miTV.show()<br><br>    huaPhone = HuaFacrory.create_phone()<br>    huaPhone.show()<br>    huaTV = HuaFacrory.create_tv()<br>    huaTV.show()<br><br></code></pre></td></tr></table></figure></li>
+</ol>
 
-<p>在test2.py中引入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> test1 <span class="hljs-keyword">import</span> test<br></code></pre></td></tr></table></figure>
-<h3 id="方法2-代码实现（线程安全）"><a href="#方法2-代码实现（线程安全）" class="headerlink" title="方法2 代码实现（线程安全）"></a>方法2 代码实现（线程安全）</h3><p>代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls, *args, **kwargs</span>):<br>        <span class="hljs-comment"># 判断 该类中有没有_instance属性</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(cls, <span class="hljs-string">&quot;_instance&quot;</span>):<br>            <span class="hljs-comment"># 没有的话创建,并继承成原本的 __new__ 方法</span><br>            cls._instance = <span class="hljs-built_in">super</span>(Singleton, cls).__new__(cls)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">pass</span><br>    <br></code></pre></td></tr></table></figure>
-
-<p>测试(多此案成测试)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">task</span>(<span class="hljs-params">arg</span>):<br>    obj = Singleton()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-built_in">id</span>(obj))<br><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>    t = threading.Thread(target=task,args=[i,])<br>    t.start()<br><br></code></pre></td></tr></table></figure>
-<p>输出</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -353,7 +354,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8D%95%E4%BE%8B/">#单例</a>
+        <a href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">#抽象工厂模式</a>
       
     </div>
   
@@ -365,8 +366,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>2.单例模式</div>
-      <div>https://sweetshance.github.io/2023/04/13/设计模式/2-单例模式/</div>
+      <div>4.抽象工厂模式</div>
+      <div>https://sweetshance.github.io/2023/04/14/设计模式/4-抽象工厂模式/</div>
     </div>
     <div class="license-meta">
       
@@ -378,7 +379,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月13日</div>
+          <div>2023年4月14日</div>
         </div>
       
       
@@ -394,18 +395,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="5.建造者模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">5.建造者模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/" title="1. 简介">
-                        <span class="hidden-mobile">1. 简介</span>
+                      <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" title="3.工厂方法模式">
+                        <span class="hidden-mobile">3.工厂方法模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
