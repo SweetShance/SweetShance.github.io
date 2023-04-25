@@ -16,15 +16,15 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="装饰着模式概念再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样） 本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现 结构 抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类 具体构建角色(ConcreteComponent):">
+    <meta name="description" content="装饰器模式概念再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样） 本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现 结构 抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类 具体构建角色(ConcreteComponent):">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10.装饰器模式">
 <meta property="og:url" content="https://sweetshance.github.io/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="装饰着模式概念再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样） 本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现 结构 抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类 具体构建角色(ConcreteComponent):">
+<meta property="og:description" content="装饰器模式概念再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样） 本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现 结构 抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类 具体构建角色(ConcreteComponent):">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-24T09:31:46.000Z">
-<meta property="article:modified_time" content="2023-04-25T02:17:59.368Z">
+<meta property="article:modified_time" content="2023-04-25T02:27:25.033Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="桥接模式">
 <meta name="twitter:card" content="summary_large_image">
@@ -289,7 +289,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="装饰着模式"><a href="#装饰着模式" class="headerlink" title="装饰着模式"></a>装饰着模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样）</p>
+                <h1 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样）</p>
 <p>本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现</p>
 <h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ol>
 <li>抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类</li>
@@ -335,7 +335,7 @@
 <ol start="3">
 <li>调用<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    file_path = <span class="hljs-string">r&quot;test.txt&quot;</span><br>    base_data = BaseDataLoaderComponent(file_path=file_path)<br>    status = base_data.write(<span class="hljs-string">&quot;name:刘勇, age: 23&quot;</span>)<br>    <span class="hljs-built_in">print</span>(status)<br>    info = base_data.read()<br>    <span class="hljs-built_in">print</span>(info)<br><br></code></pre></td></tr></table></figure></li>
 </ol>
-<p class="note note-primary">比较两种根据情况使用，再python中装饰器是一个自带的方法，再应用中也比较广泛，自我理解，在使用python开发可以优先使用python装饰器方式。如果需要对一个方法进行多次装饰的时候，考虑使用标准装饰器模式</p>
+<p class="note note-primary">比较两种根据情况使用，在python中装饰器是一个自带的方法，应用也比较广泛，自我理解，在使用python开发可以优先使用python装饰器方式。如果需要对一个方法进行多次装饰的时候，考虑使用标准装饰器模式</p>
                 
               </div>
             
