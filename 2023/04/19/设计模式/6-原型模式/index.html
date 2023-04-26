@@ -24,7 +24,7 @@
 <meta property="og:description" content="原型模式概念用于创建重复的对象，同时又能保证性能；简单理解就是一个对象的产生可以不由0起步，直接从一个已经具备一定雏形的对象克隆（节约创建对象所产生的开支），然后再修改为所需对象。类似：python 用的 copy 方法。 结构（java结构，通过继承Cloneable 重写clone 实现， python3 可以借助 copy实现）  抽象原型（Prototype）: 一个接口，负责定义对象复制">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-19T06:12:51.000Z">
-<meta property="article:modified_time" content="2023-04-19T11:23:45.659Z">
+<meta property="article:modified_time" content="2023-04-25T10:13:29.779Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="建造者模式">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.4k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          20 分钟
+          21 分钟
         
       </span>
     
@@ -304,6 +304,7 @@
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
 <li>简化了新对象的创建过程，提高了效率</li>
 <li>性能高， 使用原型模式复用的方式创建实例对象 , 比使用构造函数重新创建对象性能要高 ; ( 针对类实例对象开销大的情况 )</li>
+<li>可以使用深克隆的方法保存对象状态，使其原型模式将对象复制一份并将其状态保存起来，以便再需要的时候使用，比如恢复到某一历史状态，可以辅助实现撤销操作。<br> 例如： 聊天消息，上线发布流程，需要撤销操作的程序等。</li>
 </ol>
 <h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
 <li>注意深拷贝浅拷贝</li>
