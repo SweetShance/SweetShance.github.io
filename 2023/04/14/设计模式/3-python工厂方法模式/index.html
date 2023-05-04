@@ -16,23 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="享元模式概念摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。 比如：在计算机中26个英文字母，使用就是用了享元的概念： a &#x3D; “c”  b &#x3D; “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念） 结构享元模式包含两种状态：  内部状态： 不会随着环">
+    <meta name="description" content="工厂方法模式概念创建产品对象定义一个工厂接口，并将实际创建推迟到子类。核心工厂类不在负责产品的创建，于是核心类就变成了一个抽象的工厂角色，只负责具体工厂子类必须实现的接口。进一步抽象的好处是，工厂方法模式可以使系统在不修改特定工厂角色的情况下引入新产品，满足开闭原则。 通俗点讲： 一个软件公司， 有好多产品线（抽象工厂），然后创建了一个部门（工厂），产品被拆分为很多块的概念（抽象产品），每块由一个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="12.享元模式">
-<meta property="og:url" content="https://sweetshance.github.io/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="3.python工厂方法模式">
+<meta property="og:url" content="https://sweetshance.github.io/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-python%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="享元模式概念摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。 比如：在计算机中26个英文字母，使用就是用了享元的概念： a &#x3D; “c”  b &#x3D; “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念） 结构享元模式包含两种状态：  内部状态： 不会随着环">
+<meta property="og:description" content="工厂方法模式概念创建产品对象定义一个工厂接口，并将实际创建推迟到子类。核心工厂类不在负责产品的创建，于是核心类就变成了一个抽象的工厂角色，只负责具体工厂子类必须实现的接口。进一步抽象的好处是，工厂方法模式可以使系统在不修改特定工厂角色的情况下引入新产品，满足开闭原则。 通俗点讲： 一个软件公司， 有好多产品线（抽象工厂），然后创建了一个部门（工厂），产品被拆分为很多块的概念（抽象产品），每块由一个">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-26T02:42:33.000Z">
-<meta property="article:modified_time" content="2023-04-26T11:22:26.454Z">
+<meta property="article:published_time" content="2023-04-14T06:05:48.000Z">
+<meta property="article:modified_time" content="2023-05-04T13:58:47.201Z">
 <meta property="article:author" content="ShanCe">
+<meta property="article:tag" content="工厂方法模式">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>12.享元模式 - ShanCe的博客</title>
+  <title>3.python工厂方法模式 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="12.享元模式"></span>
+            <span id="subtitle" data-typed-text="3.python工厂方法模式"></span>
           
         </div>
 
@@ -214,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-26 10:42" pubdate>
-          2023年4月26日 上午
+        <time datetime="2023-04-14 14:05" pubdate>
+          2023年4月14日 下午
         </time>
       </span>
     
@@ -226,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.6k 字
         
       </span>
     
@@ -237,7 +238,7 @@
         
         
         
-          18 分钟
+          14 分钟
         
       </span>
     
@@ -283,49 +284,47 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">12.享元模式</h1>
+            <h1 style="display: none">3.python工厂方法模式</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。</p>
-<p>比如：在计算机中26个英文字母，使用就是用了享元的概念： a = “c”  b = “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念）</p>
-<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>享元模式包含两种状态：</p>
-<ol>
-<li>内部状态： 不会随着环境得变化而变化得科共享部分（共享类）。</li>
-<li>外部状态： 指得是随着环境得变化而变化得不可以共享得部分（普通类）。<br>结构：</li>
-<li>抽象享元角色（Flyweight）:声明了具体的享元角色需要实现的公共方法。</li>
-<li>可共享的角色（Concrete Flyweight）: 可共享的具体的享元角色。（在python中一定范围的数字被作为共享角色； a=128 b=128  a is b）</li>
-<li>非共享角色（Unshared Flyweight）: 不需要被共享的角色，普通类 （在python中一定范围外的数字被作为非共享角色; a=1000 b=1000 a is b）</li>
-<li>享元工厂（FlyweightFactory）: 在工厂里对享元角色创建管理，使用单例确保享元池是单例的</li>
+                <h1 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>创建产品对象定义一个工厂接口，并将实际创建推迟到子类。核心工厂类不在负责产品的创建，于是核心类就变成了一个抽象的工厂角色，只负责具体工厂子类必须实现的接口。进一步抽象的好处是，工厂方法模式可以使系统在不修改特定工厂角色的情况下引入新产品，满足开闭原则。</p>
+<p>通俗点讲： 一个软件公司， 有好多产品线（抽象工厂），然后创建了一个部门（工厂），产品被拆分为很多块的概念（抽象产品），每块由一个程序员来实现（具体产品）一个简单的血汗工厂出来了。</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ol>
+<li>抽象产品类: 设置产品应有的属性和方法</li>
+<li>具体产品: 实现产品的属性和方法</li>
+<li>抽象工厂： 声明生产产品方法</li>
+<li>具体工厂: 生产具体的产品呢</li>
 </ol>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
-<li>一个系统有大量相同或者相似的对象，造成内存大量耗费(如数据库的数据连接池)</li>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>客户指向知道具体二点工厂，不用知道具体怎么建造产品，只关心品牌</p>
+<ol>
+<li>例如电视工厂，有小米电视工厂（只生产小米的电视）， 华为电视工厂（只生产华为的电视）。</li>
+<li>在游戏开发中有很多敌人角色，有坦克、飞机、战船等，只需要将角色创建交给具体的工厂就行，不需要知道角色怎么创建。工厂只需要取下命令建就行具体的交给流水线，不需要工厂管理者知道具体流水线怎么操作。</li>
 </ol>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>极大的减少了内存中相似或者相同对象数量，节约资源</li>
-<li>享元模式的外部状态相对独立，且不影响内部状态。</li>
+<li>用户只需要知道具体工厂的名称就可以，不需要知道具体的创建过程。</li>
+<li>灵活性增强，对于新产品创建只需要多一个工厂类，哪个产品除了问题就找那个具体的创建者就好了（像不像，你们公司要新开一个产品线，直接新建一个产品部门）</li>
+<li>典型的解耦框架。高层模块只需要知道产品的抽象类，无须关心其他具体实现类。… 哎</li>
 </ol>
+<p>通俗讲：每个人只需要知道自己需要什么就行具体实现不需要自己取了解，例如：客户只需要一个产品，产品只需要一个功能，程序员来实现。（客户不需要知道产品怎么弄，只需要告诉产品我要什么，产品找程序员实现，产品也不需要管你程序员怎么实现，产品找到你跟你说要怎么功能，你就得给我做出来）</p>
 <h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>为了使对象可以共享，需要将享元对象的部分状态外部化，分离内部状态和外部状态，使程序逻辑复杂</li>
+<li>类的个数容易过多，增加复杂度，产品越来越多，工厂越来越多。</li>
+<li>一个工厂只能生产一种产品，此弊端有抽象工厂解决</li>
 </ol>
-<h2 id="讨论（单例和享元模式）"><a href="#讨论（单例和享元模式）" class="headerlink" title="讨论（单例和享元模式）"></a>讨论（单例和享元模式）</h2><ol>
-<li>其实现方式不一样，单例是一个类只有一个唯一的实例，而享元可以有多个实例，只是通过一个共享容器来存储不同的对象。</li>
-<li>享元模式是为了节约内存空间，提升程序性能，而单例模式则主要是出于共享状态的目的。</li>
+<h2 id="代码实现-应用场景2的实例"><a href="#代码实现-应用场景2的实例" class="headerlink" title="代码实现 应用场景2的实例"></a>代码实现 应用场景2的实例</h2><ol>
+<li><p>抽象产品</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> abc<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AbsProduct</span>(metaclass=abc.ABCMeta):<br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">pass</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>具体产品</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AirplaneProduct</span>(<span class="hljs-title class_ inherited__">AbsProduct</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    飞机</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;建造了一个飞机&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TankProduct</span>(<span class="hljs-title class_ inherited__">AbsProduct</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    坦克</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;建造了一个坦克&quot;</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>抽象工厂</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AbstractFactory</span>(metaclass=abc.ABCMeta):<br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">newProduct</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">pass</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>具体工厂</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AirplaneFactory</span>(<span class="hljs-title class_ inherited__">AbstractFactory</span>):<br>    <span class="hljs-comment"># 飞机工厂</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">newProduct</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> AirplaneProduct()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TankFactory</span>(<span class="hljs-title class_ inherited__">AbstractFactory</span>):<br>    <span class="hljs-comment"># 坦克工厂</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">newProduct</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> TankProduct()<br><br></code></pre></td></tr></table></figure></li>
+<li><p>客户需求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment"># 我要一个飞机</span><br>airplane_factory = AirplaneFactory()<br>airplane_factory.newProduct()<br>airplane.show()<br><span class="hljs-comment"># 我再要一个坦克</span><br>tank_factory = TankFactory()<br>tank_factory.newProduct()<br>tank.show()<br><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>比如 5子棋，白子和黑子是共享的，不一样的只是位置坐标</p>
-<ol>
-<li><p>抽象共享棋子角色</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> abc<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GobangFlyweight</span>(metaclass=abc.ABCMeta):<br>    <span class="hljs-comment"># 共享的颜色棋子</span><br>    __color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;显示位置&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure></li>
-<li><p>具体享元角色</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Gobang</span>(<span class="hljs-title class_ inherited__">GobangFlyweight</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, color: <span class="hljs-built_in">str</span></span>):<br>        self.__color = color<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self, coordinate:Coordinate</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.__color&#125;</span>棋子显示在x:<span class="hljs-subst">&#123;coordinate.x&#125;</span>, y:<span class="hljs-subst">&#123;coordinate.y&#125;</span>&quot;</span>)<br><br></code></pre></td></tr></table></figure></li>
-<li><p>不可共享角色</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Coordinate</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, x, y</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.x = x<br>        self.y = y<br></code></pre></td></tr></table></figure></li>
-<li><p>享元池</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GobangFactory</span>:<br>    <span class="hljs-comment"># 享元池</span><br>    pool = <span class="hljs-built_in">dict</span>()<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls, *args, **kwargs</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(cls, <span class="hljs-string">&quot;_instance&quot;</span>):<br>            <span class="hljs-comment"># 没有的话创建,并继承成原本的 __new__ 方法</span><br>            cls._instance = <span class="hljs-built_in">super</span>(GobangFactory, cls).__new__(cls)<br>        <span class="hljs-keyword">return</span> cls._instance<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-comment"># 放入黑色棋子</span><br>        self.pool[<span class="hljs-string">&quot;blcak&quot;</span>] = Gobang(<span class="hljs-string">&quot;black&quot;</span>)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getGobang</span>(<span class="hljs-params">self, key: <span class="hljs-built_in">str</span></span>)-&gt;GobangFlyweight:<br>        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> self.pool:<br>            gobang = Gobang(key)<br>            self.pool[key] = gobang<br>            <span class="hljs-keyword">return</span> gobang<br>        <span class="hljs-keyword">return</span> self.pool.get(key)<br></code></pre></td></tr></table></figure></li>
-<li><p>测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    gobang = GobangFactory()<br>    a1 = gobang.getGobang(<span class="hljs-string">&quot;black&quot;</span>)<br><br>    a1.display(Coordinate(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>    a2 = gobang.getGobang(<span class="hljs-string">&quot;black&quot;</span>)<br>    a2.display(Coordinate(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))<br>    <span class="hljs-built_in">print</span>(a1 <span class="hljs-keyword">is</span> a2)<br><br>    b1 = gobang.getGobang(<span class="hljs-string">&quot;write&quot;</span>)<br>    b1.display(Coordinate(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>))<br>    b2 = gobang.getGobang(<span class="hljs-string">&quot;write&quot;</span>)<br>    b2.display(Coordinate(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>))<br>    <span class="hljs-built_in">print</span>(b1 <span class="hljs-keyword">is</span> b2)<br></code></pre></td></tr></table></figure></li>
-</ol>
+<p>考虑： 那接受客户需求分发到具体产品创建这个过程应该用什么好呢？</p>
 
                 
               </div>
@@ -334,6 +333,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">#工厂方法模式</a>
+      
+    </div>
   
 </div>
 
@@ -343,8 +370,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>12.享元模式</div>
-      <div>https://sweetshance.github.io/2023/04/26/设计模式/12-享元模式/</div>
+      <div>3.python工厂方法模式</div>
+      <div>https://sweetshance.github.io/2023/04/14/设计模式/3-python工厂方法模式/</div>
     </div>
     <div class="license-meta">
       
@@ -356,7 +383,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月26日</div>
+          <div>2023年4月14日</div>
         </div>
       
       
@@ -372,12 +399,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-python%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="4.python抽象工厂模式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">4.python抽象工厂模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" title="11.外观模式">
-                        <span class="hidden-mobile">11.外观模式</span>
+                      <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="5.建造者模式">
+                        <span class="hidden-mobile">5.建造者模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -16,26 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="外观模式概念外观模式也叫门面模式：为子系统中的一组接口提供统一的接口，定义了更高级别的接口，使子系统更易于使用且外部程序不需要关心内部子系统的具体细节。  结构 外观类（Facade）： 进行组合多个子系统 子系统类（SubSystem）：具体的功能  应用场景 简化复杂系统。比如：开发一套电商系统后（包含订单，商品，支付，会员等系统），我们不能让用户依次使用这些系统后才能完成商品的购买，而是需要">
+    <meta name="description" content="享元模式概念摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。 比如：在计算机中26个英文字母，使用就是用了享元的概念： a &#x3D; “c”  b &#x3D; “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念） 结构享元模式包含两种状态：  内部状态： 不会随着环">
 <meta property="og:type" content="article">
-<meta property="og:title" content="11.外观模式">
-<meta property="og:url" content="https://sweetshance.github.io/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="12.享元模式">
+<meta property="og:url" content="https://sweetshance.github.io/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="外观模式概念外观模式也叫门面模式：为子系统中的一组接口提供统一的接口，定义了更高级别的接口，使子系统更易于使用且外部程序不需要关心内部子系统的具体细节。  结构 外观类（Facade）： 进行组合多个子系统 子系统类（SubSystem）：具体的功能  应用场景 简化复杂系统。比如：开发一套电商系统后（包含订单，商品，支付，会员等系统），我们不能让用户依次使用这些系统后才能完成商品的购买，而是需要">
+<meta property="og:description" content="享元模式概念摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。 比如：在计算机中26个英文字母，使用就是用了享元的概念： a &#x3D; “c”  b &#x3D; “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念） 结构享元模式包含两种状态：  内部状态： 不会随着环">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://sweetshance.github.io/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E5%9B%BE%E4%B8%80.png">
-<meta property="article:published_time" content="2023-04-25T03:15:27.000Z">
-<meta property="article:modified_time" content="2023-04-25T09:04:08.142Z">
+<meta property="article:published_time" content="2023-04-26T02:42:33.000Z">
+<meta property="article:modified_time" content="2023-05-04T13:58:02.950Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="外观模式">
+<meta property="article:tag" content="享元模式">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://sweetshance.github.io/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E5%9B%BE%E4%B8%80.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>11.外观模式 - ShanCe的博客</title>
+  <title>12.享元模式 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="11.外观模式"></span>
+            <span id="subtitle" data-typed-text="12.享元模式"></span>
           
         </div>
 
@@ -217,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-25 11:15" pubdate>
-          2023年4月25日 上午
+        <time datetime="2023-04-26 10:42" pubdate>
+          2023年4月26日 上午
         </time>
       </span>
     
@@ -229,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.1k 字
         
       </span>
     
@@ -240,7 +238,7 @@
         
         
         
-          16 分钟
+          18 分钟
         
       </span>
     
@@ -286,45 +284,48 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">11.外观模式</h1>
+            <h1 style="display: none">12.享元模式</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>外观模式也叫门面模式：为子系统中的一组接口提供统一的接口，定义了更高级别的接口，使子系统更易于使用且外部程序不需要关心内部子系统的具体细节。</p>
-<p><img src="/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E5%9B%BE%E4%B8%80.png" srcset="/img/loading.gif" lazyload alt="外观模式"></p>
-<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ol>
-<li>外观类（Facade）： 进行组合多个子系统</li>
-<li>子系统类（SubSystem）：具体的功能</li>
+                <h1 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。</p>
+<p>比如：在计算机中26个英文字母，使用就是用了享元的概念： a = “c”  b = “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念）</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>享元模式包含两种状态：</p>
+<ol>
+<li>内部状态： 不会随着环境得变化而变化得科共享部分（共享类）。</li>
+<li>外部状态： 指得是随着环境得变化而变化得不可以共享得部分（普通类）。<br>结构：</li>
+<li>抽象享元角色（Flyweight）:声明了具体的享元角色需要实现的公共方法。</li>
+<li>可共享的角色（Concrete Flyweight）: 可共享的具体的享元角色。（在python中一定范围的数字被作为共享角色； a=128 b=128  a is b）</li>
+<li>非共享角色（Unshared Flyweight）: 不需要被共享的角色，普通类 （在python中一定范围外的数字被作为非共享角色; a=1000 b=1000 a is b）</li>
+<li>享元工厂（FlyweightFactory）: 在工厂里对享元角色创建管理，使用单例确保享元池是单例的</li>
 </ol>
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
-<li>简化复杂系统。比如：开发一套电商系统后（包含订单，商品，支付，会员等系统），我们不能让用户依次使用这些系统后才能完成商品的购买，而是需要一个门户网站或手机App供用户在线购物。</li>
-<li>减少客户端处理的系统数量。比如在web系统中，需要处理 Database数据库、Model业务对象等，器对使用Database对象就需要打开数据库、关闭连接等操作，然后转换为Model业务对象，如果能够创建一个数据库使用的门面（DAO层），那么实现以上过程会容易的多。</li>
-<li>一个系统（或对象）为多个系统（或对象）工作，比如：线程池就是一个外观模式，为系统提供了统一的线程对象的创建、销毁、使用等。</li>
-<li>联合更多的系统来扩展原有系统。例如：人脸识别，我们可以不需要自行研发，使用其他公司的。</li>
-<li>作为一个简洁的中间层。比如：在秒杀、库存、钱包等场景中，我们需要共享 有状态的数据时（库存、账户里的钱），在不改变原有系统的前提下，通过一个中间的共享层（将商品库存总数放在redis中），就能统一进行各种服务。</li>
+<li>一个系统有大量相同或者相似的对象，造成内存大量耗费(如数据库的数据连接池)</li>
 </ol>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>对客户端屏蔽了子系统组件，减少了客户端所需要处理的对象数目，并使子系统使用起来更容易，通过引入外观模式，客户端代码将变得简单，与之关联的对象也减少了。</li>
-<li>它实现了子系统与客户端之前的松耦关系，使得子系统的变化不会影响到调用它的客户端，只需要调整外观类即可。</li>
-<li>一个系统的修改对其他子系统没有任何影响，儿子系统内部变化也不会影响到外观对象。</li>
+<li>极大的减少了内存中相似或者相同对象数量，节约资源</li>
+<li>享元模式的外部状态相对独立，且不影响内部状态。</li>
 </ol>
 <h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>不能很好的控制客户端直接使用子系统，如果客户端访问子系统类做太多的限制则减少了可变性和灵活性</li>
-<li>如果设计不当，增加性的子系统可能需要修改外观类的源代码。</li>
+<li>为了使对象可以共享，需要将享元对象的部分状态外部化，分离内部状态和外部状态，使程序逻辑复杂</li>
 </ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><blockquote>
-<p>实现一个智能音箱一键开启 TV（电视）、Light（电灯）、AirCondition（空调）</p>
-</blockquote>
+<h2 id="讨论（单例和享元模式）"><a href="#讨论（单例和享元模式）" class="headerlink" title="讨论（单例和享元模式）"></a>讨论（单例和享元模式）</h2><ol>
+<li>其实现方式不一样，单例是一个类只有一个唯一的实例，而享元可以有多个实例，只是通过一个共享容器来存储不同的对象。</li>
+<li>享元模式是为了节约内存空间，提升程序性能，而单例模式则主要是出于共享状态的目的。</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>比如 5子棋，白子和黑子是共享的，不一样的只是位置坐标</p>
 <ol>
-<li><p>子系统</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Light</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;打开灯&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">off</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;关闭灯&quot;</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TV</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;打开电视&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">off</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;关闭关闭电视&quot;</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AirCondition</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;打开空调&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">off</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;关闭空调&quot;</span>)<br><br></code></pre></td></tr></table></figure></li>
-<li><p>音箱外观系统</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SmartAppliancesFacade</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.__light = Light()<br>        self.__tv = TV()<br>        self.__airContition = AirCondition()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">say</span>(<span class="hljs-params">self, message: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;打开&quot;</span> <span class="hljs-keyword">in</span> message:<br>            self.on()<br>        <span class="hljs-keyword">elif</span> <span class="hljs-string">&quot;关闭&quot;</span> <span class="hljs-keyword">in</span> message:<br>            self.off()<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;对不起没有听清楚，请再说一次&quot;</span>)<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on</span>(<span class="hljs-params">self</span>):<br>        self.__light.on()<br>        self.__tv.on()<br>        self.__airContition.on()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">off</span>(<span class="hljs-params">self</span>):<br>        self.__light.off()<br>        self.__tv.off()<br>        self.__airContition.off()<br><br><br></code></pre></td></tr></table></figure></li>
-<li><p>调用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    smartAppliances = SmartAppliancesFacade()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;一键开启=============&quot;</span>)<br>    smartAppliances.say(<span class="hljs-string">&quot;打开家电&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;一键关闭=============&quot;</span>)<br>    smartAppliances.say(<span class="hljs-string">&quot;关闭家电&quot;</span>)<br></code></pre></td></tr></table></figure></li>
-<li><p>输出</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">一键开启=============<br>打开灯<br>打开电视<br>打开空调<br>一键关闭=============<br>关闭灯<br>关闭关闭电视<br>关闭空调<br></code></pre></td></tr></table></figure></li>
+<li><p>抽象共享棋子角色</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> abc<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GobangFlyweight</span>(metaclass=abc.ABCMeta):<br>    <span class="hljs-comment"># 共享的颜色棋子</span><br>    __color: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;显示位置&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure></li>
+<li><p>具体享元角色</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Gobang</span>(<span class="hljs-title class_ inherited__">GobangFlyweight</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, color: <span class="hljs-built_in">str</span></span>):<br>        self.__color = color<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self, coordinate:Coordinate</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.__color&#125;</span>棋子显示在x:<span class="hljs-subst">&#123;coordinate.x&#125;</span>, y:<span class="hljs-subst">&#123;coordinate.y&#125;</span>&quot;</span>)<br><br></code></pre></td></tr></table></figure></li>
+<li><p>不可共享角色</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Coordinate</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, x, y</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.x = x<br>        self.y = y<br></code></pre></td></tr></table></figure></li>
+<li><p>享元池</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GobangFactory</span>:<br>    <span class="hljs-comment"># 享元池</span><br>    pool = <span class="hljs-built_in">dict</span>()<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls, *args, **kwargs</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(cls, <span class="hljs-string">&quot;_instance&quot;</span>):<br>            <span class="hljs-comment"># 没有的话创建,并继承成原本的 __new__ 方法</span><br>            cls._instance = <span class="hljs-built_in">super</span>(GobangFactory, cls).__new__(cls)<br>        <span class="hljs-keyword">return</span> cls._instance<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-comment"># 放入黑色棋子</span><br>        self.pool[<span class="hljs-string">&quot;blcak&quot;</span>] = Gobang(<span class="hljs-string">&quot;black&quot;</span>)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getGobang</span>(<span class="hljs-params">self, key: <span class="hljs-built_in">str</span></span>)-&gt;GobangFlyweight:<br>        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> self.pool:<br>            gobang = Gobang(key)<br>            self.pool[key] = gobang<br>            <span class="hljs-keyword">return</span> gobang<br>        <span class="hljs-keyword">return</span> self.pool.get(key)<br></code></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    gobang = GobangFactory()<br>    a1 = gobang.getGobang(<span class="hljs-string">&quot;black&quot;</span>)<br><br>    a1.display(Coordinate(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>    a2 = gobang.getGobang(<span class="hljs-string">&quot;black&quot;</span>)<br>    a2.display(Coordinate(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))<br>    <span class="hljs-built_in">print</span>(a1 <span class="hljs-keyword">is</span> a2)<br><br>    b1 = gobang.getGobang(<span class="hljs-string">&quot;write&quot;</span>)<br>    b1.display(Coordinate(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>))<br>    b2 = gobang.getGobang(<span class="hljs-string">&quot;write&quot;</span>)<br>    b2.display(Coordinate(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>))<br>    <span class="hljs-built_in">print</span>(b1 <span class="hljs-keyword">is</span> b2)<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
@@ -359,7 +360,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">#外观模式</a>
+        <a href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">#享元模式</a>
       
     </div>
   
@@ -371,8 +372,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>11.外观模式</div>
-      <div>https://sweetshance.github.io/2023/04/25/设计模式/11-外观模式/</div>
+      <div>12.享元模式</div>
+      <div>https://sweetshance.github.io/2023/04/26/设计模式/12-python享元模式/</div>
     </div>
     <div class="license-meta">
       
@@ -384,7 +385,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月25日</div>
+          <div>2023年4月26日</div>
         </div>
       
       
@@ -400,9 +401,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" title="12.享元模式">
+                      <a href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" title="13.组合模式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">12.享元模式</span>
+                        <span class="hidden-mobile">13.组合模式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -410,8 +411,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" title="10.装饰器模式">
-                        <span class="hidden-mobile">10.装饰器模式</span>
+                      <a href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-python%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" title="11.外观模式">
+                        <span class="hidden-mobile">11.外观模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

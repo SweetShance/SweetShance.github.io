@@ -16,24 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原型模式概念用于创建重复的对象，同时又能保证性能；简单理解就是一个对象的产生可以不由0起步，直接从一个已经具备一定雏形的对象克隆（节约创建对象所产生的开支），然后再修改为所需对象。类似：python 用的 copy 方法。 结构（java结构，通过继承Cloneable 重写clone 实现， python3 可以借助 copy实现）  抽象原型（Prototype）: 一个接口，负责定义对象复制">
+    <meta name="description" content="代理模式概念有些情况下，用户不能或者不想直接访问具体对象，需要通过中介来完成某项任务，中介就是代理对象。（通过不改变原始类的情况下，通过代理类来给原始类附加功能） 结构 抽象主题类： 通过接口或者抽象类声明正式主题和代理对象实现的业务 真实主题类： 实现抽象主题的具体业务 代理类： 提供了与真实主题相同的接口，其内部含有对真实主题的引用，他可以访问、控制或者扩展真实主题的功能  应用场景 在dja">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.原型模式">
-<meta property="og:url" content="https://sweetshance.github.io/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="7.代理模式">
+<meta property="og:url" content="https://sweetshance.github.io/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="原型模式概念用于创建重复的对象，同时又能保证性能；简单理解就是一个对象的产生可以不由0起步，直接从一个已经具备一定雏形的对象克隆（节约创建对象所产生的开支），然后再修改为所需对象。类似：python 用的 copy 方法。 结构（java结构，通过继承Cloneable 重写clone 实现， python3 可以借助 copy实现）  抽象原型（Prototype）: 一个接口，负责定义对象复制">
+<meta property="og:description" content="代理模式概念有些情况下，用户不能或者不想直接访问具体对象，需要通过中介来完成某项任务，中介就是代理对象。（通过不改变原始类的情况下，通过代理类来给原始类附加功能） 结构 抽象主题类： 通过接口或者抽象类声明正式主题和代理对象实现的业务 真实主题类： 实现抽象主题的具体业务 代理类： 提供了与真实主题相同的接口，其内部含有对真实主题的引用，他可以访问、控制或者扩展真实主题的功能  应用场景 在dja">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-19T06:12:51.000Z">
-<meta property="article:modified_time" content="2023-04-25T10:13:29.779Z">
+<meta property="article:published_time" content="2023-04-20T10:52:40.000Z">
+<meta property="article:modified_time" content="2023-05-04T13:57:41.344Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="建造者模式">
+<meta property="article:tag" content="代理模式模式">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>6.原型模式 - ShanCe的博客</title>
+  <title>7.代理模式 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="6.原型模式"></span>
+            <span id="subtitle" data-typed-text="7.代理模式"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-19 14:12" pubdate>
-          2023年4月19日 下午
+        <time datetime="2023-04-20 18:52" pubdate>
+          2023年4月20日 晚上
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.9k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          21 分钟
+          17 分钟
         
       </span>
     
@@ -284,47 +284,43 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">6.原型模式</h1>
+            <h1 style="display: none">7.代理模式</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>用于创建重复的对象，同时又能保证性能；简单理解就是一个对象的产生可以不由0起步，直接从一个已经具备一定雏形的对象克隆（节约创建对象所产生的开支），然后再修改为所需对象。<br>类似：python 用的 copy 方法。</p>
-<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>（java结构，通过继承Cloneable 重写clone 实现， python3 可以借助 copy实现）</p>
-<ol>
-<li>抽象原型（Prototype）: 一个接口，负责定义对象复制自身的方法</li>
-<li>具体原型（ConcretePrototype）: 实现Prototype接口的类，具体原型实现抽象原型中的方法，以便所创建的对象调用该方法复制自己。</li>
+                <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>有些情况下，用户不能或者不想直接访问具体对象，需要通过中介来完成某项任务，中介就是代理对象。（通过不改变原始类的情况下，通过代理类来给原始类附加功能）</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ol>
+<li>抽象主题类： 通过接口或者抽象类声明正式主题和代理对象实现的业务</li>
+<li>真实主题类： 实现抽象主题的具体业务</li>
+<li>代理类： 提供了与真实主题相同的接口，其内部含有对真实主题的引用，他可以访问、控制或者扩展真实主题的功能</li>
 </ol>
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
-<li>类初始化消耗资源过多 : 如果类初始化时消耗过多的资源 , 如这个类中某个成员占用大量内存 , 为了节省开销 ;</li>
-<li>初始化繁琐耗时 : 类对象创建时经过大量的计算 , 或与本地资源 ( 数据库 , 文件 ) 频繁交互 , 每次创建消耗大量的 CPU 与 时间资源 ;</li>
-<li>构造函数复杂 : 类中定义的构造函数复杂 ;</li>
-<li>实例对象数量庞大 : 如果在内存中循环创建了很多该实例对象 , 就可以使用原型模式复用不用的对象 , 用于创建新对象 ;</li>
+<li>在django应用程序中的，中间件就是代理模式，在中间件中对所有请求进行预处理或者访问限制</li>
+<li>orm 程序访问数据库</li>
+<li>页面缓存功能，也属于代理方式（代理模式的应用场景很多）</li>
+<li>当需要对一个对象的访问提供一些额外的操作的时，可以使用代理模式。</li>
 </ol>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>简化了新对象的创建过程，提高了效率</li>
-<li>性能高， 使用原型模式复用的方式创建实例对象 , 比使用构造函数重新创建对象性能要高 ; ( 针对类实例对象开销大的情况 )</li>
-<li>可以使用深克隆的方法保存对象状态，使其原型模式将对象复制一份并将其状态保存起来，以便再需要的时候使用，比如恢复到某一历史状态，可以辅助实现撤销操作。<br> 例如： 聊天消息，上线发布流程，需要撤销操作的程序等。</li>
+<li>代理模式在客户与目标对象之间起到一个中介作用和保护目标对象的作用</li>
+<li>代理对象可以扩展目标对象的功能（例如：对访问的限制、缓存、加速等，也可以做些预处理）</li>
+<li>代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度</li>
 </ol>
 <h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>注意深拷贝浅拷贝</li>
-<li>在修改属性的时候需要注意</li>
+<li>代理模式会造成系统设计中类的增加,增加系统的复杂度</li>
+<li>在客户端和目标对象之间增加一个代理对象，会造成请求处理速度变慢</li>
 </ol>
-<p class="note note-primary">原型模式可以借助python的copy来实现复制（copy就相当于中间的复制方法，注意其深拷贝(copy.deepcopy)和浅拷贝(copy.copy())）</p>
+<p class="note note-primary">思考：在代理模式中我们是不是也可以判断用户的需求代理不同的对象。就像我告诉中介我要找什么样子的房子，中介根据我的期望联系房东，那这样的话是不是跟策略模式很像？从另一预处理角度来说是不是和装饰器模式很想？具体我们后边分析</p>
 
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><ol>
-<li><p>具体类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Book</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, authors, price, **rest</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">            name: 名字，</span><br><span class="hljs-string">            author: 作者</span><br><span class="hljs-string">            proce: 价格</span><br><span class="hljs-string">            **rest: 其他属性</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        self.name = name<br>        self.authors = authors<br>        self.price = price<br>        self.__dict__.update(rest)<br><br>    <span class="hljs-comment"># 返回对象信息</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        mylist = []<br>        ordered = OrderedDict(<span class="hljs-built_in">sorted</span>(self.__dict__.items()))<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> ordered.keys():<br>            mylist.append(<span class="hljs-string">&#x27;&#123;&#125;: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(i, ordered[i]))<br>            <span class="hljs-keyword">if</span> i == <span class="hljs-string">&#x27;price&#x27;</span>:<br>                mylist.append(<span class="hljs-string">&#x27;$&#x27;</span>)<br>            mylist.append(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join(mylist)<br></code></pre></td></tr></table></figure></li>
-<li><p>python简单复制</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> copy<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    b1 = Book(name=<span class="hljs-string">&quot;书籍A&quot;</span>, authors=<span class="hljs-string">&quot;A&quot;</span>, price=<span class="hljs-number">10</span>)<br><br>    b2 = copy.deepcopy(b1)<br>    b2.name = <span class="hljs-string">&quot;书籍B&quot;</span><br>    b2.authoe = <span class="hljs-string">&quot;B&quot;</span><br>    b2.price = <span class="hljs-number">15</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> (b1, b2):<br>        <span class="hljs-built_in">print</span>(i)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;========&quot;</span>)<br></code></pre></td></tr></table></figure></li>
-<li><p>打印</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs txt">authors: A<br>name: 书籍A<br>price: 10$<br><br>authoe: B<br>authors: A<br>name: 书籍B<br>price: 15$<br></code></pre></td></tr></table></figure></li>
-<li><p>按书中方式复制（扩展）, 实现clone 方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Prototype</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.objects = <span class="hljs-built_in">dict</span>()    <span class="hljs-comment"># 初始化一个原型列表</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">register</span>(<span class="hljs-params">self, identifier, obj</span>):<br>        <span class="hljs-comment"># 在原型列表中注册原型对象</span><br>        self.objects[identifier] = obj<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">unregister</span>(<span class="hljs-params">self, identifier</span>):<br>        <span class="hljs-comment"># 从原型列表中删除原型对象</span><br>        <span class="hljs-keyword">del</span> self.objects[identifier]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">clone</span>(<span class="hljs-params">self, identifier, **attr</span>):<br>        <span class="hljs-comment"># 根据 identifier 在原型列表中查找原型对象并克隆</span><br>        found = self.objects.get(identifier)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> found:<br>            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&#x27;Incorrect object identifier: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(identifier))<br>        obj = copy.deepcopy(found)<br>        obj.__dict__.update(attr)   <span class="hljs-comment"># 用新的属性值替换原型对象中的对应属性</span><br>        <span class="hljs-keyword">return</span> obj<br></code></pre></td></tr></table></figure></li>
-<li><p>客户复制</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    b1 = Book(name=<span class="hljs-string">&quot;书籍A&quot;</span>, authors=<span class="hljs-string">&quot;A&quot;</span>, price=<span class="hljs-number">10</span>)<br><br>    prototype = Prototype()<br>    cid = <span class="hljs-string">&#x27;b1&#x27;</span><br>    prototype.register(cid, b1)<br>    b2 = prototype.clone(cid, name=<span class="hljs-string">&quot;书籍B&quot;</span>, authors=<span class="hljs-string">&quot;B&quot;</span>, price=<span class="hljs-number">10</span>)<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> (b1, b2):<br>        <span class="hljs-built_in">print</span>(i)<br></code></pre></td></tr></table></figure></li>
-<li><p>打印</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs txt">authors: A<br>name: 书籍A<br>price: 10$<br><br>authors: B<br>name: 书籍B<br>price: 10$<br></code></pre></td></tr></table></figure></li>
+<h2 id="代码实现（我们实现简单的sql预检测）"><a href="#代码实现（我们实现简单的sql预检测）" class="headerlink" title="代码实现（我们实现简单的sql预检测）"></a>代码实现（我们实现简单的sql预检测）</h2><ol>
+<li><p>抽象主题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> abc<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AbstractDBSubject</span>(metaclass=abc.ABCMeta):<br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">select</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">insert</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure></li>
+<li><p>具体主题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DBSubject</span>(<span class="hljs-title class_ inherited__">AbstractDBSubject</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">select</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;执行查询<span class="hljs-subst">&#123;sql&#125;</span>&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">insert</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;执行插入<span class="hljs-subst">&#123;sql&#125;</span>&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;执行删除<span class="hljs-subst">&#123;sql&#125;</span>&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;执行更新<span class="hljs-subst">&#123;sql&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure></li>
+<li><p>代理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DBAccessProxy</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.DB = DBSubject()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">select</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;select&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> sql:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;该sql有问题&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            self.DB.select(sql)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">insert</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;insert&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> sql:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;该sql有问题&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            self.DB.insert(sql)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;delete&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> sql:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;该sql有问题&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            self.DB.delete(sql)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self, sql</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;update&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> sql:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;该sql有问题&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            self.DB.update(sql)<br><br><br></code></pre></td></tr></table></figure></li>
+<li><p>调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    db_p = DBAccessProxy()<br>    db_p.select(<span class="hljs-string">&quot;select * from pat_visit&quot;</span>)<br>    db_p.insert(<span class="hljs-string">&quot;insert into pat_visit(name) values(&#x27;xx&#x27;);&quot;</span>)<br>    db_p.delete(<span class="hljs-string">&quot;delete from pat_visit&quot;</span>)<br>    db_p.update(<span class="hljs-string">&quot;update pat_visit set name=&#x27;xx&#x27;&quot;</span>)<br><br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
@@ -359,7 +355,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">#建造者模式</a>
+        <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E6%A8%A1%E5%BC%8F/">#代理模式模式</a>
       
     </div>
   
@@ -371,8 +367,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>6.原型模式</div>
-      <div>https://sweetshance.github.io/2023/04/19/设计模式/6-原型模式/</div>
+      <div>7.代理模式</div>
+      <div>https://sweetshance.github.io/2023/04/20/设计模式/7-python代理模式/</div>
     </div>
     <div class="license-meta">
       
@@ -384,7 +380,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月19日</div>
+          <div>2023年4月20日</div>
         </div>
       
       
@@ -400,9 +396,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" title="7.代理模式">
+                      <a href="/2023/04/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8-python%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" title="8.适配器模式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">7.代理模式</span>
+                        <span class="hidden-mobile">8.适配器模式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -410,8 +406,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="4.抽象工厂模式">
-                        <span class="hidden-mobile">4.抽象工厂模式</span>
+                      <a href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" title="6.原型模式">
+                        <span class="hidden-mobile">6.原型模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
