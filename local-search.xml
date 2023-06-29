@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>mysql锁表问题</title>
+    <link href="/2023/06/29/mysql/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/"/>
+    <url>/2023/06/29/mysql/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>在语句查询或者更新插入数据锁表后的处理</p><ol><li><p>相关信息查询</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span>、查看正在进行中的事务<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> information_schema.INNODB_TRX<br><span class="hljs-number">2</span>、查看正在锁的事务<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> INFORMATION_SCHEMA.INNODB_LOCKS;<br><span class="hljs-number">3</span>、查看等待锁的事务<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> INFORMATION_SCHEMA.INNODB_LOCK_WAITS;<br><span class="hljs-number">4</span>、查询是否锁表<br><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">OPEN</span> TABLES <span class="hljs-keyword">where</span> In_use <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span>;<br>在发生死锁时，这几种方式都可以查询到和当前死锁相关的信息。<br><span class="hljs-number">5</span>、查看最近死锁的日志<br><span class="hljs-keyword">show</span> engine innodb status<br><span class="hljs-number">6.</span> 查看正在执行的语句<br><span class="hljs-keyword">show</span> processlist<br></code></pre></td></tr></table></figure></li><li><p>找到等待时间长的语句根据pid杀死</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">kill pid<br></code></pre></td></tr></table></figure></li><li><p>如果杀死后语句进入 killed 状态一直阻塞<br>```<br>退出mysql进行mysql表检查（相关命令mysqlcheck）</p></li><li><p>执行某个表的检查优化<br>mysqlcheck –auto-repair –database db_A –user=root –password</p></li><li><p>执行所有库的检查优化<br>mysqlcheck –auto-repair –database  –user=root –password<br>``</p></li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mysql值为json数据的相关操作</title>
     <link href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/"/>
     <url>/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
