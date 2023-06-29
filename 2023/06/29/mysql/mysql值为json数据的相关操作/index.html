@@ -16,24 +16,29 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="模板方法模式模板方法是一种基于继承的代码复用技术，它是一种类行为模式，模板方法模式其结构中只存在父类与子类之间的继承关系。主要作用是提高程序的复用性和可扩展性：  复用性是指，所有子类可以服用父类中提供的模板方法代码。 扩展性是指，框架通过模板模式提供扩展点，让框架用户可以在不修改框架源码的情况下，基于扩展点定制化框架的功能。  概念在操作中定义算法的框架，将一些步骤推迟到子类中。模板方法让子类在">
+    <meta name="description" content="一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1525726?from&#x3D;15425  二、数据介绍 其中包含字符串，数组和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="15.模板方法模式">
-<meta property="og:url" content="https://sweetshance.github.io/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="mysql值为json数据的相关操作">
+<meta property="og:url" content="https://sweetshance.github.io/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="模板方法模式模板方法是一种基于继承的代码复用技术，它是一种类行为模式，模板方法模式其结构中只存在父类与子类之间的继承关系。主要作用是提高程序的复用性和可扩展性：  复用性是指，所有子类可以服用父类中提供的模板方法代码。 扩展性是指，框架通过模板模式提供扩展点，让框架用户可以在不修改框架源码的情况下，基于扩展点定制化框架的功能。  概念在操作中定义算法的框架，将一些步骤推迟到子类中。模板方法让子类在">
+<meta property="og:description" content="一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1525726?from&#x3D;15425  二、数据介绍 其中包含字符串，数组和">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-28T06:31:00.000Z">
-<meta property="article:modified_time" content="2023-06-28T07:55:53.805Z">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql%E6%95%B0%E6%8D%AE.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql2.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql3.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql4.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql5.png">
+<meta property="article:published_time" content="2023-06-29T01:59:35.000Z">
+<meta property="article:modified_time" content="2023-06-29T07:59:14.490Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="模板方法模式">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sweetshance.github.io/images/mysql%E6%95%B0%E6%8D%AE.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>15.模板方法模式 - ShanCe的博客</title>
+  <title>mysql值为json数据的相关操作 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="15.模板方法模式"></span>
+            <span id="subtitle" data-typed-text="mysql值为json数据的相关操作"></span>
           
         </div>
 
@@ -215,8 +220,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-06-28 14:31" pubdate>
-          2023年6月28日 下午
+        <time datetime="2023-06-29 09:59" pubdate>
+          2023年6月29日 上午
         </time>
       </span>
     
@@ -227,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.7k 字
         
       </span>
     
@@ -238,7 +243,7 @@
         
         
         
-          19 分钟
+          23 分钟
         
       </span>
     
@@ -284,49 +289,100 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">15.模板方法模式</h1>
+            <h1 style="display: none">mysql值为json数据的相关操作</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h1><p>模板方法是一种基于继承的代码复用技术，它是一种类行为模式，模板方法模式其结构中只存在父类与子类之间的继承关系。<br>主要作用是提高程序的复用性和可扩展性：</p>
-<ul>
-<li>复用性是指，所有子类可以服用父类中提供的模板方法代码。</li>
-<li>扩展性是指，框架通过模板模式提供扩展点，让框架用户可以在不修改框架源码的情况下，基于扩展点定制化框架的功能。</li>
-</ul>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>在操作中定义算法的框架，将一些步骤推迟到子类中。模板方法让子类在不改变算法结构的情况下重新定义算法的某些步骤。</p>
-<p>算法：可以理解为广义上的业务逻辑，并不是特指某一个实际的算法，定义中所说的算法的框架就是模板。</p>
-<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ol>
-<li>抽象父类(AbstractTemplate): 定义了一个算法的所有步骤(方法)和执行方法加hook(钩子方法，可以在子类中选择性的重写), 某些步骤可以延迟在子类中实现，但是流程（执行方法），还是在该方法中定义。</li>
-<li>具体方法(Concreate): 实现抽象父类中的某些步骤。</li>
-</ol>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
-<li>多个类有相同的方法，并且逻辑可以共同使用时。</li>
-<li>将通用的算法或固定流程设计为模板，在每一个具体的子类中再继续优化算法步骤或流程步骤时。</li>
-<li>重构超长代码时，发现某一个经常使用的共有方法。</li>
-</ol>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>在父类中形式化的定义一个算法，而由它的子类实现细节处理，在子类实现详细的代码处理时，<strong>并不会改变父类算法中步骤的执行顺序</strong></li>
-<li>模板方法可以实现一种反向的控制结构，通过子类覆盖父类的钩子方法，来决定某一个特定步骤是否需要执行。</li>
-<li>在模板方法模式中可以通过子类来覆盖父类的基本方法，不同的子类可以提供基本方法的不同实现，更换和增加新的子类很方柏霓，符合单一职责原则和开闭原则。</li>
-</ol>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>对每个不同的实现都需要定义一个子类，这回导致类的个数增加，系统更加庞大，设计也更加抽象。</li>
-<li>父类中的抽象方法由子类实现，子类执行的结果会影响父类的结果，这导致一种反向的控制结构，它提高了代码阅读的难度。</li>
-</ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>P2P公司的借款系统中有一个利息计算模块，利息计算流程是这样的：</p>
-<ul>
-<li>用户登录系统，登录时需要出入账号密码，如果登录失败（例如用户名密码错误）,系统给出提示</li>
-<li>如果登录成功，则根据用户的借款类型不同，使用不同的利息计算方式进行计算。</li>
-<li>系统需要显示利息。</li>
-</ul>
+                <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。<br>mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1525726?from=15425">https://cloud.tencent.com/developer/article/1525726?from=15425</a></p>
+</blockquote>
+<h2 id="二、数据介绍"><a href="#二、数据介绍" class="headerlink" title="二、数据介绍"></a>二、数据介绍</h2><p><img src="/images/mysql%E6%95%B0%E6%8D%AE.png" srcset="/img/loading.gif" lazyload alt="数据集"></p>
+<p>其中包含字符串，数组和嵌套数组。</p>
+<h2 id="三、查询数据"><a href="#三、查询数据" class="headerlink" title="三、查询数据"></a>三、查询数据</h2><p>方法介绍<br>|函数|介绍|<br>|–|–|<br>|json_contains(json_doc,val[,path])|判断是否包含某个json值|<br>|json_contains_path(json_doc,one_or_all,path[,path]…)|判断是否有某个路径|<br>|json_extract(json_doc,path[,path])|提取json值|<br>|json_keys(json_doc[,path])|提取json中的键值结果为json数组|<br>|json_search(json_doc, one_or_all, search_str[,escape_char[,path]…])|按给定字符串关键字搜索json，返回匹配的路径|<br>|json_depth(json_doc)|返回json文档的最大深度|<br>|json_length(json_doc[,path])|返回json值得类型|<br>|json_valid()|判断是否为合法json文档|<br>|column-&gt;path json_extract|简洁写法5.7.9开始支持|<br>|column-&gt;&gt;path json_unquote(column -&gt; path)|简洁写法5.7.13开始支持相当于 JSON_UNQUOTE(JSON_EXTRACT())|<br>|Json_ARRAY(val)|用于查询数组中是否包含该值|</p>
 <ol>
-<li><p>抽象模板</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> abc<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Account</span>(metaclass=abc.ABCMeta):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params">drlf, account: <span class="hljs-built_in">str</span>, password: <span class="hljs-built_in">str</span></span>)-&gt;<span class="hljs-built_in">bool</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;步骤一： 用户名密码验证</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            account (str): _description_</span><br><span class="hljs-string">            password (str): _description_</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            bool: _description_</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span>(account == <span class="hljs-string">&#x27;test&#x27;</span> <span class="hljs-keyword">and</span> password == <span class="hljs-string">&#x27;123456&#x27;</span>):<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;步骤二: 计算利息(延迟在子类中实现的)</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">pass</span><br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;钩子方法</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;显示利息&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">handle</span>(<span class="hljs-params">self, account: <span class="hljs-built_in">str</span>, password: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;执行方法</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            account (str): _description_</span><br><span class="hljs-string">            password (str): _description_</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.validate(account=account, password=password):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;用户名密码错误&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            self.calculate()<br>            self.display()<br><br></code></pre></td></tr></table></figure></li>
-<li><p>具体方法:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LoanSevenDays</span>(<span class="hljs-title class_ inherited__">Account</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;借款周期是7天，无利息！仅收取贷款金额的1%的服务费。&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;借款无利息&quot;</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LoanOneMonth</span>(<span class="hljs-title class_ inherited__">Account</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;借款周期是30天，利息为贷款金额的10%。&quot;</span>)<br></code></pre></td></tr></table></figure></li>
-<li><p>代码调用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    sevenDays = LoanSevenDays()<br>    sevenDays.handle(account=<span class="hljs-string">&quot;test&quot;</span>, password=<span class="hljs-string">&quot;123456&quot;</span>)<br><br>    oneMonthDays = LoanOneMonth()<br>    oneMonthDays.handle(account=<span class="hljs-string">&quot;test&quot;</span>, password=<span class="hljs-string">&quot;123456&quot;</span>) <br></code></pre></td></tr></table></figure></li>
+<li><p>要查询value值为某个的，(查询key为a，value=c的数据。)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;c&#x27;</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>取出json对象中提取指定的值。（json_extract）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> JSON_EXTRACT(text, <span class="hljs-string">&#x27;$.a&#x27;</span>) <span class="hljs-keyword">FROM</span> test2 t ;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql2.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
+</li>
+<li><p>查询json，存在某个键值对的和2效果相似 (JSON_CONTAINS)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> test2 <span class="hljs-keyword">WHERE</span> JSON_CONTAINS(`text` , <span class="hljs-string">&#x27;&#123;&quot;a&quot;: &quot;c&quot;&#125;&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql3.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
+</li>
+<li><p>查询json，value 是列表的，列表第零位为1的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span>  text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a[0]&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql4.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
+</li>
+<li><p>查询json， value 是字典列表的，第零位的value为某值的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span>  text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a[0].hello&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;word&#x27;</span> ;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql5.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
+</li>
+<li><p>查询json, value 中某个值为 word 的（数据格式 [{“type”: “10”, “mobile”: “13545678900”, “countryCode”: “86”}]）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> a <span class="hljs-keyword">where</span> mobile_json<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;$[*].mobile&#x27;</span> <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%135%&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>JsonArray 类型字段的精确查询（ [{“type”: “10”, “mobile”: “13545678900”, “countryCode”: “86”}]）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> a <span class="hljs-keyword">where</span> JSON_CONTAINS(mobile_json,<span class="hljs-built_in">JSON_OBJECT</span>(<span class="hljs-string">&#x27;mobile&#x27;</span>, &quot;13545678900&quot;))<br></code></pre></td></tr></table></figure></li>
+<li><p>查询 数组包含1的，（结构：{“a”: [1, 2, 3, 1]}）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> JSON_CONTAINS(text<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;$.a&#x27;</span>, <span class="hljs-built_in">Json_ARRAY</span>(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure></li>
+<li><p>查询 数组包含1的，（结构： [1, 2, 3, 1]）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> JSON_CONTAINS(text, <span class="hljs-built_in">Json_ARRAY</span>(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、更新数据"><a href="#四、更新数据" class="headerlink" title="四、更新数据"></a>四、更新数据</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>json_array_append(json_doc,path,val[,path,val]…)</td>
+<td>末尾添加数组元素，如果原有值是数值或json对 象，则转成数组后，再添加元素</td>
+</tr>
+<tr>
+<td>json_array_insert(json_doc,path,val[,path,val]…)</td>
+<td>插入数组元素</td>
+</tr>
+<tr>
+<td>json_insert(json_doc,path,val[,path,val]…)</td>
+<td>插入值（插入新值，但不替换已经存在的旧值）</td>
+</tr>
+<tr>
+<td>json_merge(json_doc,json_doc[,json_doc]…)</td>
+<td>合并json数组或对象</td>
+</tr>
+<tr>
+<td>json_remove(json_doc,path[,path]…)</td>
+<td>删除json数据</td>
+</tr>
+<tr>
+<td>json_replace(json_doc,path,val[,path,val]…)</td>
+<td>替换值（只替换已经存在的旧值）</td>
+</tr>
+<tr>
+<td>json_set(json_doc,path,val[,path,val])</td>
+<td>设置值（替换旧值，并插入不存在的新值）</td>
+</tr>
+<tr>
+<td>json_unquote(val)</td>
+<td>去除json字符串的引号，将值转成string类型</td>
+</tr>
+<tr>
+<td>CAST(‘jsonString’ as json)</td>
+<td>可将json字符串转为json对象格式</td>
+</tr>
+</tbody></table>
+<ol>
+<li>新增key或者更新key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_set(text, <span class="hljs-string">&#x27;$.g&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;$.i&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>2.只更新key(key不存在则不管)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_replace(text, <span class="hljs-string">&#x27;$.g&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;$.m&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>更新列表中某个下标的某个key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_replace(text, <span class="hljs-string">&#x27;$.a[0].hello&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、删除数据"><a href="#五、删除数据" class="headerlink" title="五、删除数据"></a>五、删除数据</h2><ol>
+<li>删除key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_remove(text, <span class="hljs-string">&#x27;$.a&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
@@ -336,34 +392,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">#模板方法模式</a>
-      
-    </div>
   
 </div>
 
@@ -373,8 +401,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>15.模板方法模式</div>
-      <div>https://sweetshance.github.io/2023/06/28/设计模式/15-python模板方法模式/</div>
+      <div>mysql值为json数据的相关操作</div>
+      <div>https://sweetshance.github.io/2023/06/29/mysql/mysql值为json数据的相关操作/</div>
     </div>
     <div class="license-meta">
       
@@ -386,7 +414,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年6月28日</div>
+          <div>2023年6月29日</div>
         </div>
       
       
@@ -402,18 +430,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" title="mysql值为json数据的相关操作">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql值为json数据的相关操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/14-python%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" title="14.观察者模式">
-                        <span class="hidden-mobile">14.观察者模式</span>
+                      <a href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" title="15.模板方法模式">
+                        <span class="hidden-mobile">15.模板方法模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
