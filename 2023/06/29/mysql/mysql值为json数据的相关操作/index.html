@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://sweetshance.github.io/images/mysql4.png">
 <meta property="og:image" content="https://sweetshance.github.io/images/mysql5.png">
 <meta property="article:published_time" content="2023-06-29T01:59:35.000Z">
-<meta property="article:modified_time" content="2023-06-29T08:33:39.070Z">
+<meta property="article:modified_time" content="2023-06-29T08:34:46.014Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
@@ -301,7 +301,59 @@
 </blockquote>
 <h2 id="二、数据介绍"><a href="#二、数据介绍" class="headerlink" title="二、数据介绍"></a>二、数据介绍</h2><p><img src="/images/mysql%E6%95%B0%E6%8D%AE.png" srcset="/img/loading.gif" lazyload alt="数据集"></p>
 <p>其中包含字符串，数组和嵌套数组。</p>
-<h2 id="三、查询数据"><a href="#三、查询数据" class="headerlink" title="三、查询数据"></a>三、查询数据</h2><p>方法介绍<br>|函数|介绍|<br>|–|–|<br>|json_contains(json_doc,val[,path])|判断是否包含某个json值|<br>|json_contains_path(json_doc,one_or_all,path[,path]…)|判断是否有某个路径|<br>|json_extract(json_doc,path[,path])|提取json值|<br>|json_keys(json_doc[,path])|提取json中的键值结果为json数组|<br>|json_search(json_doc, one_or_all, search_str[,escape_char[,path]…])|按给定字符串关键字搜索json，返回匹配的路径|<br>|json_depth(json_doc)|返回json文档的最大深度|<br>|json_length(json_doc[,path])|返回json值得类型|<br>|json_valid()|判断是否为合法json文档|<br>|column-&gt;path json_extract|简洁写法5.7.9开始支持|<br>|column-&gt;&gt;path json_unquote(column -&gt; path)|简洁写法5.7.13开始支持相当于 JSON_UNQUOTE(JSON_EXTRACT())|<br>|Json_ARRAY(val)|用于查询数组中是否包含该值|</p>
+<h2 id="三、查询数据"><a href="#三、查询数据" class="headerlink" title="三、查询数据"></a>三、查询数据</h2><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>json_contains(json_doc,val[,path])</td>
+<td>判断是否包含某个json值</td>
+</tr>
+<tr>
+<td>json_contains_path(json_doc,one_or_all,path[,path]…)</td>
+<td>判断是否有某个路径</td>
+</tr>
+<tr>
+<td>json_extract(json_doc,path[,path])</td>
+<td>提取json值</td>
+</tr>
+<tr>
+<td>json_keys(json_doc[,path])</td>
+<td>提取json中的键值结果为json数组</td>
+</tr>
+<tr>
+<td>json_search(json_doc, one_or_all, search_str[,escape_char[,path]…])</td>
+<td>按给定字符串关键字搜索json，返回匹配的路径</td>
+</tr>
+<tr>
+<td>json_depth(json_doc)</td>
+<td>返回json文档的最大深度</td>
+</tr>
+<tr>
+<td>json_length(json_doc[,path])</td>
+<td>返回json值得类型</td>
+</tr>
+<tr>
+<td>json_valid()</td>
+<td>判断是否为合法json文档</td>
+</tr>
+<tr>
+<td>column-&gt;path json_extract</td>
+<td>简洁写法5.7.9开始支持</td>
+</tr>
+<tr>
+<td>column-&gt;&gt;path json_unquote(column -&gt; path)</td>
+<td>简洁写法5.7.13开始支持相当于 JSON_UNQUOTE(JSON_EXTRACT())</td>
+</tr>
+<tr>
+<td>Json_ARRAY(val)</td>
+<td>用于查询数组中是否包含该值</td>
+</tr>
+</tbody></table>
 <ol>
 <li><p>要查询value值为某个的，(查询key为a，value=c的数据。)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;c&#x27;</span>;<br></code></pre></td></tr></table></figure></li>
