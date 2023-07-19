@@ -16,24 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="设计模式设计模式可以多个组合使用使其更适合项目 不可过度使用设计模式（避免降低代码可读性） 创建型模式（5）对象实例化的模式，创建型模式用于解耦对象的实例化过程   单例模式， go 工厂方法模式, go 抽象工厂模式, go 建造者模式, go 原型模式, go  结构型模式（7）把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象   代理模式，go 适">
+    <meta name="description" content="背景 系统中数据越来越多，接口请求频繁，在数据库和view中增加一个缓存层，业务先从redis中查询，查询不到再去数据库中查，并更新到redis中 这个缓存实际上取值方式和更新方式都是一样的，只是需要加载到redis的数据不一样，所以采用一个简单的模板方法来实现。  代码实现12345678910111213141516171819202122232425262728293031323334353">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1. 简介">
-<meta property="og:url" content="https://sweetshance.github.io/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:title" content="2.简单实现系统中增加缓存数据">
+<meta property="og:url" content="https://sweetshance.github.io/2023/07/19/web%E7%9F%A5%E8%AF%86/2.%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%A2%9E%E5%8A%A0%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="设计模式设计模式可以多个组合使用使其更适合项目 不可过度使用设计模式（避免降低代码可读性） 创建型模式（5）对象实例化的模式，创建型模式用于解耦对象的实例化过程   单例模式， go 工厂方法模式, go 抽象工厂模式, go 建造者模式, go 原型模式, go  结构型模式（7）把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象   代理模式，go 适">
+<meta property="og:description" content="背景 系统中数据越来越多，接口请求频繁，在数据库和view中增加一个缓存层，业务先从redis中查询，查询不到再去数据库中查，并更新到redis中 这个缓存实际上取值方式和更新方式都是一样的，只是需要加载到redis的数据不一样，所以采用一个简单的模板方法来实现。  代码实现12345678910111213141516171819202122232425262728293031323334353">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-13T03:06:17.119Z">
-<meta property="article:modified_time" content="2023-07-05T06:24:29.271Z">
+<meta property="article:published_time" content="2023-07-19T08:36:32.000Z">
+<meta property="article:modified_time" content="2023-07-19T09:49:03.698Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="缓存">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>1. 简介 - ShanCe的博客</title>
+  <title>2.简单实现系统中增加缓存数据 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1. 简介"></span>
+            <span id="subtitle" data-typed-text="2.简单实现系统中增加缓存数据"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-13 11:06" pubdate>
-          2023年4月13日 上午
+        <time datetime="2023-07-19 16:36" pubdate>
+          2023年7月19日 下午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          383 字
+          2.5k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          4 分钟
+          21 分钟
         
       </span>
     
@@ -284,60 +284,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">1. 简介</h1>
+            <h1 style="display: none">2.简单实现系统中增加缓存数据</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式可以多个组合使用使其更适合项目</p>
-<p>不可过度使用设计模式（避免降低代码可读性）</p>
-<h2 id="创建型模式（5）"><a href="#创建型模式（5）" class="headerlink" title="创建型模式（5）"></a>创建型模式（5）</h2><pre><code class="hljs">对象实例化的模式，创建型模式用于解耦对象的实例化过程
-</code></pre>
-<ol>
-<li>单例模式， <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>工厂方法模式, <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-python%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>抽象工厂模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>建造者模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>原型模式, <a href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">go</a></li>
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ol>
+<li>系统中数据越来越多，接口请求频繁，在数据库和view中增加一个缓存层，业务先从redis中查询，查询不到再去数据库中查，并更新到redis中</li>
+<li>这个缓存实际上取值方式和更新方式都是一样的，只是需要加载到redis的数据不一样，所以采用一个简单的模板方法来实现。</li>
 </ol>
-<h2 id="结构型模式（7）"><a href="#结构型模式（7）" class="headerlink" title="结构型模式（7）"></a>结构型模式（7）</h2><pre><code class="hljs">把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象
-</code></pre>
-<ol>
-<li>代理模式，<a href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>适配器模式，<a href="/2023/04/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8-python%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>桥接模式，<a href="/2023/04/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/9-python%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>装饰器模式，<a href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>外观模式，<a href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-python%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>享元模式，<a href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">go</a></li>
-<li>组合模式，<a href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">go</a></li>
-</ol>
-<h2 id="行为型模式（11）"><a href="#行为型模式（11）" class="headerlink" title="行为型模式（11）"></a>行为型模式（11）</h2><pre><code class="hljs">类和对象如何交互，行为型模式用于描述程序在运行时复杂的流程控制，即描述多个类或对象之间怎样相互协作共同完成一个任务。涉及划分责任和算法。
-</code></pre>
-<ol>
-<li><p>观察者模式, <a href="/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/14-python%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p>
-</li>
-<li><p>模板模式, <a href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">go</a></p>
-</li>
-<li><p>策略模式, <a href="/2023/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">go</a></p>
-</li>
-<li><p>责任链模式, <a href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">go</a></p>
-</li>
-<li><p>命令模式, <a href="">go</a></p>
-</li>
-<li><p>中介者模式, <a href="">go</a></p>
-</li>
-<li><p>状态模式, <a href="">go</a></p>
-</li>
-<li><p>备忘录模式, <a href="">go</a></p>
-</li>
-<li><p>迭代器模式, <a href="">go</a></p>
-</li>
-<li><p>解释器模式, <a href="">go</a></p>
-</li>
-<li><p>访问者模式, <a href="">go</a></p>
-</li>
-</ol>
-
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> abc<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> library.database_work.db_rw <span class="hljs-keyword">import</span> mysql_coon<br><span class="hljs-keyword">from</span> library.redisHandler <span class="hljs-keyword">import</span> redis_conn<br><br><span class="hljs-comment"># 基础缓存类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisCacheBase</span>(metaclass=abc.ABCMeta):<br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get</span>(<span class="hljs-params">cls, key: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-comment"># 获取缓存</span><br>        <span class="hljs-keyword">return</span> cls.batch_get([key]).get(key, <span class="hljs-string">&quot;&quot;</span>)<br><br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params">key: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-comment"># 删除缓存</span><br>        redis_conn.delete(key)<br><br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_get</span>(<span class="hljs-params">cls, keys: <span class="hljs-built_in">list</span></span>) -&gt; <span class="hljs-built_in">dict</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">            keys: 需要获取的key值</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        <span class="hljs-comment"># 批量获取</span><br>        values = redis_conn.r.mget(keys)<br>        result: <span class="hljs-built_in">dict</span> = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(keys, values))<br>        <span class="hljs-comment"># redis没有的需要加载的数据</span><br>        need_load_key: <span class="hljs-built_in">list</span> = cls.__filter_empty(result)<br>        need_load_data: <span class="hljs-built_in">dict</span> = cls.load_data(need_load_key)<br>        <span class="hljs-comment"># 数据拼接到结果中</span><br>        cls.add_result(result, need_load_data)<br>        <span class="hljs-comment"># 更新到redis中</span><br>        cls.__put(need_load_data)<br>        <span class="hljs-keyword">return</span> result<br><br><span class="hljs-meta">    @staticmethod</span><br><span class="hljs-meta">    @abc.abstractmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">load_data</span>(<span class="hljs-params">need_load_keys: <span class="hljs-built_in">list</span></span>):<br>        <span class="hljs-comment"># 需要加载到缓存里的数据</span><br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add_result</span>(<span class="hljs-params">result: <span class="hljs-built_in">dict</span>, tmp_data: <span class="hljs-built_in">dict</span></span>):<br>        <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> tmp_data.items():<br>            result[key] = value<br><br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__put</span>(<span class="hljs-params">data: <span class="hljs-built_in">dict</span></span>):<br>        <span class="hljs-comment"># 内部方法</span><br>        <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> data.items():<br>            redis_conn.<span class="hljs-built_in">set</span>(key, value, ex=<span class="hljs-number">30</span>)<br><br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__filter_empty</span>(<span class="hljs-params">data: <span class="hljs-built_in">dict</span></span>) -&gt; <span class="hljs-built_in">list</span>:<br>        <span class="hljs-comment"># 内部方法, 获取没有缓存的数据</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">list</span>(<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> key: <span class="hljs-keyword">not</span> data[key], data))<br><br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_delete</span>(<span class="hljs-params">keys: <span class="hljs-built_in">list</span></span>):<br>        <span class="hljs-comment"># 批量删除key</span><br>        <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> keys:<br>            redis_conn.delete(key)<br><br><br><span class="hljs-comment"># 继承基础缓存类，书写loda_data 方法，在实际应用中，数据库的查询可以写道专门的model方法，load_data书写数据格式处理的方法。</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserInfoCache</span>(<span class="hljs-title class_ inherited__">RedisCacheBase</span>):<br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">load_data</span>(<span class="hljs-params">need_load_keys: <span class="hljs-built_in">list</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        将数据加载到redis的方法</span><br><span class="hljs-string">        :return:</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        result = &#123;&#125;<br>        <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> need_load_keys:<br>            patient_id, visit_id = key.split(<span class="hljs-string">&quot;#&quot;</span>)<br>            sql = <span class="hljs-string">f&quot;select mpv.patient_id, mpv.visit_id, now_dept_name, regular_code  from mrq_pat_visit mpv join mrq_pat_reg_res mprr on mpv.patient_id=mprr.patient_id and mpv.visit_id=mprr.visit_id where mpv.patient_id=&#x27;<span class="hljs-subst">&#123;patient_id&#125;</span>&#x27; and mpv.visit_id=&#x27;<span class="hljs-subst">&#123;visit_id&#125;</span>&#x27;;&quot;</span><br>            result[key] = mysql_coon.select_fetchall(sql)<br>        <span class="hljs-keyword">return</span> result<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    star_time = time.time()<br>    data1 = UserInfoCache.batch_get([<span class="hljs-string">&quot;00000095277400#0&quot;</span>, <span class="hljs-string">&quot;0000009543682#0&quot;</span>, <span class="hljs-string">&quot;00000095440056#0&quot;</span>])<br>    <span class="hljs-built_in">print</span>(data1)<br>    <span class="hljs-built_in">print</span>(time.time() - star_time)<br><br>    star_time = time.time()<br>    data2 = UserInfoCache.batch_get([<span class="hljs-string">&quot;00000095277400#0&quot;</span>, <span class="hljs-string">&quot;0000009543682#0&quot;</span>, <span class="hljs-string">&quot;00000095440056#0&quot;</span>])<br>    <span class="hljs-built_in">print</span>(data2)<br>    <span class="hljs-built_in">print</span>(time.time() - star_time)<br><br><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -355,7 +311,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/web%E7%9F%A5%E8%AF%86/" class="category-chain-item">web知识</a>
   
   
 
@@ -370,7 +326,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>
+        <a href="/tags/%E7%BC%93%E5%AD%98/">#缓存</a>
       
     </div>
   
@@ -382,8 +338,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1. 简介</div>
-      <div>https://sweetshance.github.io/2023/04/13/设计模式/1.简介/</div>
+      <div>2.简单实现系统中增加缓存数据</div>
+      <div>https://sweetshance.github.io/2023/07/19/web知识/2.简单实现系统中增加缓存数据/</div>
     </div>
     <div class="license-meta">
       
@@ -395,7 +351,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月13日</div>
+          <div>2023年7月19日</div>
         </div>
       
       
@@ -411,18 +367,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="2.单例模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2.单例模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/04/web%E7%9F%A5%E8%AF%86/1.cookie%E3%80%81session%E3%80%81token%E4%BA%86%E8%A7%A3/" title="1. Cookie、session、token">
-                        <span class="hidden-mobile">1. Cookie、session、token</span>
+                      <a href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" title="17.责任链模式">
+                        <span class="hidden-mobile">17.责任链模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
