@@ -33,7 +33,7 @@
     <link href="/2023/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/23-python%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
     <url>/2023/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/23-python%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<h1 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h1><p>使用频率不高，通常用来描述如何构建一个简单“语言”的语法解释器。他只是在一些非常特定的领域被用到，比如编译器、规则引擎、正则表达式、SQL解析等。不过，了解它的实现原理同样很重要，能帮助你思考如何通过更简洁的规则来表示复杂的逻辑。</p><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>]]></content>
+    <content type="html"><![CDATA[<h1 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h1><p>使用频率不高，通常用来描述如何构建一个简单“语言”的语法解释器。他只是在一些非常特定的领域被用到，比如编译器、规则引擎、正则表达式、SQL解析等。不过，了解它的实现原理同样很重要，能帮助你思考如何通过更简洁的规则来表示复杂的逻辑。</p><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>用于定义语言的语法规则表示，并提供解释器来处理句子中的语法。</p><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>]]></content>
     
     
     <categories>
