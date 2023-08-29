@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>python字典Dict类型底层原理.md</title>
+    <link href="/2023/08/29/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E5%AD%97%E5%85%B8Dict%E7%B1%BB%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"/>
+    <url>/2023/08/29/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E5%AD%97%E5%85%B8Dict%E7%B1%BB%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>都知道python字典类型时间复杂度是O(1),是以空间换时间的一种数据类型，那么为什么字典的可以这么快？使用的时候又应该注意什么呢？</p><h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>dict 底层是一个维护这一张哈希表，哈希表中存储了哈希值、键、值。dict的查询速度就是因为哈希值进行提升的。</p><p>备注：哈希值，在python中，不可变对象都又一个唯一哈希值，可使用方法查看： hash(“刘”) </p><h2 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h2><p>首先将键进行hash运算，得到一个hash值，让后将相应的值存在以改hash值为下表的数组空间中。</p><h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>同样对键进行hash，然后根据这个hash值，从列表中进行下标取值。</p><h2 id="哈希碰撞解决办法"><a href="#哈希碰撞解决办法" class="headerlink" title="哈希碰撞解决办法"></a>哈希碰撞解决办法</h2><pre><code class="hljs">很明显对于这些键进行hash的时候，有的时候会发现hash值是一样的，这就产生了hash碰撞的问题</code></pre><ol><li>开放寻址<br>开放寻址法中，所有的元素都存放在散列表里，当产生哈希冲突时，通过一个探测函数计算出下一个候选位置，如果下一个获选位置还是有冲突，那么不断通过探测函数往下找，直到找个一个空槽来存放待插入元素。</li><li>再哈希法<br>这个方法是按顺序规定多个哈希函数，每次查询的时候按顺序调用哈希函数，调用到第一个为空的时候返回不存在，调用到此键的时候返回其值。</li><li>链地址法<br>将所有关键字哈希值相同的记录都存在同一线性链表中，这样不需要占用其他的哈希地址，相同的哈希值在一条链表上，按顺序遍历就可以找到。</li><li>公共溢出区<br>其基本思想是：所有关键字和基本表中关键字为相同哈希值的记录，不管他们由哈希函数得到的哈希地址是什么，一旦发生冲突，都填入溢出表。<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li><li>Python会根据哈希数组的拥挤程度对其扩容。“扩容”指的是:创造更大的数组，这时候会对已经存在的键值对重新进行哈希取余运算保存到其它位置；一般接近 2/3 时，数组就会扩容。扩容后，偏移量的数字个数增加，如数组长度扩容到16时，可以用最右边4位数字作为偏移量。</li><li>往字典里添加新建可能导致扩容，导致哈希数组中键的次序变化。因此，不要再遍历字典的同时进行字典的修改。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>24.python访问者模式</title>
     <link href="/2023/08/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/24-python%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
     <url>/2023/08/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/24-python%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/</url>
