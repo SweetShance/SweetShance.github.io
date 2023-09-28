@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>实现当滚动条滚动一定距离后tab固定在顶部</title>
+    <link href="/2023/09/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E7%8E%B0%E5%BD%93%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%BB%9A%E5%8A%A8%E4%B8%80%E5%AE%9A%E8%B7%9D%E7%A6%BB%E5%90%8Etab%E5%9B%BA%E5%AE%9A%E5%9C%A8%E9%A1%B6%E9%83%A8/"/>
+    <url>/2023/09/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E7%8E%B0%E5%BD%93%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%BB%9A%E5%8A%A8%E4%B8%80%E5%AE%9A%E8%B7%9D%E7%A6%BB%E5%90%8Etab%E5%9B%BA%E5%AE%9A%E5%9C%A8%E9%A1%B6%E9%83%A8/</url>
+    
+    <content type="html"><![CDATA[<h3 id="这个情况是在已知上面高度，或者决定滑动多高后固定"><a href="#这个情况是在已知上面高度，或者决定滑动多高后固定" class="headerlink" title="这个情况是在已知上面高度，或者决定滑动多高后固定"></a>这个情况是在已知上面高度，或者决定滑动多高后固定</h3><p><img src="/images/%E5%B0%8F%E7%A8%8B%E5%BA%8F/1695889812413.jpg" alt="数据集"><br><img src="/images/%E5%B0%8F%E7%A8%8B%E5%BA%8F/2.jpg" alt="数据集"></p><ol><li><p>xx.wxml(主要是 下边这个三目计算 当高度 大于 170 的时候设置一个class)</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text">&lt;view class=&quot;stack-page-tabs &#123;&#123;scrollTop &gt; 170? &#x27;totop&#x27;:&#x27;&#x27;&#125;&#125;&quot;&gt;<br>    &lt;t-tabs<br>      t-class=&quot;t-tabs&quot;<br>      t-class-active=&quot;tabs-external__active&quot;<br>      t-class-item=&quot;tabs-external__item&quot;<br>      defaultValue=&quot;&#123;&#123;0&#125;&#125;&quot;<br>      space-evenly=&quot;&#123;&#123;false&#125;&#125;&quot;<br>      bind:change=&quot;tabChangeHandle&quot;<br>    &gt;<br>      &lt;t-tab-panel<br>        wx:for=&quot;&#123;&#123;tabList&#125;&#125;&quot;<br>        wx:for-index=&quot;index&quot;<br>        wx:key=&quot;index&quot;<br>        label=&quot;&#123;&#123;item.text&#125;&#125;&quot;<br>        value=&quot;&#123;&#123;item.key&#125;&#125;&quot;<br>      /&gt;<br>    &lt;/t-tabs&gt;<br>&lt;/view&gt;<br></code></pre></td></tr></table></figure></li><li><p>wxss(自定义挂在顶部的样式)</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.totop</span>&#123;<br>  <span class="hljs-attribute">position</span>: fixed;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">background-color</span>:<span class="hljs-number">#fff</span>; <br>  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>js</p></li></ol><p>data 中添加属性</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">scrollTop</span>: <span class="hljs-number">0</span> <span class="hljs-comment">// 滚动条滑动距离</span><br>&#125;<br><br></code></pre></td></tr></table></figure><p>监听滚动条修改属性(添加在下边)</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">onPageScroll</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)&#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setData</span>(&#123;<br>        <span class="hljs-attr">scrollTop</span>: e.<span class="hljs-property">scrollTop</span><br>    &#125;)<br>  &#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>小程序学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>滑动顶部固定</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>小程序引入tdesign的tabBar</title>
     <link href="/2023/09/27/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%95%E5%85%A5tdesign%E7%9A%84tabBar/"/>
     <url>/2023/09/27/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%95%E5%85%A5tdesign%E7%9A%84tabBar/</url>
