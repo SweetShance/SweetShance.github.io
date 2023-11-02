@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>两个view在一行显示</title>
+    <link href="/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/"/>
+    <url>/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/</url>
+    
+    <content type="html"><![CDATA[<h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text&quot;</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text-title&quot;</span>&gt;</span>章节目录<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">t-icon</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-icon&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;arrow-up-down-1&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;倒序&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">t-icon</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">0</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">1</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>正序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">t-divider</span> <span class="hljs-attr">dashed</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">t-divider</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   </span><br><span class="language-xml"> <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure><h1 id="css-实现-了解-flex-flex-wrap"><a href="#css-实现-了解-flex-flex-wrap" class="headerlink" title="css 实现(了解 flex, flex-wrap)"></a>css 实现(了解 flex, flex-wrap)</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.cata-text</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-wrap</span>: nowrap;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">7vh</span>;<br>  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>小程序学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>css</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>uwsgi最大监听队列</title>
     <link href="/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/"/>
     <url>/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/</url>
@@ -65,6 +90,31 @@
     <tags>
       
       <tag>tdesign的tabBar</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>按需引入组件</title>
+    <link href="/2023/09/27/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6/"/>
+    <url>/2023/09/27/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<h2 id="修改全局配置文件-app-json"><a href="#修改全局配置文件-app-json" class="headerlink" title="修改全局配置文件 app.json"></a>修改全局配置文件 app.json</h2><p>删除 usingComponents 配置<br>添加 lazyCodeLoading 配置</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>小程序学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>按需引入组件</tag>
       
     </tags>
     
