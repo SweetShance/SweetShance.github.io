@@ -102,7 +102,7 @@
     <link href="/2023/09/27/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6/"/>
     <url>/2023/09/27/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6/</url>
     
-    <content type="html"><![CDATA[<h2 id="修改全局配置文件-app-json"><a href="#修改全局配置文件-app-json" class="headerlink" title="修改全局配置文件 app.json"></a>修改全局配置文件 app.json</h2><p>删除 usingComponents 配置<br>添加 lazyCodeLoading 配置</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="修改全局配置文件-app-json"><a href="#修改全局配置文件-app-json" class="headerlink" title="修改全局配置文件 app.json"></a>修改全局配置文件 app.json</h2><p>添加 lazyCodeLoading 配置</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">在app.<span class="hljs-keyword">json </span>最后添加<br><span class="hljs-string">&quot;lazyCodeLoading&quot;</span>: <span class="hljs-string">&quot;requiredComponents&quot;</span>,<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
