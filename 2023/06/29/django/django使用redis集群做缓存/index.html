@@ -16,24 +16,18 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1525726?from&#x3D;15425  二、数据介绍 其中包含字符串，数组和">
+    <meta name="description" content="1. 使用redis集群做cache 缓存配置 1234567891011121314151617181920212223CACHES &#x3D; &amp;#123;    &quot;default&quot;: &amp;#123;        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,        &quot;LOCATION">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql值为json数据的相关操作">
-<meta property="og:url" content="https://sweetshance.github.io/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:url" content="https://sweetshance.github.io/2023/06/29/django/django%E4%BD%BF%E7%94%A8redis%E9%9B%86%E7%BE%A4%E5%81%9A%E7%BC%93%E5%AD%98/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1525726?from&#x3D;15425  二、数据介绍 其中包含字符串，数组和">
+<meta property="og:description" content="1. 使用redis集群做cache 缓存配置 1234567891011121314151617181920212223CACHES &#x3D; &amp;#123;    &quot;default&quot;: &amp;#123;        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,        &quot;LOCATION">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://sweetshance.github.io/images/mysql%E6%95%B0%E6%8D%AE.png">
-<meta property="og:image" content="https://sweetshance.github.io/images/mysql2.png">
-<meta property="og:image" content="https://sweetshance.github.io/images/mysql3.png">
-<meta property="og:image" content="https://sweetshance.github.io/images/mysql4.png">
-<meta property="og:image" content="https://sweetshance.github.io/images/mysql5.png">
 <meta property="article:published_time" content="2023-06-29T01:59:35.000Z">
-<meta property="article:modified_time" content="2023-06-29T08:34:46.014Z">
+<meta property="article:modified_time" content="2023-11-09T03:23:01.040Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="session. cache">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://sweetshance.github.io/images/mysql%E6%95%B0%E6%8D%AE.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -233,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          2.1k 字
         
       </span>
     
@@ -244,7 +238,7 @@
         
         
         
-          23 分钟
+          18 分钟
         
       </span>
     
@@ -295,149 +289,19 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。<br>mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1525726?from=15425">https://cloud.tencent.com/developer/article/1525726?from=15425</a></p>
-</blockquote>
-<h2 id="二、数据介绍"><a href="#二、数据介绍" class="headerlink" title="二、数据介绍"></a>二、数据介绍</h2><p><img src="/images/mysql%E6%95%B0%E6%8D%AE.png" srcset="/img/loading.gif" lazyload alt="数据集"></p>
-<p>其中包含字符串，数组和嵌套数组。</p>
-<h2 id="三、查询数据"><a href="#三、查询数据" class="headerlink" title="三、查询数据"></a>三、查询数据</h2><p>方法介绍</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>json_contains(json_doc,val[,path])</td>
-<td>判断是否包含某个json值</td>
-</tr>
-<tr>
-<td>json_contains_path(json_doc,one_or_all,path[,path]…)</td>
-<td>判断是否有某个路径</td>
-</tr>
-<tr>
-<td>json_extract(json_doc,path[,path])</td>
-<td>提取json值</td>
-</tr>
-<tr>
-<td>json_keys(json_doc[,path])</td>
-<td>提取json中的键值结果为json数组</td>
-</tr>
-<tr>
-<td>json_search(json_doc, one_or_all, search_str[,escape_char[,path]…])</td>
-<td>按给定字符串关键字搜索json，返回匹配的路径</td>
-</tr>
-<tr>
-<td>json_depth(json_doc)</td>
-<td>返回json文档的最大深度</td>
-</tr>
-<tr>
-<td>json_length(json_doc[,path])</td>
-<td>返回json值得类型</td>
-</tr>
-<tr>
-<td>json_valid()</td>
-<td>判断是否为合法json文档</td>
-</tr>
-<tr>
-<td>column-&gt;path json_extract</td>
-<td>简洁写法5.7.9开始支持</td>
-</tr>
-<tr>
-<td>column-&gt;&gt;path json_unquote(column -&gt; path)</td>
-<td>简洁写法5.7.13开始支持相当于 JSON_UNQUOTE(JSON_EXTRACT())</td>
-</tr>
-<tr>
-<td>Json_ARRAY(val)</td>
-<td>用于查询数组中是否包含该值</td>
-</tr>
-</tbody></table>
-<ol>
-<li><p>要查询value值为某个的，(查询key为a，value=c的数据。)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;c&#x27;</span>;<br></code></pre></td></tr></table></figure></li>
-<li><p>取出json对象中提取指定的值。（json_extract）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> JSON_EXTRACT(text, <span class="hljs-string">&#x27;$.a&#x27;</span>) <span class="hljs-keyword">FROM</span> test2 t ;<br></code></pre></td></tr></table></figure>
-<p><img src="/images/mysql2.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
-</li>
-<li><p>查询json，存在某个键值对的和2效果相似 (JSON_CONTAINS)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> test2 <span class="hljs-keyword">WHERE</span> JSON_CONTAINS(`text` , <span class="hljs-string">&#x27;&#123;&quot;a&quot;: &quot;c&quot;&#125;&#x27;</span>);<br></code></pre></td></tr></table></figure>
-<p><img src="/images/mysql3.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
-</li>
-<li><p>查询json，value 是列表的，列表第零位为1的</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span>  text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a[0]&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
-<p><img src="/images/mysql4.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
-</li>
-<li><p>查询json， value 是字典列表的，第零位的value为某值的</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span>  text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a[0].hello&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;word&#x27;</span> ;<br></code></pre></td></tr></table></figure>
-<p><img src="/images/mysql5.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
-</li>
-<li><p>查询json, value 中某个值为 word 的（数据格式 [{“type”: “10”, “mobile”: “13545678900”, “countryCode”: “86”}]）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> a <span class="hljs-keyword">where</span> mobile_json<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;$[*].mobile&#x27;</span> <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%135%&#x27;</span><br></code></pre></td></tr></table></figure></li>
-<li><p>JsonArray 类型字段的精确查询（ [{“type”: “10”, “mobile”: “13545678900”, “countryCode”: “86”}]）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> a <span class="hljs-keyword">where</span> JSON_CONTAINS(mobile_json,<span class="hljs-built_in">JSON_OBJECT</span>(<span class="hljs-string">&#x27;mobile&#x27;</span>, &quot;13545678900&quot;))<br></code></pre></td></tr></table></figure></li>
-<li><p>查询 数组包含1的，（结构：{“a”: [1, 2, 3, 1]}）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> JSON_CONTAINS(text<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;$.a&#x27;</span>, <span class="hljs-built_in">Json_ARRAY</span>(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure></li>
-<li><p>查询 数组包含1的，（结构： [1, 2, 3, 1]）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> JSON_CONTAINS(text, <span class="hljs-built_in">Json_ARRAY</span>(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="四、更新数据"><a href="#四、更新数据" class="headerlink" title="四、更新数据"></a>四、更新数据</h2><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>json_array_append(json_doc,path,val[,path,val]…)</td>
-<td>末尾添加数组元素，如果原有值是数值或json对 象，则转成数组后，再添加元素</td>
-</tr>
-<tr>
-<td>json_array_insert(json_doc,path,val[,path,val]…)</td>
-<td>插入数组元素</td>
-</tr>
-<tr>
-<td>json_insert(json_doc,path,val[,path,val]…)</td>
-<td>插入值（插入新值，但不替换已经存在的旧值）</td>
-</tr>
-<tr>
-<td>json_merge(json_doc,json_doc[,json_doc]…)</td>
-<td>合并json数组或对象</td>
-</tr>
-<tr>
-<td>json_remove(json_doc,path[,path]…)</td>
-<td>删除json数据</td>
-</tr>
-<tr>
-<td>json_replace(json_doc,path,val[,path,val]…)</td>
-<td>替换值（只替换已经存在的旧值）</td>
-</tr>
-<tr>
-<td>json_set(json_doc,path,val[,path,val])</td>
-<td>设置值（替换旧值，并插入不存在的新值）</td>
-</tr>
-<tr>
-<td>json_unquote(val)</td>
-<td>去除json字符串的引号，将值转成string类型</td>
-</tr>
-<tr>
-<td>CAST(‘jsonString’ as json)</td>
-<td>可将json字符串转为json对象格式</td>
-</tr>
-</tbody></table>
-<ol>
-<li>新增key或者更新key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_set(text, <span class="hljs-string">&#x27;$.g&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;$.i&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>2.只更新key(key不存在则不管)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_replace(text, <span class="hljs-string">&#x27;$.g&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;$.m&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
-<ol start="3">
-<li>更新列表中某个下标的某个key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_replace(text, <span class="hljs-string">&#x27;$.a[0].hello&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="五、删除数据"><a href="#五、删除数据" class="headerlink" title="五、删除数据"></a>五、删除数据</h2><ol>
-<li>删除key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_remove(text, <span class="hljs-string">&#x27;$.a&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
-</ol>
+                <h3 id="1-使用redis集群做cache-缓存"><a href="#1-使用redis集群做cache-缓存" class="headerlink" title="1. 使用redis集群做cache 缓存"></a>1. 使用redis集群做cache 缓存</h3><p>配置</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs clean">CACHES = &#123;<br>    <span class="hljs-string">&quot;default&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;BACKEND&quot;</span>: <span class="hljs-string">&quot;django_redis.cache.RedisCache&quot;</span>,<br>        <span class="hljs-string">&quot;LOCATION&quot;</span>: [<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7000&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7001&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7002&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7003&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7004&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7005&quot;</span>,<br>        ],<br>        <span class="hljs-string">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-string">&#x27;REDIS_CLIENT_CLASS&#x27;</span>: <span class="hljs-string">&#x27;rediscluster.RedisCluster&#x27;</span>,      # 连接类<br>            <span class="hljs-string">&#x27;CONNECTION_POOL_CLASS&#x27;</span>: <span class="hljs-string">&#x27;rediscluster.connection.ClusterConnectionPool&#x27;</span>,   # 连接池类<br>            <span class="hljs-string">&#x27;CONNECTION_POOL_KWARGS&#x27;</span>: &#123;     # 连接池参数<br>                <span class="hljs-string">&#x27;skip_full_coverage_check&#x27;</span>: <span class="hljs-literal">True</span>  # 连接报错时加参数：config get cluster-require-full-coverage<br>            &#125;,<br>        &#125;,<br>        # <span class="hljs-string">&quot;KEY_PREFIX&quot;</span>: <span class="hljs-string">&quot;myapp&quot;</span>,  # key前缀，默认为<span class="hljs-string">&#x27;&#x27;</span><br>        # <span class="hljs-string">&quot;VERSION&quot;</span>: <span class="hljs-number">1</span>,  # 版本号<br>        # <span class="hljs-string">&quot;KEY_FUNCTION&quot;</span>: <span class="hljs-string">&quot;cache_ext.key_function.make_key&quot;</span>,  # 自定义前缀规则，默认 KEY_PREFIX:VERSION:key<br>    &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h3 id="2-session-是使用过cache"><a href="#2-session-是使用过cache" class="headerlink" title="2. session 是使用过cache"></a>2. session 是使用过cache</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">SESSION_CACHE_ALIAS</span> = <span class="hljs-string">&#x27;default&#x27;</span><br><span class="hljs-comment"># SESSION_COOKIE_AGE = 3600 # 默认两周单位秒</span><br><span class="hljs-attr">SESSION_COOKIE_DOMAIN</span> = None <span class="hljs-comment"># session cookie域名 默认没有设置就是当前域名</span><br><span class="hljs-attr">SESSION_COOKIE_HTTPONLY</span> = <span class="hljs-literal">True</span> <span class="hljs-comment"># 设置session cookie是httponly</span><br><span class="hljs-attr">SESSION_COOKIE_NAME</span> = f<span class="hljs-string">&#x27;session_qc_&#123;REDIS_BASE_KEY&#125;&#x27;</span> <span class="hljs-comment"># session cookie的名字</span><br><span class="hljs-attr">SESSION_COOKIE_PATH</span> = <span class="hljs-string">&#x27;/&#x27;</span> <span class="hljs-comment"># session cookie的path</span><br><span class="hljs-attr">SESSION_COOKIE_SECURE</span> = <span class="hljs-literal">False</span> <span class="hljs-comment"># session cookie的secure</span><br><span class="hljs-attr">SESSION_ENGINE</span> = <span class="hljs-string">&#x27;django.contrib.sessions.backends.cache&#x27;</span> <span class="hljs-comment"># session存贮位置默认db</span><br><span class="hljs-attr">SESSION_EXPIRE_AT_BROWSER_CLOSE</span> = <span class="hljs-literal">False</span><br><span class="hljs-attr">SESSION_SAVE_EVERY_REQUEST</span> = <span class="hljs-literal">True</span>  <span class="hljs-comment"># session超时机制是否生效, 只有在为True时，SESSION_EXPIRE_AT_BROWSER_CLOSE 才会生效</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-报错"><a href="#3-报错" class="headerlink" title="3. 报错"></a>3. 报错</h3><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xquery">Django：Could<span class="hljs-built_in"> not</span> find backend <span class="hljs-string">&#x27;django_redis.cache.RedisCache&#x27;</span>: cannot <span class="hljs-keyword">import</span><span class="hljs-built_in"> name</span> <span class="hljs-string">&#x27;six&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>3.1 原因django 版本太高回退到 2.2.7 版本</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pip3</span> install django==<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+<p>3.2 依旧报错</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">File &quot;/usr/local/lib/python3.6/site-packages/django/db/backends/mysql/operations.py&quot;, <span class="hljs-type">line</span> <span class="hljs-number">146</span>, <span class="hljs-keyword">in</span> last_executed_query<br>query = query.decode(errors=<span class="hljs-string">&#x27;replace&#x27;</span>)<br>AttributeError: <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-keyword">object</span> has <span class="hljs-keyword">no</span> <span class="hljs-keyword">attribute</span> <span class="hljs-string">&#x27;decode&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>解决办法，将文件 146 行 decode改成encode<br>修改后的结果</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">query</span> = <span class="hljs-keyword">query</span>.<span class="hljs-keyword">encode</span>(errors=&#x27;<span class="hljs-keyword">replace</span>&#x27;)<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -455,7 +319,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
+  <a href="/categories/django/" class="category-chain-item">django</a>
   
   
 
@@ -470,7 +334,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/mysql/">#mysql</a>
+        <a href="/tags/session-cache/">#session. cache</a>
       
     </div>
   
@@ -483,7 +347,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>mysql值为json数据的相关操作</div>
-      <div>https://sweetshance.github.io/2023/06/29/mysql/mysql值为json数据的相关操作/</div>
+      <div>https://sweetshance.github.io/2023/06/29/django/django使用redis集群做缓存/</div>
     </div>
     <div class="license-meta">
       
@@ -511,9 +375,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/06/29/mysql/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/" title="mysql锁表问题">
+                      <a href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" title="mysql值为json数据的相关操作">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql锁表问题</span>
+                        <span class="hidden-mobile">mysql值为json数据的相关操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -521,8 +385,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/06/29/django/django%E4%BD%BF%E7%94%A8redis%E9%9B%86%E7%BE%A4%E5%81%9A%E7%BC%93%E5%AD%98/" title="mysql值为json数据的相关操作">
-                        <span class="hidden-mobile">mysql值为json数据的相关操作</span>
+                      <a href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" title="15.模板方法模式">
+                        <span class="hidden-mobile">15.模板方法模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
