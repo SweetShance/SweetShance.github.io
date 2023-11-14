@@ -16,24 +16,25 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="html123456789&lt;view class&#x3D;&quot;cata-text&quot;&gt;   &lt;view class&#x3D;&quot;cata-text-title&quot;&gt;章节目录&lt;&#x2F;view&gt;   &lt;view class&#x3D;&quot;right&quot;&gt;&lt;t-icon class&#x3D;&quot;cata-icon&quot; nam">
+    <meta name="description" content="使用nginx部署vue项目后,刷新会找不到页面解决解决方法 增加nginx 配置 1234567server &amp;#123;    ...    location &#x2F; &amp;#123;        try_files $uri $uri&#x2F; &#x2F;index.html;    &amp;#125;    ...&amp;#125; 以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两个view在一行显示">
-<meta property="og:url" content="https://sweetshance.github.io/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/index.html">
+<meta property="og:title" content="1. Cookie、session、token">
+<meta property="og:url" content="https://sweetshance.github.io/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="html123456789&lt;view class&#x3D;&quot;cata-text&quot;&gt;   &lt;view class&#x3D;&quot;cata-text-title&quot;&gt;章节目录&lt;&#x2F;view&gt;   &lt;view class&#x3D;&quot;right&quot;&gt;&lt;t-icon class&#x3D;&quot;cata-icon&quot; nam">
+<meta property="og:description" content="使用nginx部署vue项目后,刷新会找不到页面解决解决方法 增加nginx 配置 1234567server &amp;#123;    ...    location &#x2F; &amp;#123;        try_files $uri $uri&#x2F; &#x2F;index.html;    &amp;#125;    ...&amp;#125; 以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-02T03:24:27.236Z">
-<meta property="article:modified_time" content="2023-11-02T03:26:16.968Z">
+<meta property="article:published_time" content="2023-11-14T05:52:16.168Z">
+<meta property="article:modified_time" content="2023-11-14T05:54:47.891Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="css">
+<meta property="article:tag" content="uwsgi">
+<meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>两个view在一行显示 - ShanCe的博客</title>
+  <title>1. Cookie、session、token - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="两个view在一行显示"></span>
+            <span id="subtitle" data-typed-text="1. Cookie、session、token"></span>
           
         </div>
 
@@ -215,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-02 11:24" pubdate>
-          2023年11月2日 上午
+        <time datetime="2023-11-14 13:52" pubdate>
+          2023年11月14日 下午
         </time>
       </span>
     
@@ -227,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          772 字
+          487 字
         
       </span>
     
@@ -238,7 +239,7 @@
         
         
         
-          7 分钟
+          5 分钟
         
       </span>
     
@@ -284,14 +285,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">两个view在一行显示</h1>
+            <h1 style="display: none">1. Cookie、session、token</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text&quot;</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text-title&quot;</span>&gt;</span>章节目录<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">t-icon</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-icon&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;arrow-up-down-1&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;倒序&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">t-icon</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">0</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">1</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>正序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">t-divider</span> <span class="hljs-attr">dashed</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">t-divider</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   </span><br><span class="language-xml"> <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+                <h3 id="使用nginx部署vue项目后-刷新会找不到页面解决解决方法"><a href="#使用nginx部署vue项目后-刷新会找不到页面解决解决方法" class="headerlink" title="使用nginx部署vue项目后,刷新会找不到页面解决解决方法"></a>使用nginx部署vue项目后,刷新会找不到页面解决解决方法</h3><ol>
+<li><p>增加nginx 配置</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">server &#123;<br>    ...<br>    location / &#123;<br>        try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span><span class="hljs-regexp">/ /i</span>ndex.html;<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i ) ，如果找不到匹配的文件，则尝试匹配路径加上斜杠 ( uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠 (uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠(uri/)，最后将请求定位到Vue应用的入口文件 (/index.html)。这样可以确保在刷新页面时，Nginx会正确地将请求导向Vue应用。</p>
+</li>
+<li><p>重新加载Nginx配置并重启Nginx服务。<br>整个配置文件和Nginx的位置可能因操作系统和安装方式而有所不同，一般在 Linux 系统下，配置文件路径位于 /etc/nginx/nginx.conf 或 /etc/nginx/sites-available/default。<br>修改配置文件后，要重新加载Nginx配置，可以使用以下命令（需要具有管理员权限）：</p>
+</li>
+</ol>
 
-<h1 id="css-实现-了解-flex-flex-wrap"><a href="#css-实现-了解-flex-flex-wrap" class="headerlink" title="css 实现(了解 flex, flex-wrap)"></a>css 实现(了解 flex, flex-wrap)</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.cata-text</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-wrap</span>: nowrap;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">7vh</span>;<br>  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -309,7 +316,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" class="category-chain-item">小程序学习</a>
+  <a href="/categories/nginx-%E9%83%A8%E7%BD%B2vue/" class="category-chain-item">nginx 部署vue</a>
   
   
 
@@ -324,7 +331,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/css/">#css</a>
+        <a href="/tags/uwsgi/">#uwsgi</a>
+      
+        <a href="/tags/vue/">#vue</a>
       
     </div>
   
@@ -336,8 +345,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>两个view在一行显示</div>
-      <div>https://sweetshance.github.io/2023/11/02/微信小程序/扩展学习/两个view 在一行/</div>
+      <div>1. Cookie、session、token</div>
+      <div>https://sweetshance.github.io/2023/11/14/web知识/3.uwsgi部署vue导致页面404/</div>
     </div>
     <div class="license-meta">
       
@@ -349,7 +358,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月2日</div>
+          <div>2023年11月14日</div>
         </div>
       
       
@@ -365,18 +374,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/" title="1. Cookie、session、token">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1. Cookie、session、token</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/" title="uwsgi最大监听队列">
-                        <span class="hidden-mobile">uwsgi最大监听队列</span>
+                      <a href="/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/" title="两个view在一行显示">
+                        <span class="hidden-mobile">两个view在一行显示</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
