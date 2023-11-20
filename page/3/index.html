@@ -409,15 +409,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/06/29/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_self">
-          mysql备份与恢复
+        <a href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_self">
+          mysql值为json数据的相关操作
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_self">
         <div>
-          逻辑备份使用 mysqldump 实现简介: 在mysqldump 命令执行的时候，实际上是将数据库，分成一个文本文件，文件中包含相关表结构的 创建语句和数据的插入语句，数据恢复时就是执行这些语句 1.备份数据库1.1 备份一个数据库1mysqldump –u user –h host –p 数据库的名称 &gt; 备份文件名称 .sql 备注：导出部分表数据直接 在数据库名称后加表名就行 1.2
+          一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https://cloud.tencent.com/developer/article/1525726?from=15425  二、数据介绍 其中包含字符串，数组和
         </div>
       </a>
 
@@ -425,7 +425,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-29 16:03" pubdate>
+            <time datetime="2023-06-29 09:59" pubdate>
               2023-06-29
             </time>
           </div>
@@ -456,9 +456,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/">#备份恢复</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">#数据迁移跨服务器</a>
+              <a href="/tags/mysql/">#mysql</a>
             
           </div>
         
