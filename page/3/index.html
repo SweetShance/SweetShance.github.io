@@ -226,6 +226,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_self">
+          17.责任链模式
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          责任链模式概念避免将一个请求的发送者与接收者耦合在一起，让多个对象都有机会处理请求，将接收请求的对象连接成一条链，并且沿着这条链传递请求，直到有一个对象能够处理它为止。 结构 抽象处理者（Handler）角色：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。 具体处理者（Concrete Handler）角色：实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-05 14:24" pubdate>
+              2023-07-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">#策略模式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
           16.策略模式
         </a>
@@ -348,15 +409,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_self">
-          mysql值为json数据的相关操作
+        <a href="/2023/06/29/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_self">
+          mysql备份与恢复
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_self">
         <div>
-          一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https://cloud.tencent.com/developer/article/1525726?from=15425  二、数据介绍 其中包含字符串，数组和
+          逻辑备份使用 mysqldump 实现简介: 在mysqldump 命令执行的时候，实际上是将数据库，分成一个文本文件，文件中包含相关表结构的 创建语句和数据的插入语句，数据恢复时就是执行这些语句 1.备份数据库1.1 备份一个数据库1mysqldump –u user –h host –p 数据库的名称 &gt; 备份文件名称 .sql 备注：导出部分表数据直接 在数据库名称后加表名就行 1.2
         </div>
       </a>
 
@@ -364,7 +425,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-29 09:59" pubdate>
+            <time datetime="2023-06-29 16:03" pubdate>
               2023-06-29
             </time>
           </div>
@@ -395,7 +456,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/mysql/">#mysql</a>
+              <a href="/tags/%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/">#备份恢复</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">#数据迁移跨服务器</a>
             
           </div>
         
@@ -762,67 +825,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">#外观模式</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
-          10.装饰器模式
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
-        <div>
-          装饰器模式概念再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样） 本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现 结构 抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类 具体构建角色(ConcreteComponent):
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-24 17:31" pubdate>
-              2023-04-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">#桥接模式</a>
             
           </div>
         

@@ -16,25 +16,30 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="使用nginx部署vue项目后,刷新会找不到页面解决解决方法 增加nginx 配置 1234567server &amp;#123;    ...    location &#x2F; &amp;#123;        try_files $uri $uri&#x2F; &#x2F;index.html;    &amp;#125;    ...&amp;#125; 以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i">
+    <meta name="description" content="一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1525726?from&#x3D;15425  二、数据介绍 其中包含字符串，数组和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1. Cookie、session、token">
-<meta property="og:url" content="https://sweetshance.github.io/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/index.html">
+<meta property="og:title" content="mysql值为json数据的相关操作">
+<meta property="og:url" content="https://sweetshance.github.io/2023/11/20/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="使用nginx部署vue项目后,刷新会找不到页面解决解决方法 增加nginx 配置 1234567server &amp;#123;    ...    location &#x2F; &amp;#123;        try_files $uri $uri&#x2F; &#x2F;index.html;    &amp;#125;    ...&amp;#125; 以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i">
+<meta property="og:description" content="一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1525726?from&#x3D;15425  二、数据介绍 其中包含字符串，数组和">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-14T05:52:16.168Z">
-<meta property="article:modified_time" content="2023-11-14T05:54:47.891Z">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql%E6%95%B0%E6%8D%AE.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql2.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql3.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql4.png">
+<meta property="og:image" content="https://sweetshance.github.io/images/mysql5.png">
+<meta property="article:published_time" content="2023-11-20T01:59:35.000Z">
+<meta property="article:modified_time" content="2023-11-20T10:35:53.291Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="uwsgi">
-<meta property="article:tag" content="vue">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sweetshance.github.io/images/mysql%E6%95%B0%E6%8D%AE.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>1. Cookie、session、token - ShanCe的博客</title>
+  <title>mysql值为json数据的相关操作 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1. Cookie、session、token"></span>
+            <span id="subtitle" data-typed-text="mysql值为json数据的相关操作"></span>
           
         </div>
 
@@ -216,8 +221,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-14 13:52" pubdate>
-          2023年11月14日 下午
+        <time datetime="2023-11-20 09:59" pubdate>
+          2023年11月20日 上午
         </time>
       </span>
     
@@ -228,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          487 字
+          2.7k 字
         
       </span>
     
@@ -239,7 +244,7 @@
         
         
         
-          5 分钟
+          23 分钟
         
       </span>
     
@@ -285,18 +290,152 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">1. Cookie、session、token</h1>
+            <h1 style="display: none">mysql值为json数据的相关操作</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="使用nginx部署vue项目后-刷新会找不到页面解决解决方法"><a href="#使用nginx部署vue项目后-刷新会找不到页面解决解决方法" class="headerlink" title="使用nginx部署vue项目后,刷新会找不到页面解决解决方法"></a>使用nginx部署vue项目后,刷新会找不到页面解决解决方法</h3><ol>
-<li><p>增加nginx 配置</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">server &#123;<br>    ...<br>    location / &#123;<br>        try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span><span class="hljs-regexp">/ /i</span>ndex.html;<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i ) ，如果找不到匹配的文件，则尝试匹配路径加上斜杠 ( uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠 (uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠(uri/)，最后将请求定位到Vue应用的入口文件 (/index.html)。这样可以确保在刷新页面时，Nginx会正确地将请求导向Vue应用。</p>
+                <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。<br>mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1525726?from=15425">https://cloud.tencent.com/developer/article/1525726?from=15425</a></p>
+</blockquote>
+<h2 id="二、数据介绍"><a href="#二、数据介绍" class="headerlink" title="二、数据介绍"></a>二、数据介绍</h2><p><img src="/images/mysql%E6%95%B0%E6%8D%AE.png" srcset="/img/loading.gif" lazyload alt="数据集"></p>
+<p>其中包含字符串，数组和嵌套数组。</p>
+<h2 id="三、查询数据"><a href="#三、查询数据" class="headerlink" title="三、查询数据"></a>三、查询数据</h2><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>json_contains(json_doc,val[,path])</td>
+<td>判断是否包含某个json值</td>
+</tr>
+<tr>
+<td>json_contains_path(json_doc,one_or_all,path[,path]…)</td>
+<td>判断是否有某个路径</td>
+</tr>
+<tr>
+<td>json_extract(json_doc,path[,path])</td>
+<td>提取json值</td>
+</tr>
+<tr>
+<td>json_keys(json_doc[,path])</td>
+<td>提取json中的键值结果为json数组</td>
+</tr>
+<tr>
+<td>json_search(json_doc, one_or_all, search_str[,escape_char[,path]…])</td>
+<td>按给定字符串关键字搜索json，返回匹配的路径</td>
+</tr>
+<tr>
+<td>json_depth(json_doc)</td>
+<td>返回json文档的最大深度</td>
+</tr>
+<tr>
+<td>json_length(json_doc[,path])</td>
+<td>返回json值得类型</td>
+</tr>
+<tr>
+<td>json_valid()</td>
+<td>判断是否为合法json文档</td>
+</tr>
+<tr>
+<td>column-&gt;path json_extract</td>
+<td>简洁写法5.7.9开始支持</td>
+</tr>
+<tr>
+<td>column-&gt;&gt;path json_unquote(column -&gt; path)</td>
+<td>简洁写法5.7.13开始支持相当于 JSON_UNQUOTE(JSON_EXTRACT())</td>
+</tr>
+<tr>
+<td>Json_ARRAY(val)</td>
+<td>用于查询数组中是否包含该值</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>要查询value值为某个的，(查询key为a，value=c的数据。)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;c&#x27;</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>取出json对象中提取指定的值。（json_extract）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> JSON_EXTRACT(text, <span class="hljs-string">&#x27;$.a&#x27;</span>) <span class="hljs-keyword">FROM</span> test2 t ;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql2.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
 </li>
-<li><p>重新加载Nginx配置并重启Nginx服务。<br>整个配置文件和Nginx的位置可能因操作系统和安装方式而有所不同，一般在 Linux 系统下，配置文件路径位于 /etc/nginx/nginx.conf 或 /etc/nginx/sites-available/default。<br>修改配置文件后，要重新加载Nginx配置，可以使用以下命令（需要具有管理员权限）：</p>
+<li><p>查询json，存在某个键值对的和2效果相似 (JSON_CONTAINS)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> test2 <span class="hljs-keyword">WHERE</span> JSON_CONTAINS(`text` , <span class="hljs-string">&#x27;&#123;&quot;a&quot;: &quot;c&quot;&#125;&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql3.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
 </li>
+<li><p>查询json，value 是列表的，列表第零位为1的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span>  text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a[0]&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql4.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
+</li>
+<li><p>查询json， value 是字典列表的，第零位的value为某值的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span>  text <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;$.a[0].hello&#x27;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;word&#x27;</span> ;<br></code></pre></td></tr></table></figure>
+<p><img src="/images/mysql5.png" srcset="/img/loading.gif" lazyload alt="查询结果"></p>
+</li>
+<li><p>查询json, value 中某个值为 word 的（数据格式 [{“type”: “10”, “mobile”: “13545678900”, “countryCode”: “86”}]）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> a <span class="hljs-keyword">where</span> mobile_json<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;$[*].mobile&#x27;</span> <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%135%&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>JsonArray 类型字段的精确查询（ [{“type”: “10”, “mobile”: “13545678900”, “countryCode”: “86”}]）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> a <span class="hljs-keyword">where</span> JSON_CONTAINS(mobile_json,<span class="hljs-built_in">JSON_OBJECT</span>(<span class="hljs-string">&#x27;mobile&#x27;</span>, &quot;13545678900&quot;))<br></code></pre></td></tr></table></figure></li>
+<li><p>查询 数组包含1的，（结构：{“a”: [1, 2, 3, 1]}）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> JSON_CONTAINS(text<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;$.a&#x27;</span>, <span class="hljs-built_in">Json_ARRAY</span>(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure></li>
+<li><p>查询 数组包含1的，（结构： [1, 2, 3, 1]）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test2 t <span class="hljs-keyword">where</span> JSON_CONTAINS(text, <span class="hljs-built_in">Json_ARRAY</span>(<span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、更新数据"><a href="#四、更新数据" class="headerlink" title="四、更新数据"></a>四、更新数据</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>json_array_append(json_doc,path,val[,path,val]…)</td>
+<td>末尾添加数组元素，如果原有值是数值或json对 象，则转成数组后，再添加元素</td>
+</tr>
+<tr>
+<td>json_array_insert(json_doc,path,val[,path,val]…)</td>
+<td>插入数组元素</td>
+</tr>
+<tr>
+<td>json_insert(json_doc,path,val[,path,val]…)</td>
+<td>插入值（插入新值，但不替换已经存在的旧值）</td>
+</tr>
+<tr>
+<td>json_merge(json_doc,json_doc[,json_doc]…)</td>
+<td>合并json数组或对象</td>
+</tr>
+<tr>
+<td>json_remove(json_doc,path[,path]…)</td>
+<td>删除json数据</td>
+</tr>
+<tr>
+<td>json_replace(json_doc,path,val[,path,val]…)</td>
+<td>替换值（只替换已经存在的旧值）</td>
+</tr>
+<tr>
+<td>json_set(json_doc,path,val[,path,val])</td>
+<td>设置值（替换旧值，并插入不存在的新值）</td>
+</tr>
+<tr>
+<td>json_unquote(val)</td>
+<td>去除json字符串的引号，将值转成string类型</td>
+</tr>
+<tr>
+<td>CAST(‘jsonString’ as json)</td>
+<td>可将json字符串转为json对象格式</td>
+</tr>
+</tbody></table>
+<ol>
+<li>新增key或者更新key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_set(text, <span class="hljs-string">&#x27;$.g&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;$.i&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>2.只更新key(key不存在则不管)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_replace(text, <span class="hljs-string">&#x27;$.g&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;$.m&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>更新列表中某个下标的某个key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_replace(text, <span class="hljs-string">&#x27;$.a[0].hello&#x27;</span>, <span class="hljs-string">&#x27;world&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、删除数据"><a href="#五、删除数据" class="headerlink" title="五、删除数据"></a>五、删除数据</h2><ol>
+<li>删除key<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> test2 <span class="hljs-keyword">set</span> text<span class="hljs-operator">=</span>json_remove(text, <span class="hljs-string">&#x27;$.a&#x27;</span>) <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
@@ -316,7 +455,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/nginx-%E9%83%A8%E7%BD%B2vue/" class="category-chain-item">nginx 部署vue</a>
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
   
   
 
@@ -331,9 +470,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/uwsgi/">#uwsgi</a>
-      
-        <a href="/tags/vue/">#vue</a>
+        <a href="/tags/mysql/">#mysql</a>
       
     </div>
   
@@ -345,8 +482,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1. Cookie、session、token</div>
-      <div>https://sweetshance.github.io/2023/11/14/web知识/3.uwsgi部署vue导致页面404/</div>
+      <div>mysql值为json数据的相关操作</div>
+      <div>https://sweetshance.github.io/2023/11/20/mysql/mysql值为json数据的相关操作/</div>
     </div>
     <div class="license-meta">
       
@@ -358,7 +495,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月14日</div>
+          <div>2023年11月20日</div>
         </div>
       
       
@@ -374,9 +511,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/20/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" title="mysql值为json数据的相关操作">
+                      <a href="/2023/11/20/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/" title="celery经常出现worker卡住的情况">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql值为json数据的相关操作</span>
+                        <span class="hidden-mobile">celery经常出现worker卡住的情况</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -384,8 +521,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/" title="两个view在一行显示">
-                        <span class="hidden-mobile">两个view在一行显示</span>
+                      <a href="/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/" title="1. Cookie、session、token">
+                        <span class="hidden-mobile">1. Cookie、session、token</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
