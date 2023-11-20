@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>python字典Dict类型底层原理.md</title>
+    <link href="/2023/11/20/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/"/>
+    <url>/2023/11/20/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/</url>
+    
+    <content type="html"><![CDATA[<h3 id="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"><a href="#在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加" class="headerlink" title="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"></a>在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加</h3><p>在celery的config的文件中增加配置</p><ol><li>如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE = True ，这样可以有效防止死锁 。</li><li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">CELERYD_FORCE</span>=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>celery</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+      <tag>celery</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>1. Cookie、session、token</title>
     <link href="/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/"/>
     <url>/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/</url>
