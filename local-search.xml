@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>自制yum源</title>
+    <link href="/2023/11/24/linux/%E8%87%AA%E5%88%B6yum%E6%BA%90/"/>
+    <url>/2023/11/24/linux/%E8%87%AA%E5%88%B6yum%E6%BA%90/</url>
+    
+    <content type="html"><![CDATA[<ol><li><p>将作为源的iso挂载到系统上<br>mount -o loop /home/jhmk/CentOS-7-x86_64-Everything-1611.iso  /mnt</p></li><li><p>cd /etc/yum.repos.d/<br>mkdir /etc/yum.repos.d/bak<br>mv /etc/yum.repos.d/*.repo bak/</p></li><li><p>创建/etc/yum.repos.d/local_rpm.repo文件<br>[rpm]<br>name=rpm_package<br>baseurl=file:///mnt<br>gpgcheck=0</p></li><li><p>更新<br>yum clean all</p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>yum 源</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>书写excel到io中</title>
     <link href="/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%B9%A6%E5%86%99excel%E5%88%B0io%E4%B8%AD/"/>
     <url>/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%B9%A6%E5%86%99excel%E5%88%B0io%E4%B8%AD/</url>
