@@ -4,6 +4,58 @@
   
   
   <entry>
+    <title>书写excel到io中</title>
+    <link href="/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%B9%A6%E5%86%99excel%E5%88%B0io%E4%B8%AD/"/>
+    <url>/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%B9%A6%E5%86%99excel%E5%88%B0io%E4%B8%AD/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>对于异步下载思路（nginx负载均衡，没有使用文件服务器），将小文件放到redis中然后从redis中取出来下载</p></blockquote><p>实现：先将数据存到 BytesIO 中然后将 BytesIO内容写到redis中，导出接口取出来返回</p><h2 id="获取内容"><a href="#获取内容" class="headerlink" title="获取内容"></a>获取内容</h2><p>bytesIO.getvalue()</p><h3 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h3><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-title">from</span> io <span class="hljs-keyword">import</span> BytesIO, StringIO<br><br><span class="hljs-title">bytesIO</span> = <span class="hljs-type">BytesIO</span>()<br><span class="hljs-title">pd_excel_work</span> = pd.<span class="hljs-type">ExcelWriter</span>(bytesIO)<br><br><span class="hljs-meta"># 保存</span><br><span class="hljs-title">pandas_excel_work</span>.save()<br><span class="hljs-title">pandas_excel_work</span>.close()<br><br></code></pre></td></tr></table></figure><h3 id="xlwt"><a href="#xlwt" class="headerlink" title="xlwt"></a>xlwt</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><br>workBook = <span class="hljs-constructor">Workbook(<span class="hljs-params">encoding</span>=<span class="hljs-params">encoding</span>)</span><br>sheet = workBook.add<span class="hljs-constructor">_sheet(<span class="hljs-params">sheet_name</span>, <span class="hljs-operator">**</span><span class="hljs-params">kwargs</span>)</span><br>bytesIO = <span class="hljs-constructor">BytesIO()</span><br># 将文件流保存到 BytesIo 对象中<br>workbook.save(bytesIO)<br></code></pre></td></tr></table></figure><h3 id="xlsxwriter"><a href="#xlsxwriter" class="headerlink" title="xlsxwriter"></a>xlsxwriter</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">bytesIO </span>= <span class="hljs-keyword">BytesIO()</span><br><span class="hljs-keyword"></span>workbook = xlsxwriter.Workbook(<span class="hljs-keyword">bytesIO)</span><br><span class="hljs-keyword"></span><span class="hljs-comment"># 保存</span><br>workbook.<span class="hljs-keyword">close()</span><br></code></pre></td></tr></table></figure><h3 id="csv"><a href="#csv" class="headerlink" title="csv"></a>csv</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs makefile">stringIO = StringIO()<br><span class="hljs-comment"># 指定想stringIo 中书写信息</span><br>csv_ = csv.writer(stringIO)<br><br><span class="hljs-comment"># 保存</span><br>content_bytes = csv_stringIO_data.getvalue().encode(<span class="hljs-string">&quot;utf-8-sig&quot;</span>)<br><span class="hljs-comment"># 设置到redis中</span><br>redis_conn.r.setex(filename, content_bytes, 5 * 60)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>pandas</tag>
+      
+      <tag>xlwt</tag>
+      
+      <tag>xlsxwriter</tag>
+      
+      <tag>csv</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>pandas合并excel单元格</title>
+    <link href="/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/pandas%E5%90%88%E5%B9%B6excel%E5%8D%95%E5%85%83%E6%A0%BC/"/>
+    <url>/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/pandas%E5%90%88%E5%B9%B6excel%E5%8D%95%E5%85%83%E6%A0%BC/</url>
+    
+    <content type="html"><![CDATA[<h2 id="pandas-合并单元格"><a href="#pandas-合并单元格" class="headerlink" title="pandas 合并单元格"></a>pandas 合并单元格</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建一个样本Dataframe</span><br>df = pd.DataFrame(&#123;<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-string">&#x27;baz&#x27;</span>], <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-string">&#x27;qux&#x27;</span>, <span class="hljs-string">&#x27;quux&#x27;</span>, <span class="hljs-string">&#x27;quuz&#x27;</span>], <span class="hljs-string">&#x27;C&#x27;</span>: [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>]&#125;)<br><br><span class="hljs-comment"># 合并任意单元格</span><br>writer = pd.ExcelWriter(<span class="hljs-string">&#x27;merged_cells_any.xlsx&#x27;</span>, engine=<span class="hljs-string">&#x27;xlsxwriter&#x27;</span>)<br>df.to_excel(writer, sheet_name=<span class="hljs-string">&#x27;Sheet1&#x27;</span>, index=<span class="hljs-literal">False</span>)<br>workbook = writer.book<br>worksheet = writer.sheets[<span class="hljs-string">&#x27;Sheet1&#x27;</span>]<br>worksheet.set_column(<span class="hljs-string">&#x27;A:C&#x27;</span>, <span class="hljs-number">15</span>)<br><br><span class="hljs-comment"># 合并任意单元格</span><br>worksheet.merge_range(<span class="hljs-string">&#x27;A1:B2&#x27;</span>, <span class="hljs-string">&#x27;Foo Bar&#x27;</span>, workbook.add_format(&#123;<span class="hljs-string">&#x27;align&#x27;</span>: <span class="hljs-string">&#x27;center&#x27;</span>, <span class="hljs-string">&#x27;valign&#x27;</span>: <span class="hljs-string">&#x27;vcenter&#x27;</span>, <span class="hljs-string">&#x27;bg_color&#x27;</span>: <span class="hljs-string">&#x27;#DDEBF7&#x27;</span>&#125;))<br>worksheet.merge_range(<span class="hljs-string">&#x27;C2:C3&#x27;</span>, <span class="hljs-string">&#x27;C2-C3&#x27;</span>, workbook.add_format(&#123;<span class="hljs-string">&#x27;align&#x27;</span>: <span class="hljs-string">&#x27;center&#x27;</span>, <span class="hljs-string">&#x27;valign&#x27;</span>: <span class="hljs-string">&#x27;vcenter&#x27;</span>, <span class="hljs-string">&#x27;bg_color&#x27;</span>: <span class="hljs-string">&#x27;#DDEBF7&#x27;</span>&#125;))<br>writer.save()<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+      <category>pandas</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>pandas</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mysql备份与恢复</title>
     <link href="/2023/11/20/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/"/>
     <url>/2023/11/20/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/</url>
@@ -19,6 +71,8 @@
     
     
     <tags>
+      
+      <tag>mysql</tag>
       
       <tag>备份恢复</tag>
       
