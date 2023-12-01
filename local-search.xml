@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>uwsgi配置</title>
+    <link href="/2023/12/01/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/uwsgi%E9%85%8D%E7%BD%AE/"/>
+    <url>/2023/12/01/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/uwsgi%E9%85%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="uwsgi-配置"><a href="#uwsgi-配置" class="headerlink" title="uwsgi 配置"></a>uwsgi 配置</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># uwsig使用配置文件启动</span><br><span class="hljs-section">[uwsgi]</span><br><span class="hljs-comment"># 指定IP端口</span><br><span class="hljs-comment"># socket=0:8641</span><br><span class="hljs-attr">http</span>=<span class="hljs-number">0</span>:<span class="hljs-number">8641</span><br><span class="hljs-comment"># 项目目录</span><br><span class="hljs-attr">chdir</span>=../<br><span class="hljs-comment"># wsgi.py位置</span><br><span class="hljs-attr">wsgi-file</span>=MedicalRecordQuality/wsgi.py<br><span class="hljs-comment"># 进程个数</span><br><span class="hljs-attr">workers</span>=<span class="hljs-number">6</span><br><span class="hljs-attr">reload-mercy</span>=<span class="hljs-number">1</span><br><span class="hljs-attr">worker-reload-mercy</span>=<span class="hljs-number">1</span><br><span class="hljs-comment">#配置每个进程的线程数</span><br><span class="hljs-comment">#threads=2</span><br><span class="hljs-comment"># 进程pid文件名</span><br><span class="hljs-attr">pidfile</span>=uwsgi.pid<br><span class="hljs-comment">#设置接受字段的大小</span><br><span class="hljs-attr">buffer-size</span>=<span class="hljs-number">655350</span><br><span class="hljs-comment"># 启用主进程</span><br><span class="hljs-attr">master</span>=<span class="hljs-literal">true</span><br><span class="hljs-comment"># 自动移除unix Socket和pid文件当服务停止的时候</span><br><span class="hljs-attr">vacuum</span>=<span class="hljs-literal">true</span><br><span class="hljs-comment"># 序列化接受的内容，如果可能的话</span><br><span class="hljs-attr">thunder-lock</span>=<span class="hljs-literal">true</span><br><span class="hljs-comment"># 启用线程</span><br><span class="hljs-attr">enable-threads</span>=<span class="hljs-literal">true</span><br><span class="hljs-comment"># 设置自中断时间</span><br><span class="hljs-comment"># harakiri=5</span><br><span class="hljs-comment"># 设置缓冲</span><br><span class="hljs-attr">post-buffering</span>=<span class="hljs-number">4096</span><br><span class="hljs-comment"># 设置日志目录</span><br><span class="hljs-attr">daemonize</span>=uwsgi.log<br><span class="hljs-comment"># 日志路径</span><br><span class="hljs-comment"># logPath=/home/dev/qc/medicalrecordqualityserver/log</span><br><span class="hljs-comment"># log-reopen=true</span><br><span class="hljs-comment"># 请求层面，后台服务不会被断开，但时间比较准确</span><br><span class="hljs-attr">http-timeout</span>=<span class="hljs-number">10</span><br><span class="hljs-comment"># 客户端IP</span><br><span class="hljs-attr">log-x-forwarded-for</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">listen</span>=<span class="hljs-number">128</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>uwsgi</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>自制yum源</title>
     <link href="/2023/11/24/linux/%E8%87%AA%E5%88%B6yum%E6%BA%90/"/>
     <url>/2023/11/24/linux/%E8%87%AA%E5%88%B6yum%E6%BA%90/</url>
