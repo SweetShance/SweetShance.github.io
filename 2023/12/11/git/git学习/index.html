@@ -24,7 +24,7 @@
 <meta property="og:description" content="stash  当想记录工作目录和索引的当前状态，但又想返回一个干净的工作目录时使用，可以保存本地修改，并恢复工作目录以匹配头部提交。 应用场景  某一天你正在 feature 分支开发新需求，突然产品经理跑过来说线上有bug，必须马上修复。而此时你的功能开发到一半，于是你急忙想切到 master 分支，因为当前有文件更改了，需要提交commit保持工作区干净才能切分支。由于情况紧急，  commi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-11T02:16:01.000Z">
-<meta property="article:modified_time" content="2023-12-11T02:47:57.885Z">
+<meta property="article:modified_time" content="2023-12-11T02:52:00.168Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="git stash">
 <meta property="article:tag" content="git reset">
@@ -307,11 +307,10 @@
 <p>应用第二条</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">$ git stash apply <span class="hljs-symbol">stash@</span>&#123;<span class="hljs-number">1</span>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="reset-–soft"><a href="#reset-–soft" class="headerlink" title="reset –soft"></a>reset –soft</h2><p>回退你已提交的 commit，并将 commit 的修改内容放回到暂存区。<br>一般我们在使用 reset 命令时，git reset –hard会被提及的比较多，它能让 commit 记录强制回溯到某一个节点。而git reset –soft的作用正如其名，–soft(柔软的) 除了回溯节点外，还会保留节点的修改内容。</p>
-<h3 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h3><ol>
-<li>有时候手滑不小心把不该提交的内容 commit 了，这时想改回来，只能再 commit 一次，又多一条“黑历史”。</li>
-<li>规范些的团队，一般对于 commit 的内容要求职责明确，颗粒度要细，便于后续出现问题排查。本来属于两块不同功能的修改，一起 commit 上去，这种就属于不规范。这次恰好又手滑了，一次性 commit 上去。<h3 id="命令使用-1"><a href="#命令使用-1" class="headerlink" title="命令使用"></a>命令使用</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"># 恢复最近一次 <span class="hljs-keyword">commit</span><br>git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--soft HEAD^</span><br></code></pre></td></tr></table></figure>
-reset –soft相当于后悔药，给你重新改过的机会。对于上面的场景，就可以再次修改重新提交，保持干净的 commit 记录。</li>
-</ol>
+<h3 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h3><p>有时候手滑不小心把不该提交的内容 commit 了，这时想改回来，只能再 commit 一次，又多一条“黑历史”。</p>
+<p>规范些的团队，一般对于 commit 的内容要求职责明确，颗粒度要细，便于后续出现问题排查。本来属于两块不同功能的修改，一起 commit 上去，这种就属于不规范。这次恰好又手滑了，一次性 commit 上去。</p>
+<h3 id="命令使用-1"><a href="#命令使用-1" class="headerlink" title="命令使用"></a>命令使用</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"># 恢复最近一次 <span class="hljs-keyword">commit</span><br>git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--soft HEAD^</span><br></code></pre></td></tr></table></figure>
+<p>reset –soft相当于后悔药，给你重新改过的机会。对于上面的场景，就可以再次修改重新提交，保持干净的 commit 记录。</p>
 <p>以上说的是还未 push 的commit。对于已经 push 的 commit，也可以使用该命令，不过再次 push 时，由于远程分支和本地分支有差异，需要强制推送git push -f来覆盖被 reset 的 commit。</p>
 <p>还有一点需要注意，在reset –soft指定 commit 号时，会将该 commit 到最近一次 commit 的所有修改内容全部恢复，而不是只针对该 commit。</p>
 <p>举个例子：</p>
