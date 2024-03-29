@@ -16,24 +16,23 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="示例12345678910proxy &#x3D; &amp;#x27;115.203.28.25:16584&amp;#x27;proxies &#x3D; &amp;#123;    &quot;http&quot;: &quot;http:&#x2F;&#x2F;%(proxy)s&#x2F;&quot; % &amp;#123;&amp;#x27;proxy&amp;#x27;: proxy&amp;#125;,    &quot;https&quot;: &quot;http:&#x2F;&#x2F;%(pro">
+    <meta name="description" content="操作系统进程和线程之间有什么区别12345671. 进程是运行中的程序，线程是进程内部的一个执行序列2. 进程是资源分配的单元，线程是执行单元3. 进程间切换代价大，线程间切换代价小4. 进程拥有资源多，线程拥有资源少5. 多个线程共享进程的资源延伸：进程为啥切换代价比线程大？ 参考资料:https:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2013&#x2F;04&#x2F;processes_and_t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="requests使用代理">
-<meta property="og:url" content="https://sweetshance.github.io/2024/01/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/requests%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="1.操作系统">
+<meta property="og:url" content="https://sweetshance.github.io/2024/03/22/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/1-python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="示例12345678910proxy &#x3D; &amp;#x27;115.203.28.25:16584&amp;#x27;proxies &#x3D; &amp;#123;    &quot;http&quot;: &quot;http:&#x2F;&#x2F;%(proxy)s&#x2F;&quot; % &amp;#123;&amp;#x27;proxy&amp;#x27;: proxy&amp;#125;,    &quot;https&quot;: &quot;http:&#x2F;&#x2F;%(pro">
+<meta property="og:description" content="操作系统进程和线程之间有什么区别12345671. 进程是运行中的程序，线程是进程内部的一个执行序列2. 进程是资源分配的单元，线程是执行单元3. 进程间切换代价大，线程间切换代价小4. 进程拥有资源多，线程拥有资源少5. 多个线程共享进程的资源延伸：进程为啥切换代价比线程大？ 参考资料:https:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2013&#x2F;04&#x2F;processes_and_t">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-19T08:24:41.000Z">
-<meta property="article:modified_time" content="2024-01-19T08:35:17.815Z">
+<meta property="article:published_time" content="2024-03-22T08:23:54.000Z">
+<meta property="article:modified_time" content="2024-03-28T10:15:08.655Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="request、代理">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>requests使用代理 - ShanCe的博客</title>
+  <title>1.操作系统 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="requests使用代理"></span>
+            <span id="subtitle" data-typed-text="1.操作系统"></span>
           
         </div>
 
@@ -215,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-19 16:24" pubdate>
-          2024年1月19日 下午
+        <time datetime="2024-03-22 16:23" pubdate>
+          2024年3月22日 下午
         </time>
       </span>
     
@@ -227,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          654 字
+          2.4k 字
         
       </span>
     
@@ -238,7 +237,7 @@
         
         
         
-          6 分钟
+          21 分钟
         
       </span>
     
@@ -284,20 +283,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">requests使用代理</h1>
+            <h1 style="display: none">1.操作系统</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">proxy = <span class="hljs-string">&#x27;115.203.28.25:16584&#x27;</span><br>proxies = &#123;<br>    <span class="hljs-string">&quot;http&quot;</span>: <span class="hljs-string">&quot;http://%(proxy)s/&quot;</span> % &#123;<span class="hljs-string">&#x27;proxy&#x27;</span>: proxy&#125;,<br>    <span class="hljs-string">&quot;https&quot;</span>: <span class="hljs-string">&quot;http://%(proxy)s/&quot;</span> % &#123;<span class="hljs-string">&#x27;proxy&#x27;</span>: proxy&#125;<br>&#125;<br><br><span class="hljs-comment"># 这个地址可以用来检测请求的IP</span><br>response = requests.get(url=<span class="hljs-string">&quot;http://httpbin.org/get&quot;</span>, proxies=proxies)<br><span class="hljs-built_in">print</span>(r.status_code)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
-
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li>proxies 格式可以写为 {“http”: “ip:port”, “https”: “ip:port”} 不加 http:// </li>
-<li>如果使用 http 和 https报错则有可能不支持 https 去掉只写 http 就行<h3 id="使用了代理后台ip没有变"><a href="#使用了代理后台ip没有变" class="headerlink" title="使用了代理后台ip没有变"></a>使用了代理后台ip没有变</h3></li>
-<li>ip失效了</li>
-<li>服务除了监测请求ip还判断了请求头需要在请求头增加<br>headers = {<br> “X-Forwarded-For”: “182.34.22.189:9999”,<br> “X-Real-IP”: “117.69.236.166:8089”<br>}<br>带上请求头去访问</li>
+                <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="进程和线程之间有什么区别"><a href="#进程和线程之间有什么区别" class="headerlink" title="进程和线程之间有什么区别"></a>进程和线程之间有什么区别</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 进程是运行中的程序，线程是进程内部的一个执行序列<br><span class="hljs-bullet">2.</span> 进程是资源分配的单元，线程是执行单元<br><span class="hljs-bullet">3.</span> 进程间切换代价大，线程间切换代价小<br><span class="hljs-bullet">4.</span> 进程拥有资源多，线程拥有资源少<br><span class="hljs-bullet">5.</span> 多个线程共享进程的资源<br><br>延伸：进程为啥切换代价比线程大？<br></code></pre></td></tr></table></figure>
+<p>参考资料:<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html">https://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html</a></p>
+<h3 id="进程间有哪些通信方式"><a href="#进程间有哪些通信方式" class="headerlink" title="进程间有哪些通信方式"></a>进程间有哪些通信方式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 管道(pipe): 管道是一种半双工的通信方式，数据只能单向流动，而且只能再具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。<br><span class="hljs-bullet">2.</span> 消息队列通信： 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。<br><span class="hljs-bullet">3.</span> 信号量： 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及统一进程内不同线程之间的同步手段。<br><span class="hljs-bullet">4.</span> 信号：新年好是一种比较复杂的通讯方式，用于通知接收进程某个事件已经发生。<br><span class="hljs-bullet">5.</span> 共享内存通信：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问，共享内存是最快的IPC方式，他是针对其他进程间通讯方式运行效率低儿专门设计的。它往往与其他通讯机制，如信号量 配合使用，来实现进程间的同步和通信。<br><span class="hljs-bullet">6.</span> socket: 套接口也是一种进程间通讯机制，与其他通讯机制不同的是，它可用于不同机器间的进程通讯。<br></code></pre></td></tr></table></figure>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://blog.csdn.net/violet_echo_0908/article/details/51201278">https://blog.csdn.net/violet_echo_0908/article/details/51201278</a></p>
+<h3 id="简述-socket-中-select-与epoll的使用场景以及区别？"><a href="#简述-socket-中-select-与epoll的使用场景以及区别？" class="headerlink" title="简述 socket 中 select 与epoll的使用场景以及区别？"></a>简述 socket 中 select 与epoll的使用场景以及区别？</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ada">两个网络某型本质都是IO多路复用的<br><br><span class="hljs-keyword">select</span> 需要不断的去轮询数据，时间复杂度为o(n),性能比较低。并且他的文件描述符也是有限的。像常见的服务器软件apache用的就是这种网络模型。<br><br>而epoll则不一样，他不会去轮询，而是会注册一个监听事件，每当数据有变化的时候，就会通知。像现在的nginx底层网络模型就是epoll<br><br><br>注意：在连接数少并且连接数十分活跃的情况下，<span class="hljs-keyword">select</span>和poll的性能可能比epoll好，毕竟epoll的通知机制需要很多函数的回调。<br><br></code></pre></td></tr></table></figure>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/aspirant/p/9166944.html">https://www.cnblogs.com/aspirant/p/9166944.html</a></p>
+<h4 id="epoll-的水平出发和边缘触发有什么不同。"><a href="#epoll-的水平出发和边缘触发有什么不同。" class="headerlink" title="epoll 的水平出发和边缘触发有什么不同。"></a>epoll 的水平出发和边缘触发有什么不同。</h4><p><strong>水平触发(Level_triggered):</strong> 当被监控的文件描述符上有可读写事件发生时，epoll_wait() 会通知处理程序去读写。如果这次没有把数据一次性全部读写完（如读写缓冲区太小），那么下次调用 epoll_wait()时，他还会通知你在上一次没读写完的文件描述，继续读写，如果你一直不去读写，会一直通知。如果系统中有大量你不需要读写的就绪文件描述符，而他们每次都会返回，这样会大大降低处理程序检索自己关心的就绪文件按描述符的效率。</p>
+<p><strong>边缘触发(Edge_triggered):</strong> 当被监控的文件描述符上有可读写事件发生时，epool_wait()会通知处理程序去读写阿。如果这次没有把数据全部读写完，那下次调用时不会通知你，直到该文件描述符上出现第二次可读写事件才会通知。简单讲：一次读写事件只会通知一次。这种模式比水平触发效率高。</p>
+<h3 id="Linux-进程调度中有哪些常见算法以及策略？"><a href="#Linux-进程调度中有哪些常见算法以及策略？" class="headerlink" title="Linux 进程调度中有哪些常见算法以及策略？"></a>Linux 进程调度中有哪些常见算法以及策略？</h3><ol>
+<li>先来先服务和短作业(进程)优先调度算法</li>
+<li>高优先权优先调度算法<br> 非抢占式优先算法<br> 抢占式优先算法</li>
 </ol>
-<h3 id="免费代理获取网站进行测试"><a href="#免费代理获取网站进行测试" class="headerlink" title="免费代理获取网站进行测试"></a>免费代理获取网站进行测试</h3><p><a target="_blank" rel="noopener" href="https://www.89ip.cn/">https://www.89ip.cn/</a><br><a target="_blank" rel="noopener" href="https://www.zdaye.com/">https://www.zdaye.com/</a><br>部分ip可能失效</p>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://ww.cnblogs.com/lyl-312/p/5578945.html">https://ww.cnblogs.com/lyl-312/p/5578945.html</a></p>
+<h3 id="操作系统是如何申请以及管理内存的？（内存的工作原理）"><a href="#操作系统是如何申请以及管理内存的？（内存的工作原理）" class="headerlink" title="操作系统是如何申请以及管理内存的？（内存的工作原理）"></a>操作系统是如何申请以及管理内存的？（内存的工作原理）</h3><p>虚拟内存： 现有内存无法满足大进程的内存要求<br><strong>覆盖:</strong> 在早期使用覆盖来解决这个问题。将整个程序分成多个块，先将0块加入内存，执行完后将1块加入内存，依次往复。最大问题是需要程序员去把程序进行分块。<br><strong>虚拟内存:</strong> 每个进程拥有独立的逻辑地址空间，内存被分为大小相等的多个块，称为页，每个页都是一段连续的地址，对于进程来看，逻辑上貌似有很多内存空间，其中一部分对应物理内存上的一块（称为页框，通常给页和页框大小相等），还有一些没有加载，在内存中的对应的硬盘上</p>
+<h3 id="简述Linux-系统态与用户态，什么时候会进入系统态"><a href="#简述Linux-系统态与用户态，什么时候会进入系统态" class="headerlink" title="简述Linux 系统态与用户态，什么时候会进入系统态"></a>简述Linux 系统态与用户态，什么时候会进入系统态</h3><ol>
+<li>系统调用</li>
+<li>发生异常，当CPU在执行运行在用户态的程序的时候，突然发生某些预先不可知的一场事件，这个时候会触发从当前用户态执行的进程转向内核态执行相关的异常事件，典型的如缺页异常</li>
+<li>外围设备的中断：当外围设备完成用户的请求操作后，会像CPU发出中断信号，此时，CPU就会暂停执行下一条即将要执行的指令，转而去执行中断信号对应的处理程序，如果先前执行的指令是在用户态下，则自然会从用户态到内核态的状态</li>
+</ol>
+<h3 id="简述LRU算法及其实现方式"><a href="#简述LRU算法及其实现方式" class="headerlink" title="简述LRU算法及其实现方式"></a>简述LRU算法及其实现方式</h3><p><strong>LRU(least recently user),最近最久未使用法：</strong> 最近使用的页面数据会在未来一段时期内仍然被使用，已经很久没有使用的页面很有可能在未来较长的一段事件内仍然不会被使用。主要指标是使用时间，附加指标是使用的次数，基于这个思想，会存在一种缓存淘汰机制。<br>利用双向链表实现。</p>
+<h3 id="线程通讯"><a href="#线程通讯" class="headerlink" title="线程通讯"></a>线程通讯</h3><p>共享变量、共享内存、共享数据库、消息队列</p>
+<h3 id="同步、异步，阻塞、非阻塞"><a href="#同步、异步，阻塞、非阻塞" class="headerlink" title="同步、异步，阻塞、非阻塞"></a>同步、异步，阻塞、非阻塞</h3><p>只有同步才有阻塞非阻塞</p>
+<p>同步、异步： 重点关注方式<br>阻塞、非阻塞：中带你关注结果</p>
+<p>同步：当请求后，等待，直到结果返回<br>异步： 执行一个操作后，可以去执行其他操作，等待通知在会俩执行刚才没执行完的操作<br>阻塞：进程给CPU传达一个任务，一直等待CPU处理完成，然后才执行后面的操作。<br>非阻塞：进程给CPU传达任务后，继续后续操作，隔断时间再来询问之前的操作是否完成（轮询）</p>
 
                 
               </div>
@@ -306,34 +320,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/request%E3%80%81%E4%BB%A3%E7%90%86/">#request、代理</a>
-      
-    </div>
   
 </div>
 
@@ -343,8 +329,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>requests使用代理</div>
-      <div>https://sweetshance.github.io/2024/01/19/python相关知识点/requests使用代理/</div>
+      <div>1.操作系统</div>
+      <div>https://sweetshance.github.io/2024/03/22/python后端面试/1-python后端面试/</div>
     </div>
     <div class="license-meta">
       
@@ -356,7 +342,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月19日</div>
+          <div>2024年3月22日</div>
         </div>
       
       
@@ -372,9 +358,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/22/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/1-python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/" title="1.操作系统">
+                      <a href="/2024/03/29/redis/%E5%86%85%E5%AD%98%E8%B6%85%E5%87%BA/" title="Redis报错“ OOM command not allowed when used memory &gt; &#39;maxmemory&#39; ”">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.操作系统</span>
+                        <span class="hidden-mobile">Redis报错“ OOM command not allowed when used memory &gt; &#39;maxmemory&#39; ”</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -382,8 +368,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/3-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="3.二叉树的序列化和反序列化">
-                        <span class="hidden-mobile">3.二叉树的序列化和反序列化</span>
+                      <a href="/2024/01/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/requests%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/" title="requests使用代理">
+                        <span class="hidden-mobile">requests使用代理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
