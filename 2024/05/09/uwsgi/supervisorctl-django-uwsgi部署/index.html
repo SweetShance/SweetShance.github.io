@@ -24,7 +24,7 @@
 <meta property="og:description" content="supervisor简介 supervisor可以监控和管理多个进程，确保他们持续运行，并能实时监控，不需要像以往一样需要使用systemctl去查看该服务的状态。 supervisor可以提高服务的可靠性和稳定性，能让服务出现意外退出时，自动重启。 supervisor 提供了一个简单的管理界面和命令行工具，使得管理和监控进程变得方便易用。  supervisor简的主要组成部分 supervi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-09T07:30:51.000Z">
-<meta property="article:modified_time" content="2024-05-09T10:32:26.613Z">
+<meta property="article:modified_time" content="2024-05-10T03:33:47.591Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="django部署">
 <meta name="twitter:card" content="summary_large_image">
@@ -344,7 +344,7 @@
 <li><p>重新读取配置文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># reload 完项目自动启动</span><br>supervisorctl update<br>supervisorctl reload  <br></code></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="supervisior-常用命令"><a href="#supervisior-常用命令" class="headerlink" title="supervisior 常用命令"></a>supervisior 常用命令</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">supervisord   -c                        <span class="hljs-regexp">//</span> 启动supervisor 这个最好指明配置文件<br>supervisorctl status                    <span class="hljs-regexp">//</span>查看所有进程的状态<br>supervisorctl stop test:test_00         <span class="hljs-regexp">//</span>停止test:test_00<br>supervisorctl start test:test_00        <span class="hljs-regexp">//</span>启动test:test_00<br>supervisorctl start all                 <span class="hljs-regexp">//</span>启动所有<br>supervisorctl restart test:test_00      <span class="hljs-regexp">//</span>重启test:test_00<br>supervisorctl update                    <span class="hljs-regexp">//</span>配置文件修改后使用该命令加载新的配置<br>supervisorctl reload                    <span class="hljs-regexp">//</span>重新启动配置中的所有程序<br><br>systemctl restart supervisord <span class="hljs-regexp">//</span>重启supervisor<br></code></pre></td></tr></table></figure>
+<h4 id="supervisior-常用命令"><a href="#supervisior-常用命令" class="headerlink" title="supervisior 常用命令"></a>supervisior 常用命令</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">supervisord                             <span class="hljs-regexp">//</span> 启动supervisor 这个最好使用 -c  指明配置文件<br>supervisorctl status                    <span class="hljs-regexp">//</span>查看所有进程的状态<br>supervisorctl stop test:test_00         <span class="hljs-regexp">//</span>停止test:test_00<br>supervisorctl start test:test_00        <span class="hljs-regexp">//</span>启动test:test_00<br>supervisorctl start all                 <span class="hljs-regexp">//</span>启动所有<br>supervisorctl restart test:test_00      <span class="hljs-regexp">//</span>重启test:test_00<br>supervisorctl update                    <span class="hljs-regexp">//</span>配置文件修改后使用该命令加载新的配置<br>supervisorctl reload                    <span class="hljs-regexp">//</span>重新启动配置中的所有程序<br><br>systemctl restart supervisord <span class="hljs-regexp">//</span>重启supervisor<br></code></pre></td></tr></table></figure>
 <p>可以像上边指明 配置文件，也可以不指明</p>
 
                 
@@ -433,6 +433,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/05/10/django/django%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A0%81/" title="django初始化数据库编码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">django初始化数据库编码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
