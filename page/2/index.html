@@ -226,6 +226,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/12/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/3-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          3.二叉树的序列化和反序列化
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/3-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+        <div>
+          解释：一棵树在运行时是在内存中的，假如程序中断这颗树就不存在了。如何把这个树备份和恢复，这个过程就是序列化（备份成字符串结构存到硬盘中）和反序列化（还原到内存中） 思路将一个树的先序遍历记录下来，其中叶子节点指向的null 也需要记录，表示一个结束符。然后使用代码进行复原。例如上图的：”1,2,4,null,null,5,null,null,3,6,null,null,7,null,null” 实
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-26 15:05" pubdate>
+              2023-12-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="category-chain-item">算法学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E3%80%81%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">#二叉树、二叉树序列化和反序列化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/12/25/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E7%9A%84logging%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_self">
           python的logging实现多进程安全
         </a>
@@ -734,71 +795,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/pandas/">#pandas</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/11/20/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_self">
-          mysql备份与恢复
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/20/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_self">
-        <div>
-          逻辑备份使用 mysqldump 实现简介: 在mysqldump 命令执行的时候，实际上是将数据库，分成一个文本文件，文件中包含相关表结构的 创建语句和数据的插入语句，数据恢复时就是执行这些语句 1.备份数据库1.1 备份一个数据库1mysqldump –u user –h host –p 数据库的名称 &gt; 备份文件名称 .sql 备注：导出部分表数据直接 在数据库名称后加表名就行 1.2
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-11-20 16:03" pubdate>
-              2023-11-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">#mysql</a>
-            
-              <a href="/tags/%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/">#备份恢复</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">#数据迁移跨服务器</a>
             
           </div>
         
