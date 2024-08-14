@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>贪心算法</title>
+    <link href="/2024/08/14/%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
+    <url>/2024/08/14/%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><ol><li>局部最优解</li><li>难点在于证明局部最公里的标准可以得到全局最优解</li><li>对于贪心算法的学习主要以增加阅历和经验为主（因为很多情况贪心不是最优解）</li></ol><h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>给定一个有字符串组成的数组，必须把所有的字符串拼接起来，返回所有可能的拼接结果，字典序最小的结果<br>注：<br>   字典序：字母依次比较 a &lt; abc &lt; bcd &lt; bcda</p><h2 id="贪心算法思路分析"><a href="#贪心算法思路分析" class="headerlink" title="贪心算法思路分析"></a>贪心算法思路分析</h2><h3 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h3><ol><li>每次都找字典序列码最小的值，依次拼到后边<br>但是会有问题需要考虑例如：<br>【”b”, “ba”】<br>b 的字典序&lt; ba 但是 拼接 bba &gt; bab<h3 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h3>每次比较拼接后的字典序最小<br>bab &lt; bba 取 bab</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>对数器</title>
+    <link href="/2024/08/14/%E5%88%B7%E9%A2%98/%E5%AF%B9%E6%95%B0%E5%99%A8/"/>
+    <url>/2024/08/14/%E5%88%B7%E9%A2%98/%E5%AF%B9%E6%95%B0%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>hexo博客换电脑迁移</title>
     <link href="/2024/08/14/%E5%88%86%E4%BA%AB/hexo%E5%8D%9A%E5%AE%A2%E6%8D%A2%E7%94%B5%E8%84%91%E8%BF%81%E7%A7%BB/"/>
     <url>/2024/08/14/%E5%88%86%E4%BA%AB/hexo%E5%8D%9A%E5%AE%A2%E6%8D%A2%E7%94%B5%E8%84%91%E8%BF%81%E7%A7%BB/</url>
