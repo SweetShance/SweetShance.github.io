@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ShanCe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="逻辑备份使用 mysqldump 实现简介: 在mysqldump 命令执行的时候，实际上是将数据库，分成一个文本文件，文件中包含相关表结构的 创建语句和数据的插入语句，数据恢复时就是执行这些语句 1.备份数据库1.1 备份一个数据库1mysqldump –u user –h host –p 数据库的名称 &gt; 备份文件名称 .sql 备注：导出部分表数据直接 在数据库名称后加表名就行 1.2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql备份与恢复">
+<meta property="og:url" content="https://sweetshance.github.io/2023/11/20/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/index.html">
+<meta property="og:site_name" content="ShanCe的博客">
+<meta property="og:description" content="逻辑备份使用 mysqldump 实现简介: 在mysqldump 命令执行的时候，实际上是将数据库，分成一个文本文件，文件中包含相关表结构的 创建语句和数据的插入语句，数据恢复时就是执行这些语句 1.备份数据库1.1 备份一个数据库1mysqldump –u user –h host –p 数据库的名称 &gt; 备份文件名称 .sql 备注：导出部分表数据直接 在数据库名称后加表名就行 1.2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-20T08:03:28.000Z">
+<meta property="article:modified_time" content="2024-08-13T15:08:43.773Z">
+<meta property="article:author" content="ShanCe">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="备份恢复">
+<meta property="article:tag" content="数据迁移跨服务器">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>mysql备份与恢复 - ShanCe的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sweetshance.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ShanCe</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="mysql备份与恢复"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        ShanCe
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-20 16:03" pubdate>
+          2023年11月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql备份与恢复</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="逻辑备份使用-mysqldump-实现"><a href="#逻辑备份使用-mysqldump-实现" class="headerlink" title="逻辑备份使用 mysqldump 实现"></a>逻辑备份使用 mysqldump 实现</h2><p>简介: 在mysqldump 命令执行的时候，实际上是将数据库，分成一个文本文件，文件中包含相关表结构的 <code>创建语句</code>和数据的<code>插入语句</code>，数据恢复时就是执行这些语句</p>
+<h3 id="1-备份数据库"><a href="#1-备份数据库" class="headerlink" title="1.备份数据库"></a>1.备份数据库</h3><h4 id="1-1-备份一个数据库"><a href="#1-1-备份一个数据库" class="headerlink" title="1.1 备份一个数据库"></a>1.1 备份一个数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump –u user –h host –p 数据库的名称 &gt; 备份文件名称 .sql</span><br></pre></td></tr></table></figure>
+<p>备注：导出部分表数据直接 在数据库名称后加表名就行</p>
+<h4 id="1-2-备份一个表的部分数据"><a href="#1-2-备份一个表的部分数据" class="headerlink" title="1.2 备份一个表的部分数据"></a>1.2 备份一个表的部分数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p atguigu student --where = &quot;id &lt; 10 &quot; &gt; student_part_id10_low_bak .sql</span><br></pre></td></tr></table></figure>
+<p>备注： 备份atguigu，表student id &lt; 10 的数据</p>
+<h4 id="1-3-排除某些表进行恢复"><a href="#1-3-排除某些表进行恢复" class="headerlink" title="1.3 排除某些表进行恢复"></a>1.3 排除某些表进行恢复</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p atguigu --ignore-table=atguigu.student &gt; no_stu_bak .sql</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-备份过程中包含存储过程、函数、事件"><a href="#1-4-备份过程中包含存储过程、函数、事件" class="headerlink" title="1.4 备份过程中包含存储过程、函数、事件"></a>1.4 备份过程中包含存储过程、函数、事件</h4><p>mysqldump 备份默认是不包含存储过程，自定义函数及事件的。可以使用 – routines 或 - R 选项来备份存储过程及函数，使用 – events 或 - E 参数来备份事件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p -R -E -- databases atguigu &gt; fun_atguigu_bak .sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-恢复数据"><a href="#2-恢复数据" class="headerlink" title="2. 恢复数据"></a>2. 恢复数据</h3><h4 id="2-1-单库备份中恢复单库"><a href="#2-1-单库备份中恢复单库" class="headerlink" title="2.1 单库备份中恢复单库"></a>2.1 单库备份中恢复单库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p atguigu4&lt; atguigu.sql</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-全库备份中恢复全库"><a href="#2-2-全库备份中恢复全库" class="headerlink" title="2.2 全库备份中恢复全库"></a>2.2 全库备份中恢复全库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql –u root –p &lt; all.sql</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-从全库备份中恢复单库"><a href="#2-3-从全库备份中恢复单库" class="headerlink" title="2.3 从全库备份中恢复单库"></a>2.3 从全库备份中恢复单库</h4><p>将单个库的数据从全库中文件中分离出来，放到一个单独的文件中，在使用单独的文件进行恢复</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n &#x27;/^-- Current Database: `atguigu`/,/^-- Current Database: `/p&#x27; all_database.sql &gt; atguigu.sql</span><br><span class="line">分离完成后在进行单库恢复</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-从单库备份中恢复单表"><a href="#2-4-从单库备份中恢复单表" class="headerlink" title="2.4 从单库备份中恢复单表"></a>2.4 从单库备份中恢复单表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 先分离部分表 </span><br><span class="line">grep &quot;insert into `class`&quot; atguigu.sql &gt; class_data.sql</span><br><span class="line"># 在数据库中进行恢复(连接数据库的时候在，class_data.sql 同级目录连接), 根据需求 删除多余的语句，只留需要的sql语句</span><br><span class="line">use atguigu;</span><br><span class="line">mysql&gt; source class_structure.sql ;</span><br><span class="line">Query OK, 0 rows affected, 1 warning ( 0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h4 id="1-复制数据库到新的库里（支持跨服务器）"><a href="#1-复制数据库到新的库里（支持跨服务器）" class="headerlink" title="1. 复制数据库到新的库里（支持跨服务器）"></a>1. 复制数据库到新的库里（支持跨服务器）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump  -uroot -p数据库密码 旧的数据库 -–single-transaction | mysql  -uroot -p数据库密码 新的数据库;</span><br></pre></td></tr></table></figure>
+<h4 id="2-导表接口到新的数据库里（支持跨服务器）"><a href="#2-导表接口到新的数据库里（支持跨服务器）" class="headerlink" title="2. 导表接口到新的数据库里（支持跨服务器）"></a>2. 导表接口到新的数据库里（支持跨服务器）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p密码 -d 旧的数据库| mysql --host=127.0.0.1 -P3306 -uroot -p密码 新的数据库</span><br></pre></td></tr></table></figure>
+<h4 id="3-导指定表到数据库里（支持跨服务器）"><a href="#3-导指定表到数据库里（支持跨服务器）" class="headerlink" title="3. 导指定表到数据库里（支持跨服务器）"></a>3. 导指定表到数据库里（支持跨服务器）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uusername -ppassword --databases test --tables table1 table2 |  mysql --host=127.0.0.1 -P3306 -uroot -p密码 新的数据库 -c</span><br></pre></td></tr></table></figure>
+
+<h4 id="mysqldump-参数"><a href="#mysqldump-参数" class="headerlink" title="mysqldump 参数"></a>mysqldump 参数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">mysqldump其他常用选项如下：</span><br><span class="line"></span><br><span class="line">-- add - drop - database ：在每个 CREATE DATABASE 语句前添加 DROP DATABASE 语句。</span><br><span class="line">-- add - drop - tables ：在每个 CREATE TABLE 语句前添加 DROP TABLE 语句。</span><br><span class="line">-- add -locking ：用 LOCK TABLES 和 UNLOCK TABLES 语句引用每个表转储。重载转储文件时插入得更快。</span><br><span class="line">-- all - database , -A ：转储所有数据库中的所有表。与使用 -- database 选项相同，在命令行中命名所有数据库。</span><br><span class="line">-- comment [= 0 | 1 ] ：如果设置为 0 ，禁止转储文件中的其他信息，例如程序版本、服务器版本和主机。 --skip</span><br><span class="line">comments 与 --comments= 0 的结果相同。默认值为 1 ，即包括额外信息。</span><br><span class="line">--compact ：产生少量输出。该选项禁用注释并启用 --skip- add - drop - tables 、 -- no - set -names 、 --skip</span><br><span class="line">disable - keys 和 --skip- add -locking 选项。</span><br><span class="line">--compatible=name ：产生与其他数据库系统或旧的 MySQL 服务器更兼容的输出，值可以为 ansi 、 MySQL323 、</span><br><span class="line">MySQL40 、 postgresql 、 oracle 、 mssql 、 db2 、 maxdb 、 no_key_options 、 no_table_options 或者</span><br><span class="line">no_field_options 。</span><br><span class="line">--complete_insert, -c ：使用包括列名的完整的 INSERT 语句。</span><br><span class="line">--debug[=debug_options], - #[debug_options] ：写调试日志。 -- delete ， -D ：导入文本文件前清空表。</span><br><span class="line">-- default - character - set = charset ：使用 charsets 默认字符集。如果没有指定，就使用 utf8 。</span><br><span class="line">-- delete -- master - logs ：在主复制服务器上，完成转储操作后删除二进制日志。该选项自动启用 - master</span><br><span class="line">data 。</span><br><span class="line">-- extended - insert ， -e ：使用包括几个 VALUES 列表的多行 INSERT 语法。这样使得转储文件更小，重载文件时可</span><br><span class="line">以加速插入。</span><br><span class="line">-- flush - logs ， -F ：开始转储前刷新 MySQL 服务器日志文件。该选项要求 RELOAD 权限。</span><br><span class="line">-- force ， -f ：在表转储过程中，即使出现 SQL 错误也继续。</span><br><span class="line">-- lock - all - tables ， -x ：对所有数据库中的所有表加锁。在整体转储过程中通过全局锁定来实现。该选项自动关</span><br><span class="line">闭 --single- transaction 和 -- lock - tables 。</span><br><span class="line">-- lock - tables ， -l ：开始转储前锁定所有表。用 READ LOCAL 锁定表以允许并行插入 MyISAM 表。对于事务表（例</span><br><span class="line">如 InnoDB 和 BDB ）， --single- transaction 是一个更好的选项，因为它根本不需要锁定表。</span><br><span class="line">-- no - create -db ， -n ：该选项禁用 CREATE DATABASE /*!32312 IF NOT EXIST*/ db_name 语句，如果给出 -</span><br><span class="line">- database 或 -- all - database 选项，就包含到输出中。</span><br><span class="line">-- no - create -info ， -t ：只导出数据，而不添加 CREATE TABLE 语句。</span><br><span class="line">-- no - data ， -d ：不写表的任何行信息，只转储表的结构。</span><br><span class="line">--opt ：该选项是速记，它可以快速进行转储操作并产生一个能很快装入 MySQL 服务器的转储文件。该选项默认开启，</span><br><span class="line">但可以用 --skip-opt 禁用。</span><br><span class="line">-- password [= password ] ， -p[ password ] ：当连接服务器时使用的密码。</span><br><span class="line">-port=port_num ， -P port_num ：用于连接的 TCP/IP 端口号。</span><br><span class="line">--protocol=&#123;TCP|SOCKET|PIPE|MEMORY&#125; ：使用的连接协议。</span><br><span class="line">-- replace ， -r –replace 和 -- ignore ：控制替换或复制唯一键值已有记录的输入记录的处理。如果指定 --</span><br><span class="line">replace ，新行替换有相同的唯一键值的已有行；如果指定 -- ignore ，复制已有的唯一键值的输入行被跳过。如果不</span><br><span class="line">指定这两个选项，当发现一个复制键值时会出现一个错误，并且忽视文本文件的剩余部分。</span><br><span class="line">--silent ， -s ：沉默模式。只有出现错误时才输出。</span><br><span class="line">--socket=path ， -S path ：当连接 localhost 时使用的套接字文件（为默认主机）。</span><br><span class="line">-- user =user_name ， -u user_name ：当连接服务器时 MySQL 使用的用户名。</span><br><span class="line">--verbose ， -v ：冗长模式，打印出程序操作的详细信息。</span><br><span class="line">--xml ， -X ：产生 XML 输出。</span><br><span class="line">————————————————</span><br><span class="line">版权声明：本文为CSDN博主「qq_43085588」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</span><br><span class="line">原文链接：https://blog.csdn.net/qq_43085588/article/details/132085936</span><br></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/mysql/">#mysql</a>
+      
+        <a href="/tags/%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/">#备份恢复</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">#数据迁移跨服务器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>mysql备份与恢复</div>
+      <div>https://sweetshance.github.io/2023/11/20/mysql/mysql备份与恢复/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ShanCe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月20日</div>
+        </div>
+      
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/24/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/pandas%E5%90%88%E5%B9%B6excel%E5%8D%95%E5%85%83%E6%A0%BC/" title="pandas合并excel单元格">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pandas合并excel单元格</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/" title="uwsgi最大监听队列">
+                        <span class="hidden-mobile">uwsgi最大监听队列</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="http://82.157.172.231/" target="_blank" rel="nofollow noopener"><span>无聊</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>ShanCe</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
