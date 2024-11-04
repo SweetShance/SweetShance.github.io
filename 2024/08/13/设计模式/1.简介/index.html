@@ -292,14 +292,14 @@
                 <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式可以多个组合使用使其更适合项目</p>
 <p>不可过度使用设计模式（避免降低代码可读性）</p>
 <h2 id="六大设计原则："><a href="#六大设计原则：" class="headerlink" title="六大设计原则："></a>六大设计原则：</h2><ol>
-<li>单一职责原则：一个类只负责完成一个职责或者功能。（不要设计大而全的类，而是要设计力度小，功能单一的类） <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类中的代码行数、函数、属性过多。</span><br><span class="line">类的依赖过多</span><br><span class="line">私有方法过多</span><br><span class="line">类中大量的方法都在集中操作几个属性</span><br></pre></td></tr></table></figure></li>
-<li>开放封闭原则： 软件中的对象、类、模块和函数对扩展应该是开放的，但对于修改是封闭的。这意味着应该用抽象定义结构，用具体实现扩展细节，以此确保软件系统开发和维护过程的可靠性。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">需求发生变化时，应该采取扩展的方式实现，而不是修改。</span><br></pre></td></tr></table></figure></li>
-<li>里氏替换原则：子类能够替换程序中对象出现的任何地方，并且保证原来的程序的逻辑行为不变及正确性不被破坏。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">替换：面向对象语言所支持的多态特性。</span><br><span class="line">通过接口就可以知道方法的行为。</span><br></pre></td></tr></table></figure></li>
+<li>单一职责原则：一个类只负责完成一个职责或者功能。（不要设计大而全的类，而是要设计力度小，功能单一的类） <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">类中的代码行数、函数、属性过多。<br>类的依赖过多<br>私有方法过多<br>类中大量的方法都在集中操作几个属性<br></code></pre></td></tr></table></figure></li>
+<li>开放封闭原则： 软件中的对象、类、模块和函数对扩展应该是开放的，但对于修改是封闭的。这意味着应该用抽象定义结构，用具体实现扩展细节，以此确保软件系统开发和维护过程的可靠性。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">需求发生变化时，应该采取扩展的方式实现，而不是修改。<br></code></pre></td></tr></table></figure></li>
+<li>里氏替换原则：子类能够替换程序中对象出现的任何地方，并且保证原来的程序的逻辑行为不变及正确性不被破坏。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">替换：面向对象语言所支持的多态特性。<br>通过接口就可以知道方法的行为。<br></code></pre></td></tr></table></figure></li>
 <li>接口分离原则：要为各个类建立他们需要的专用接口，而不是视图去建立一个很庞大的接口供所有依赖它的类去调用。</li>
-<li>依赖倒置原则：在设计代码架构时，高层模块不应该依赖低层模块，二者都应该依赖于抽象。抽象不应该依赖于细节，细节应该依赖于抽象。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">高层模块抽取低层模块的共性，形成抽象。</span><br><span class="line">保持始终依赖抽象，而不是实现。（例如一些类，参数或者属性的类型应该是抽象接口，而不是具体实现）</span><br></pre></td></tr></table></figure></li>
-<li>迪米特法则：一个类/模块对其他类/模块有越少的了解越好。简单来说迪米特法则想要表达的思想就是：不该有直接依赖关系的类之间，不要有依赖；有依赖关系的类之间，尽量只依赖必要的接口。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以通过第三方转发的方式进行调用，降低类与类之间的耦合。</span><br></pre></td></tr></table></figure></li>
+<li>依赖倒置原则：在设计代码架构时，高层模块不应该依赖低层模块，二者都应该依赖于抽象。抽象不应该依赖于细节，细节应该依赖于抽象。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">高层模块抽取低层模块的共性，形成抽象。<br>保持始终依赖抽象，而不是实现。（例如一些类，参数或者属性的类型应该是抽象接口，而不是具体实现）<br></code></pre></td></tr></table></figure></li>
+<li>迪米特法则：一个类/模块对其他类/模块有越少的了解越好。简单来说迪米特法则想要表达的思想就是：不该有直接依赖关系的类之间，不要有依赖；有依赖关系的类之间，尽量只依赖必要的接口。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">可以通过第三方转发的方式进行调用，降低类与类之间的耦合。<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="创建型模式（5）"><a href="#创建型模式（5）" class="headerlink" title="创建型模式（5）"></a>创建型模式（5）</h2><pre><code>对象实例化的模式，创建型模式用于解耦对象的实例化过程
+<h2 id="创建型模式（5）"><a href="#创建型模式（5）" class="headerlink" title="创建型模式（5）"></a>创建型模式（5）</h2><pre><code class="hljs">对象实例化的模式，创建型模式用于解耦对象的实例化过程
 </code></pre>
 <ol>
 <li>单例模式， <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">go</a></li>
@@ -308,7 +308,7 @@
 <li>建造者模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li>
 <li>原型模式, <a href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">go</a></li>
 </ol>
-<h2 id="结构型模式（7）"><a href="#结构型模式（7）" class="headerlink" title="结构型模式（7）"></a>结构型模式（7）</h2><pre><code>把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象
+<h2 id="结构型模式（7）"><a href="#结构型模式（7）" class="headerlink" title="结构型模式（7）"></a>结构型模式（7）</h2><pre><code class="hljs">把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象
 </code></pre>
 <ol>
 <li>代理模式，<a href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">go</a></li>
@@ -319,7 +319,7 @@
 <li>享元模式，<a href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">go</a></li>
 <li>组合模式，<a href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">go</a></li>
 </ol>
-<h2 id="行为型模式（11）"><a href="#行为型模式（11）" class="headerlink" title="行为型模式（11）"></a>行为型模式（11）</h2><pre><code>类和对象如何交互，行为型模式用于描述程序在运行时复杂的流程控制，即描述多个类或对象之间怎样相互协作共同完成一个任务。涉及划分责任和算法。
+<h2 id="行为型模式（11）"><a href="#行为型模式（11）" class="headerlink" title="行为型模式（11）"></a>行为型模式（11）</h2><pre><code class="hljs">类和对象如何交互，行为型模式用于描述程序在运行时复杂的流程控制，即描述多个类或对象之间怎样相互协作共同完成一个任务。涉及划分责任和算法。
 </code></pre>
 <ol>
 <li><p>观察者模式, <a href="/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/14-python%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p>

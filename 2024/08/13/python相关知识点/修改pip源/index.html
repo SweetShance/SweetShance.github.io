@@ -290,13 +290,13 @@
               <div class="markdown-body">
                 
                 <p>Linux系统：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.pip</span><br><span class="line">cat &gt; ~/.pip/pip.conf &lt;&lt; EOF</span><br><span class="line">[global]</span><br><span class="line">trusted-host=mirrors.aliyun.com</span><br><span class="line">index-url=https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">mkdir ~/.pip<br>cat &gt; ~/.pip/pip.conf &lt;&lt; EOF<br>[<span class="hljs-keyword">global</span>]<br><span class="hljs-keyword">trusted</span>-host=mirrors.aliyun.com<br><span class="hljs-keyword">index</span>-url=https://mirrors.aliyun.com/pypi/simple/<br></code></pre></td></tr></table></figure>
 
 <p>Windows系统：<br>首先在window的文件夹窗口输入 ： %APPDATA%<br>然后创建pip文件夹<br>最后创建pip.ini文件，写入如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">[install]</span><br><span class="line">trusted-host=mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[<span class="hljs-keyword">global</span>]<br><span class="hljs-keyword">index</span>-url = https://mirrors.aliyun.com/pypi/simple/<br>[install]<br><span class="hljs-keyword">trusted</span>-host=mirrors.aliyun.com<br></code></pre></td></tr></table></figure>
 
 <p>或者临时</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple gevent</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">pip install -i https:<span class="hljs-regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple gevent<br></code></pre></td></tr></table></figure>
                 
               </div>
             

@@ -293,7 +293,7 @@
                 <h3 id="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"><a href="#在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加" class="headerlink" title="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"></a>在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加</h3><p>在celery的config的文件中增加配置</p>
 <ol>
 <li>如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE = True ，这样可以有效防止死锁 。</li>
-<li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CELERYD_FORCE=True</span><br></pre></td></tr></table></figure></li>
+<li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">CELERYD_FORCE</span>=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 
                 
