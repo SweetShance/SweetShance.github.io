@@ -16,24 +16,25 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="html123456789&lt;view class&#x3D;&quot;cata-text&quot;&gt;   &lt;view class&#x3D;&quot;cata-text-title&quot;&gt;章节目录&lt;&#x2F;view&gt;   &lt;view class&#x3D;&quot;right&quot;&gt;&lt;t-icon class&#x3D;&quot;cata-icon&quot; nam">
+    <meta name="description" content="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加在celery的config的文件中增加配置  如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE &#x3D; True ，这样可以有效防止死锁 。 如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两个view在一行显示">
-<meta property="og:url" content="https://sweetshance.github.io/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/index.html">
+<meta property="og:title" content="celery经常出现worker卡住的情况">
+<meta property="og:url" content="https://sweetshance.github.io/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="html123456789&lt;view class&#x3D;&quot;cata-text&quot;&gt;   &lt;view class&#x3D;&quot;cata-text-title&quot;&gt;章节目录&lt;&#x2F;view&gt;   &lt;view class&#x3D;&quot;right&quot;&gt;&lt;t-icon class&#x3D;&quot;cata-icon&quot; nam">
+<meta property="og:description" content="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加在celery的config的文件中增加配置  如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE &#x3D; True ，这样可以有效防止死锁 。 如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-02T03:24:27.236Z">
-<meta property="article:modified_time" content="2023-11-03T07:32:53.389Z">
+<meta property="article:published_time" content="2024-08-13T15:08:43.773Z">
+<meta property="article:modified_time" content="2024-08-13T15:08:43.773Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="css">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="celery">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>两个view在一行显示 - ShanCe的博客</title>
+  <title>celery经常出现worker卡住的情况 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="两个view在一行显示"></span>
+            <span id="subtitle" data-typed-text="celery经常出现worker卡住的情况"></span>
           
         </div>
 
@@ -215,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-02 11:24" pubdate>
-          2023年11月2日 上午
+        <time datetime="2024-08-13 23:08" pubdate>
+          2024年8月13日 晚上
         </time>
       </span>
     
@@ -227,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          772 字
+          252 字
         
       </span>
     
@@ -238,7 +239,7 @@
         
         
         
-          7 分钟
+          3 分钟
         
       </span>
     
@@ -284,14 +285,17 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">两个view在一行显示</h1>
+            <h1 style="display: none">celery经常出现worker卡住的情况</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text&quot;</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text-title&quot;</span>&gt;</span>章节目录<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">t-icon</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-icon&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;arrow-up-down-1&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;倒序&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">t-icon</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">0</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">1</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>正序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">t-divider</span> <span class="hljs-attr">dashed</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">t-divider</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   </span><br><span class="language-xml"> <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+                <h3 id="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"><a href="#在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加" class="headerlink" title="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"></a>在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加</h3><p>在celery的config的文件中增加配置</p>
+<ol>
+<li>如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE = True ，这样可以有效防止死锁 。</li>
+<li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">CELERYD_FORCE</span>=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li>
+</ol>
 
-<h1 id="css-实现-了解-flex-flex-wrap"><a href="#css-实现-了解-flex-flex-wrap" class="headerlink" title="css 实现(了解 flex, flex-wrap)"></a>css 实现(了解 flex, flex-wrap)</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.cata-text</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-wrap</span>: nowrap;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">7vh</span>;<br>  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -309,7 +313,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" class="category-chain-item">小程序学习</a>
+  <a href="/categories/celery/" class="category-chain-item">celery</a>
   
   
 
@@ -324,7 +328,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/css/">#css</a>
+        <a href="/tags/python/">#python</a>
+      
+        <a href="/tags/celery/">#celery</a>
       
     </div>
   
@@ -336,8 +342,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>两个view在一行显示</div>
-      <div>https://sweetshance.github.io/2023/11/02/微信小程序/扩展学习/两个view 在一行/</div>
+      <div>celery经常出现worker卡住的情况</div>
+      <div>https://sweetshance.github.io/2024/08/13/python相关知识点/celery经常出现worker卡住的情况/</div>
     </div>
     <div class="license-meta">
       
@@ -349,7 +355,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月2日</div>
+          <div>2024年8月13日</div>
         </div>
       
       
@@ -365,9 +371,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/" title="1. Cookie、session、token">
+                      <a href="/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%BF%AE%E6%94%B9pip%E6%BA%90/" title="修改pip源">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1. Cookie、session、token</span>
+                        <span class="hidden-mobile">修改pip源</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -375,8 +381,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/" title="uwsgi最大监听队列">
-                        <span class="hidden-mobile">uwsgi最大监听队列</span>
+                      <a href="/2024/08/08/springBoot%E5%AD%A6%E4%B9%A0/springBoot-mybatis%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90%E5%92%8C%E4%BA%8B%E5%8A%A1/" title="springBoot+mybatis多数据源和事务">
+                        <span class="hidden-mobile">springBoot+mybatis多数据源和事务</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

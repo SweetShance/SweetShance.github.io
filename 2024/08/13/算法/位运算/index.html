@@ -16,25 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加在celery的config的文件中增加配置  如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE &#x3D; True ，这样可以有效防止死锁 。 如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超">
+    <meta name="description" content="从现代计算机中所有的数据二进制的形式存储在设备中。即 0、1 两种状态，计算机对二进制数据进行的运算(+、-、*、&#x2F;)都是叫位运算，即将符号位共同参与运算的运算。    符号 描述 运算规则    &amp; 与 两个位都为1时，结果才为1   | 或 两个位都为0时，结果才为0   ^ 异或 两个位相同为0，相异为1   ~ 取反 0变1，1变0   &lt;&lt; 左移 各二进位全部左移若干">
 <meta property="og:type" content="article">
-<meta property="og:title" content="celery经常出现worker卡住的情况">
-<meta property="og:url" content="https://sweetshance.github.io/2023/11/20/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/index.html">
+<meta property="og:title" content="2. 位运算">
+<meta property="og:url" content="https://sweetshance.github.io/2024/08/13/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加在celery的config的文件中增加配置  如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE &#x3D; True ，这样可以有效防止死锁 。 如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超">
+<meta property="og:description" content="从现代计算机中所有的数据二进制的形式存储在设备中。即 0、1 两种状态，计算机对二进制数据进行的运算(+、-、*、&#x2F;)都是叫位运算，即将符号位共同参与运算的运算。    符号 描述 运算规则    &amp; 与 两个位都为1时，结果才为1   | 或 两个位都为0时，结果才为0   ^ 异或 两个位相同为0，相异为1   ~ 取反 0变1，1变0   &lt;&lt; 左移 各二进位全部左移若干">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-20T04:30:48.445Z">
-<meta property="article:modified_time" content="2023-11-20T10:34:40.947Z">
+<meta property="article:published_time" content="2024-08-13T15:08:43.775Z">
+<meta property="article:modified_time" content="2024-08-13T15:08:43.775Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="celery">
+<meta property="article:tag" content="位运算">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>celery经常出现worker卡住的情况 - ShanCe的博客</title>
+  <title>2. 位运算 - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="celery经常出现worker卡住的情况"></span>
+            <span id="subtitle" data-typed-text="2. 位运算"></span>
           
         </div>
 
@@ -216,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-20 12:30" pubdate>
-          2023年11月20日 下午
+        <time datetime="2024-08-13 23:08" pubdate>
+          2024年8月13日 晚上
         </time>
       </span>
     
@@ -228,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          252 字
+          790 字
         
       </span>
     
@@ -239,7 +238,7 @@
         
         
         
-          3 分钟
+          7 分钟
         
       </span>
     
@@ -285,16 +284,64 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">celery经常出现worker卡住的情况</h1>
+            <h1 style="display: none">2. 位运算</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"><a href="#在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加" class="headerlink" title="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"></a>在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加</h3><p>在celery的config的文件中增加配置</p>
-<ol>
-<li>如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE = True ，这样可以有效防止死锁 。</li>
-<li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">CELERYD_FORCE</span>=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li>
+                <p>从现代计算机中所有的数据二进制的形式存储在设备中。即 0、1 两种状态，计算机对二进制数据进行的运算(+、-、*、/)都是叫位运算，即将符号位共同参与运算的运算。</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>描述</th>
+<th>运算规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>与</td>
+<td>两个位都为1时，结果才为1</td>
+</tr>
+<tr>
+<td>|</td>
+<td>或</td>
+<td>两个位都为0时，结果才为0</td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或</td>
+<td>两个位相同为0，相异为1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>取反</td>
+<td>0变1，1变0</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>左移</td>
+<td>各二进位全部左移若干位，高位丢弃，低位补0</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>右移</td>
+<td>各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不一样，有的补符号位（算术右移），有的补0（逻辑右移）</td>
+</tr>
+</tbody></table>
+<h1 id="一、异或-概念"><a href="#一、异或-概念" class="headerlink" title="一、异或 概念"></a>一、异或 概念</h1><ol>
+<li>异或的符号 ^</li>
+<li>如果两个数不相同，则异或的结果为1；如果两个数相同，则异或的结果为0</li>
+<li>基础异或概念 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> ^ <span class="hljs-number">0</span> # 结果为<span class="hljs-number">1</span><br><span class="hljs-attribute">1</span> ^ <span class="hljs-number">1</span> # 结果为<span class="hljs-number">0</span><br><span class="hljs-attribute">x</span> ^ (-<span class="hljs-number">1</span>) = -x<br></code></pre></td></tr></table></figure></li>
+<li>异或是二进制的数按位进行异或 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">例如：5 ^ 3<br>就是101 ^<span class="hljs-number"> 011 </span><br>按位置：<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 0 </span>= 1,<span class="hljs-number"> 0 </span>^<span class="hljs-number"> 1 </span>= 1,<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 0 </span>结果为<span class="hljs-number"> 110 </span>转10进制 6<br></code></pre></td></tr></table></figure></li>
+<li>满足交换律，结合律，自反率（ A ^ B ^ B = A ^ 0 = A）</li>
+<li>将两个数异或的结果与其中一个数异或能得到另一个结果：例如 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">x</span> = <span class="hljs-number">4</span><br><span class="hljs-attribute">b</span> = <span class="hljs-number">5</span><br><span class="hljs-attribute">z</span> = x ^ b <br><span class="hljs-attribute">z</span> ^ b = x = <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="题目一、-a-3-b-2-交换两个数"><a href="#题目一、-a-3-b-2-交换两个数" class="headerlink" title="题目一、 a = 3,  b = 2 交换两个数"></a>题目一、 a = 3,  b = 2 交换两个数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">方法一: 用异或实现<br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> <br>    <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    解析：<br>        使用原理<span class="hljs-number">6</span><br>        <span class="hljs-number">1</span>. 两个数异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>        <span class="hljs-number">2</span>. 与其中一个异或能拿到另一个数<br>            <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候b存的就是之前a的值)<br>        <span class="hljs-number">3</span>. <span class="hljs-selector-tag">b</span> 在与<span class="hljs-selector-tag">a</span> 异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候, <span class="hljs-selector-tag">a</span> 拿到的就是b之前的值，因为b现在里边存的是之前a的值)<br>            <br>方法二： python<br>    <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">b</span>, a<br></code></pre></td></tr></table></figure>
+
+<h2 id="题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。"><a href="#题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。" class="headerlink" title="题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。"></a>题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。</h2><p>解题思路: 0 跟任何数异或都是任何数，两个相同的数异或为0，哪所有数异或数</p>
+<p>```<br>data_list = [11,11,22,22,33]<br>tmp = 0<br>for i in data_list:<br>    tmp ^= i</p>
+<p>print(tmp)</p>
 
                 
               </div>
@@ -313,7 +360,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/celery/" class="category-chain-item">celery</a>
+  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="category-chain-item">算法学习</a>
   
   
 
@@ -328,9 +375,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/python/">#python</a>
-      
-        <a href="/tags/celery/">#celery</a>
+        <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">#位运算</a>
       
     </div>
   
@@ -342,8 +387,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>celery经常出现worker卡住的情况</div>
-      <div>https://sweetshance.github.io/2023/11/20/python相关知识点/celery经常出现worker卡住的情况/</div>
+      <div>2. 位运算</div>
+      <div>https://sweetshance.github.io/2024/08/13/算法/位运算/</div>
     </div>
     <div class="license-meta">
       
@@ -355,7 +400,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月20日</div>
+          <div>2024年8月13日</div>
         </div>
       
       
@@ -371,9 +416,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/20/mysql/mysql%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" title="mysql备份与恢复">
+                      <a href="/2024/08/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/" title="1. 简介">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql备份与恢复</span>
+                        <span class="hidden-mobile">1. 简介</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -381,7 +426,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/" title="1. Cookie、session、token">
+                      <a href="/2024/08/13/web%E7%9F%A5%E8%AF%86/1.cookie%E3%80%81session%E3%80%81token%E4%BA%86%E8%A7%A3/" title="1. Cookie、session、token">
                         <span class="hidden-mobile">1. Cookie、session、token</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
