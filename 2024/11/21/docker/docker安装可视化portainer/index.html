@@ -16,24 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题描述数据在数据库里存储的值为 “[‘你好’]”; 通过mybatis查询结果映射到java实体类的时候想要转换成列表 [“你好”] 实现思路通过mybatis的xml的resultMap进行映射 具体实现 实现一个自定的 JsonListTypeHandler 1234567891011121314151617181920212223242526272829303132333435363738">
+    <meta name="description" content="第一步下载镜像1docker pull portainer&#x2F;portainer-ce:latest 创建 Portainer 数据卷（可选）：这一步用于持久化 Portainer 的数据1docker volume create portainer_data 启动容器1docker run -d --name&#x3D;portainer --restart&#x3D;always -p 9000:9000 -v &#x2F;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mybatis自定义TypeHandler实现字符串数据转列表">
-<meta property="og:url" content="https://sweetshance.github.io/2024/11/20/springBoot%E5%AD%A6%E4%B9%A0/mybatis%E8%87%AA%E5%AE%9A%E4%B9%89TypeHandler%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:title" content="docker安装可视化portainer">
+<meta property="og:url" content="https://sweetshance.github.io/2024/11/21/docker/docker%E5%AE%89%E8%A3%85%E5%8F%AF%E8%A7%86%E5%8C%96portainer/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="问题描述数据在数据库里存储的值为 “[‘你好’]”; 通过mybatis查询结果映射到java实体类的时候想要转换成列表 [“你好”] 实现思路通过mybatis的xml的resultMap进行映射 具体实现 实现一个自定的 JsonListTypeHandler 1234567891011121314151617181920212223242526272829303132333435363738">
+<meta property="og:description" content="第一步下载镜像1docker pull portainer&#x2F;portainer-ce:latest 创建 Portainer 数据卷（可选）：这一步用于持久化 Portainer 的数据1docker volume create portainer_data 启动容器1docker run -d --name&#x3D;portainer --restart&#x3D;always -p 9000:9000 -v &#x2F;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-20T08:49:07.000Z">
-<meta property="article:modified_time" content="2024-11-20T08:56:42.931Z">
+<meta property="article:published_time" content="2024-11-21T10:59:59.000Z">
+<meta property="article:modified_time" content="2024-11-21T11:07:23.895Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="mybatis">
+<meta property="article:tag" content="portainer">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>mybatis自定义TypeHandler实现字符串数据转列表 - ShanCe的博客</title>
+  <title>docker安装可视化portainer - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="mybatis自定义TypeHandler实现字符串数据转列表"></span>
+            <span id="subtitle" data-typed-text="docker安装可视化portainer"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-20 16:49" pubdate>
-          2024年11月20日 下午
+        <time datetime="2024-11-21 18:59" pubdate>
+          2024年11月21日 晚上
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          374 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          21 分钟
+          4 分钟
         
       </span>
     
@@ -284,24 +284,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">mybatis自定义TypeHandler实现字符串数据转列表</h1>
+            <h1 style="display: none">docker安装可视化portainer</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>数据在数据库里存储的值为 “[‘你好’]”; 通过mybatis查询结果映射到java实体类的时候想要转换成列表 [“你好”]</p>
-<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>通过mybatis的xml的resultMap进行映射</p>
-<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><ol>
-<li><p>实现一个自定的 JsonListTypeHandler</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hessianhealth.quality.util;<br><br><span class="hljs-keyword">import</span> com.alibaba.fastjson2.JSON;<br><span class="hljs-keyword">import</span> org.apache.ibatis.type.BaseTypeHandler;<br><span class="hljs-keyword">import</span> org.apache.ibatis.type.JdbcType;<br><span class="hljs-keyword">import</span> org.apache.ibatis.type.MappedTypes;<br><br><span class="hljs-keyword">import</span> java.sql.CallableStatement;<br><span class="hljs-keyword">import</span> java.sql.PreparedStatement;<br><span class="hljs-keyword">import</span> java.sql.ResultSet;<br><span class="hljs-keyword">import</span> java.sql.SQLException;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * @Description 将json字符串列表 转为列表；主要用于数据库映射</span><br><span class="hljs-comment"> **/</span><br><span class="hljs-comment">// 注册该TypeHandler</span><br><span class="hljs-meta">@MappedTypes(String.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JsonListTypeHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseTypeHandler</span>&lt;List&gt; &#123;<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setNonNullParameter</span><span class="hljs-params">(PreparedStatement ps, <span class="hljs-type">int</span> i, List parameter, JdbcType jdbcType)</span> <span class="hljs-keyword">throws</span> SQLException &#123;<br>        ps.setString(i, parameter.toString());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List <span class="hljs-title function_">getNullableResult</span><span class="hljs-params">(ResultSet rs, String columnName)</span> <span class="hljs-keyword">throws</span> SQLException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> rs.getString(columnName);<br>        <span class="hljs-comment">// 如果时空的话默认 为空列表</span><br>        <span class="hljs-keyword">if</span>(json.isEmpty())&#123;<br>            json = <span class="hljs-string">&quot;[]&quot;</span>;<br>        &#125;<br>        <span class="hljs-comment">// 将字符串转为 list</span><br>        <span class="hljs-keyword">return</span> JSON.parseObject(json, List.class);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List <span class="hljs-title function_">getNullableResult</span><span class="hljs-params">(ResultSet rs, <span class="hljs-type">int</span> columnIndex)</span> <span class="hljs-keyword">throws</span> SQLException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> rs.getString(columnIndex);<br>        <span class="hljs-keyword">if</span>(json.isEmpty())&#123;<br>            json = <span class="hljs-string">&quot;[]&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> JSON.parseObject(json, List.class);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List <span class="hljs-title function_">getNullableResult</span><span class="hljs-params">(CallableStatement cs, <span class="hljs-type">int</span> columnIndex)</span> <span class="hljs-keyword">throws</span> SQLException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> cs.getString(columnIndex);<br>        <span class="hljs-keyword">if</span>(json.isEmpty())&#123;<br>            json = <span class="hljs-string">&quot;[]&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> JSON.parseObject(json, List.class);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> List <span class="hljs-title function_">getNullableResult</span><span class="hljs-params">(String json)</span> <span class="hljs-keyword">throws</span> SQLException &#123;<br>        <span class="hljs-keyword">if</span> (json != <span class="hljs-literal">null</span> &amp;&amp; json.startsWith(<span class="hljs-string">&quot;[&quot;</span>) &amp;&amp; json.endsWith(<span class="hljs-string">&quot;]&quot;</span>)) &#123;<br>            json = json.substring(<span class="hljs-number">1</span>, json.length() - <span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> Arrays.asList(json.split(<span class="hljs-string">&quot;,&quot;</span>));<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
-<li><p>实体类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>:<br>    <span class="hljs-keyword">private</span> List&lt;String&gt; specialist;<br></code></pre></td></tr></table></figure></li>
-<li><p>在xml中书写resultMap</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resultMap</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;regularDetailInfo&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;com.hessianhealth.quality.vo.RegularDetailInfo&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">result</span> <span class="hljs-attr">column</span>=<span class="hljs-string">&quot;specialist&quot;</span> <span class="hljs-attr">property</span>=<span class="hljs-string">&quot;specialist&quot;</span> <span class="hljs-attr">typeHandler</span>=<span class="hljs-string">&quot;com.hessianhealth.quality.util.JsonListTypeHandler&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">result</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resultMap</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li><p>具体sql中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectRegularInfoDetail&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;com.hessianhealth.quality.vo.RegularDetailInfo&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;regularDetailInfo&quot;</span>&gt;</span><br>select specialist from test<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-
+                <h3 id="第一步下载镜像"><a href="#第一步下载镜像" class="headerlink" title="第一步下载镜像"></a>第一步下载镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker pull portainer/portainer-ce:latest<br></code></pre></td></tr></table></figure>
+<h3 id="创建-Portainer-数据卷（可选）：这一步用于持久化-Portainer-的数据"><a href="#创建-Portainer-数据卷（可选）：这一步用于持久化-Portainer-的数据" class="headerlink" title="创建 Portainer 数据卷（可选）：这一步用于持久化 Portainer 的数据"></a>创建 Portainer 数据卷（可选）：这一步用于持久化 Portainer 的数据</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">docker <span class="hljs-built_in">volume</span> <span class="hljs-keyword">create</span> portainer_data<br></code></pre></td></tr></table></figure>
+<h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -d --name=portainer --restart=always -p <span class="hljs-number">9000</span>:<span class="hljs-number">9000</span> -v <span class="hljs-regexp">/var/</span>run<span class="hljs-regexp">/docker.sock:/</span>var<span class="hljs-regexp">/run/</span>docker.sock -v portainer_data:<span class="hljs-regexp">/data portainer/</span>portainer-ce:latest<br></code></pre></td></tr></table></figure>
+<p>如果之前没有创建数据卷，则可以去掉 -v portainer_data:/data 这一项。</p>
+<h3 id="访问-Portainer：在浏览器中输入-http-服务器-IP-地址-9000，即可访问中文版的-Portainer-界面。"><a href="#访问-Portainer：在浏览器中输入-http-服务器-IP-地址-9000，即可访问中文版的-Portainer-界面。" class="headerlink" title="访问 Portainer：在浏览器中输入 http://服务器 IP 地址:9000，即可访问中文版的 Portainer 界面。"></a>访问 Portainer：在浏览器中输入 http://服务器 IP 地址:9000，即可访问中文版的 Portainer 界面。</h3>
                 
               </div>
             
@@ -319,7 +311,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/mybatis/" class="category-chain-item">mybatis</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
   
 
@@ -334,7 +326,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/mybatis/">#mybatis</a>
+        <a href="/tags/portainer/">#portainer</a>
       
     </div>
   
@@ -346,8 +338,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>mybatis自定义TypeHandler实现字符串数据转列表</div>
-      <div>https://sweetshance.github.io/2024/11/20/springBoot学习/mybatis自定义TypeHandler实现字符串数据转列表/</div>
+      <div>docker安装可视化portainer</div>
+      <div>https://sweetshance.github.io/2024/11/21/docker/docker安装可视化portainer/</div>
     </div>
     <div class="license-meta">
       
@@ -359,7 +351,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月20日</div>
+          <div>2024年11月21日</div>
         </div>
       
       
@@ -375,18 +367,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/21/docker/docker%E5%AE%89%E8%A3%85%E5%8F%AF%E8%A7%86%E5%8C%96portainer/" title="docker安装可视化portainer">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">docker安装可视化portainer</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/19/mysql/mysql%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/" title="mysql查询不区分大小写">
-                        <span class="hidden-mobile">mysql查询不区分大小写</span>
+                      <a href="/2024/11/20/springBoot%E5%AD%A6%E4%B9%A0/mybatis%E8%87%AA%E5%AE%9A%E4%B9%89TypeHandler%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%88%97%E8%A1%A8/" title="mybatis自定义TypeHandler实现字符串数据转列表">
+                        <span class="hidden-mobile">mybatis自定义TypeHandler实现字符串数据转列表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
