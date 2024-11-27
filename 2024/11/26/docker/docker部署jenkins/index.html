@@ -24,7 +24,7 @@
 <meta property="og:description" content="下载最新镜像1git pull jenkins&#x2F;jenkins:last 创建挂载目录1mkdir &#x2F;var&#x2F;jenkins_home 启动容器1docker run -id --name&#x3D;jenkins -p 8080:8080 -p 10241:50000 -v &#x2F;var&#x2F;jenkins_home:&#x2F;var&#x2F;jenkins_home -v &#x2F;etc&#x2F;localtime:&#x2F;etc&#x2F;localti">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-26T10:13:44.000Z">
-<meta property="article:modified_time" content="2024-11-26T10:30:42.895Z">
+<meta property="article:modified_time" content="2024-11-26T10:43:55.284Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="jenkins">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          1.8k 字
         
       </span>
     
@@ -302,7 +302,7 @@
 <ol>
 <li>jenkins版本太老，下载最新的</li>
 <li>修改源：<ol>
-<li>修改hudson.model.UpdateCenter.xml文件，将URL更改为如清华大学的镜像源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json%E2%80%8C">https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json‌</a><br>目录：/var/jenkins_home 如果没有挂在目录进入镜像之后找对应目录</li>
+<li>修改hudson.model.UpdateCenter.xml文件，将URL更改为如清华大学的镜像源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json%E2%80%8C">https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json‌</a><br>目录：/var/jenkins_home 如果没有挂在目录进入镜像之后找对应目录<br>进入后报依赖缺失地址：<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/jenkins/plugins/workflow-cps/">https://mirrors.aliyun.com/jenkins/plugins/workflow-cps/</a> 里边有相应依赖通过jenkins的advanced settings 的url部署来安装相应依赖</li>
 </ol>
 </li>
 </ol>
