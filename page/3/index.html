@@ -226,6 +226,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2024/04/23/mysql/Mysql%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+          Mysql忘记root密码解决方案
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/04/23/mysql/Mysql%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+        <div>
+          场景一：重置root密码原理： mysql提供了特殊启动方式，跳过权限表验证，启动后，登录不需要提供密码。登陆后，即可修改密码，刷新权限，重启mysql即可 停止正在运行的mysql12# root 权限service mysqld stop 以–skip-grant-tables 选项启动服务，跳过权限表验证 方法一：指定运行选项，只在本次启动生效12./bin/mysqld_safe --sk
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-04-23 11:13" pubdate>
+              2024-04-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql/">#mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2024/04/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/vscode+django/" target="_self">
           Vscode + Python + Django
         </a>
@@ -706,67 +767,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">#二叉树</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/12/mysql/%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90/" target="_self">
-          mysql 创建用户分配权限
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/12/mysql/%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90/" target="_self">
-        <div>
-          创建用户1CREATE USER &#x27;用户名&#x27;@&#x27;%或者IP&#x27; IDENTIFIED BY &#x27;密码&#x27;;   分配权限授权某个用户所有数据库所有权限 1GRANT ALL PRIVILEGES ON *.* TO &quot;用户名&quot;@&quot;IP/localhost/%&quot;  授予某个用户所有数据库读权限 1GRANT
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-12 10:16" pubdate>
-              2023-12-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">#mysql</a>
             
           </div>
         
