@@ -29,6 +29,27 @@
   
   
   <entry>
+    <title>pandas分组将多行多列放在一起</title>
+    <link href="/2024/12/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/pandas%E5%88%86%E7%BB%84%E5%B0%86%E5%A4%9A%E8%A1%8C%E5%A4%9A%E5%88%97%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7/"/>
+    <url>/2024/12/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/pandas%E5%88%86%E7%BB%84%E5%B0%86%E5%A4%9A%E8%A1%8C%E5%A4%9A%E5%88%97%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7/</url>
+    
+    <content type="html"><![CDATA[<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br> <br><span class="hljs-comment"># 示例数据</span><br>data = &#123;<br>    <span class="hljs-string">&#x27;group_column&#x27;</span>: [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>],<br>    <span class="hljs-string">&#x27;column1&#x27;</span>: [<span class="hljs-string">&#x27;foo1&#x27;</span>, <span class="hljs-string">&#x27;foo2&#x27;</span>, <span class="hljs-string">&#x27;bar1&#x27;</span>, <span class="hljs-string">&#x27;bar2&#x27;</span>, <span class="hljs-string">&#x27;baz1&#x27;</span>],<br>    <span class="hljs-string">&#x27;column2&#x27;</span>: [<span class="hljs-string">&#x27;x1&#x27;</span>, <span class="hljs-string">&#x27;x2&#x27;</span>, <span class="hljs-string">&#x27;y1&#x27;</span>, <span class="hljs-string">&#x27;y2&#x27;</span>, <span class="hljs-string">&#x27;z1&#x27;</span>]<br>&#125;<br> <br>df = pd.DataFrame(data)<br> <br><span class="hljs-comment"># 定义一个自定义的聚合函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">concatenate_rows</span>(<span class="hljs-params">group</span>):<br>    <span class="hljs-comment"># 拼接 column1 和 column2，用换行符分隔</span><br>    combined = group[<span class="hljs-string">&quot;column1&quot;</span>] + group[<span class="hljs-string">&quot;column2&quot;</span>].astype(<span class="hljs-built_in">str</span>) + <span class="hljs-string">&quot;;&quot;</span><span class="hljs-comment"># [f&quot;&#123;row[&#x27;column1&#x27;]&#125; &#123;row[&#x27;column2&#x27;]&#125;&quot; for row in group.itertuples(index=False, name=None)]</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span>.join(combined)<br> <br><span class="hljs-comment"># 使用 groupby 和 apply 方法</span><br>result = df.groupby(<span class="hljs-string">&#x27;group_column&#x27;</span>).apply(concatenate_rows).reset_index(name=<span class="hljs-string">&#x27;concatenated&#x27;</span>)<br> <br><span class="hljs-built_in">print</span>(result)<br><br></code></pre></td></tr></table></figure><h3 id="分组获取前三"><a href="#分组获取前三" class="headerlink" title="分组获取前三"></a>分组获取前三</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">dept_data_pd.sort_values(by=[<span class="hljs-string">&quot;now_dept_name&quot;</span>, <span class="hljs-string">&quot;inp_doctor_name&quot;</span>, <span class="hljs-string">&quot;error_count&quot;</span>], ascending=[<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>],<br>                             inplace=<span class="hljs-literal">True</span>)<br>dept_error_top_pd = data_pd.groupby([<span class="hljs-string">&quot;now_dept_name&quot;</span>, <span class="hljs-string">&quot;inp_doctor_name&quot;</span>]).head(<span class="hljs-number">3</span>)<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>分组合并多行多列</tag>
+      
+      <tag>分组获取前三</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>java下载多sheet</title>
     <link href="/2024/12/13/springBoot%E5%AD%A6%E4%B9%A0/java%E4%B8%8B%E8%BD%BD%E5%A4%9Asheet/"/>
     <url>/2024/12/13/springBoot%E5%AD%A6%E4%B9%A0/java%E4%B8%8B%E8%BD%BD%E5%A4%9Asheet/</url>
