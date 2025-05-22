@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>docker编排docker-compose</title>
+    <link href="/2025/05/21/docker/docker%E7%BC%96%E6%8E%92docker-compose/"/>
+    <url>/2025/05/21/docker/docker%E7%BC%96%E6%8E%92docker-compose/</url>
+    
+    <content type="html"><![CDATA[<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker-compose  up -d [server]<br><span class="hljs-comment">## 指定文件</span><br>docker-compose -f docker-compose-qc.yml --profile test1 up -d<br></code></pre></td></tr></table></figure><h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3.8&quot;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">qc:</span><br>    <span class="hljs-attr">image:</span> <br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PROJECT_TO_RUN=test1</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8641:8641&quot;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xx-vm</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">test1</span><br>    <span class="hljs-attr">profiles:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">test1</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">../../xx1:/home/data/xx1</span><br><br><br>  <span class="hljs-attr">qcBase:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">test2</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PROJECT_TO_RUN=test2</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8646:8646&quot;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xx-vm</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">test2</span><br>    <span class="hljs-attr">profiles:</span> <br>      <span class="hljs-bullet">-</span> <span class="hljs-string">test2</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">../../xx2:/home/data/xx2</span><br><br><span class="hljs-attr">networks:</span><br>  <span class="hljs-attr">xx-vm:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">bridge</span><br><br><br></code></pre></td></tr></table></figure><h3 id="根据environment，起不通的服务脚本"><a href="#根据environment，起不通的服务脚本" class="headerlink" title="根据environment，起不通的服务脚本"></a>根据environment，起不通的服务脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-keyword">case</span> <span class="hljs-variable">$PROJECT_TO_RUN</span> <span class="hljs-keyword">in</span><br>    test1|test2)<br>        <span class="hljs-comment"># 匹配成功的逻辑</span><br>        <span class="hljs-comment"># 指定目录</span><br>        SERVICE_DIR=<span class="hljs-string">&quot;/home/data/<span class="hljs-variable">$PROJECT_TO_RUN</span>/&quot;</span><br>        <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-variable">$SERVICE_DIR</span>&quot;</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;当前用户(whoami): <span class="hljs-subst">$(whoami)</span>&quot;</span><br>        /bin/bash start.sh start<br>        <span class="hljs-comment"># 1.保证脚本一直再运行，docker可以监测到 2.将uwsgi 日志输出到docker 对容器的监测日志中</span><br>        <span class="hljs-built_in">tail</span> -f script/uwsgi.log<br>        ;;<br>    *)<br>        <span class="hljs-comment"># 其他情况</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Usage: docker run &lt;image&gt; [test1|test2]&quot;</span><br>        <span class="hljs-built_in">exit</span> 1<br>        ;;<br><span class="hljs-keyword">esac</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>docker</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>docker-compose</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>docker部署minio</title>
+    <link href="/2025/05/21/docker/docker%E9%83%A8%E7%BD%B2minio/"/>
+    <url>/2025/05/21/docker/docker%E9%83%A8%E7%BD%B2minio/</url>
+    
+    <content type="html"><![CDATA[<h2 id="下载最新镜像"><a href="#下载最新镜像" class="headerlink" title="下载最新镜像"></a>下载最新镜像</h2><ol><li>目前使用的镜像地址是<br>Docker镜像搜索地址：<br><a href="https://docker.1ms.run/">https://docker.1ms.run</a><br><a href="https://dockers.xuanyuan.me/">https://dockers.xuanyuan.me/</a></li><li>下载最新镜像<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker pull docker.1ms.run/minio/minio<br></code></pre></td></tr></table></figure><h3 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -dt \<br>  --name minio-server \                   <span class="hljs-comment"># 容器名称，方便管理和识别</span><br>  --network host \                       <span class="hljs-comment"># 使用主机网络模式，直接绑定宿主机端口</span><br>  -p 9000:9000 \                         <span class="hljs-comment"># 映射 MinIO API 端口到宿主机的 9000 端口</span><br>  -p 9001:9001 \                         <span class="hljs-comment"># 映射 MinIO 控制台端口到宿主机的 9001 端口</span><br>  -v /home/minio/data:/mnt/data \        <span class="hljs-comment"># 将宿主机的 /home/minio/data 挂载到容器内的 /mnt/data</span><br>  -e <span class="hljs-string">&quot;MINIO_CONFIG_ENV_FILE=/etc/config.env&quot;</span> \  <span class="hljs-comment"># 指定 MinIO 配置文件路径</span><br>  -e <span class="hljs-string">&quot;MINIO_ROOT_USER=your_user_name&quot;</span> \  <span class="hljs-comment"># 设置 MinIO 管理员用户名</span><br>  -e <span class="hljs-string">&quot;MINIO_ROOT_PASSWORD=your_password&quot;</span> \  <span class="hljs-comment"># 设置 MinIO 管理员密码</span><br>  9d668e47f1fc  \  <span class="hljs-comment"># 指定 MinIO 镜像版本 或者 镜像 id</span><br>  server /data --console-address <span class="hljs-string">&quot;:9001&quot;</span>  <span class="hljs-comment"># 启动 MinIO 服务，指定数据目录和控制台端口</span><br></code></pre></td></tr></table></figure></li></ol><h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><p><a href="http://ip:9001/">http://ip:9001</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>docker</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>minio</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>docker基础了解</title>
     <link href="/2025/02/20/docker/docker%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/"/>
     <url>/2025/02/20/docker/docker%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/</url>

@@ -16,24 +16,24 @@
   <meta name="author" content="ShanCe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="单例模式概念一个类只有会创建一个实例. 注意： 一个类只会被创建一次，每次创建的时候，这个对象属性会被刷新。 应用场景 需要频繁创建的一些类，使用单例可以降低系统的内存压力（日志对象） 某类要求只生成一个对象的时候 某些创建实例时占用资源较多，或实例化耗时较长，且经常使用 对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。 当对象需要被共享的场">
+    <meta name="description" content="命令123docker-compose  up -d [server]## 指定文件docker-compose -f docker-compose-qc.yml --profile test1 up -d docker-compose.yml123456789101112131415161718192021222324252627282930313233343536373839version:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2.单例模式">
-<meta property="og:url" content="https://sweetshance.github.io/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="docker编排docker-compose">
+<meta property="og:url" content="https://sweetshance.github.io/2025/05/21/docker/docker%E7%BC%96%E6%8E%92docker-compose/index.html">
 <meta property="og:site_name" content="ShanCe的博客">
-<meta property="og:description" content="单例模式概念一个类只有会创建一个实例. 注意： 一个类只会被创建一次，每次创建的时候，这个对象属性会被刷新。 应用场景 需要频繁创建的一些类，使用单例可以降低系统的内存压力（日志对象） 某类要求只生成一个对象的时候 某些创建实例时占用资源较多，或实例化耗时较长，且经常使用 对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。 当对象需要被共享的场">
+<meta property="og:description" content="命令123docker-compose  up -d [server]## 指定文件docker-compose -f docker-compose-qc.yml --profile test1 up -d docker-compose.yml123456789101112131415161718192021222324252627282930313233343536373839version:">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-13T08:22:08.000Z">
-<meta property="article:modified_time" content="2025-03-25T10:01:18.009Z">
+<meta property="article:published_time" content="2025-05-21T09:48:09.000Z">
+<meta property="article:modified_time" content="2025-05-21T09:56:25.674Z">
 <meta property="article:author" content="ShanCe">
-<meta property="article:tag" content="单例">
+<meta property="article:tag" content="docker-compose">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>2.单例模式 - ShanCe的博客</title>
+  <title>docker编排docker-compose - ShanCe的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="2.单例模式"></span>
+            <span id="subtitle" data-typed-text="docker编排docker-compose"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-13 16:22" pubdate>
-          2023年4月13日 下午
+        <time datetime="2025-05-21 17:48" pubdate>
+          2025年5月21日 下午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          976 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          10 分钟
+          9 分钟
         
       </span>
     
@@ -284,43 +284,15 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">2.单例模式</h1>
+            <h1 style="display: none">docker编排docker-compose</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>一个类只有会创建一个实例.</p>
-<p>注意： 一个类只会被创建一次，每次创建的时候，这个对象属性会被刷新。</p>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
-<li>需要频繁创建的一些类，使用单例可以降低系统的内存压力（日志对象）</li>
-<li>某类要求只生成一个对象的时候</li>
-<li>某些创建实例时占用资源较多，或实例化耗时较长，且经常使用</li>
-<li>对于一些控制硬件级别的操作，或者从系统上来讲应当是单一控制逻辑的操作，如果有多个实例，则系统会完全乱套。</li>
-<li>当对象需要被共享的场合。由于单例模式只允许创建一个对象，共享该对象可以节省内存，并加快对象访问速度。如 Web 中的配置对象、数据库的连接池等。</li>
-</ol>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>单例模式可以保证内存中只有一个实例，减少内存开销</li>
-<li>避免对资源的多重占用</li>
-<li>设置全局访问点，可以优化和共享资源访问</li>
-</ol>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>单例模式一般没有接口，扩展困难，只能修改原来代码，违背开闭原则。</li>
-<li>在并发测试中，不利于代码调试。在调试过程中，如果单例中的代码没有执行完，也不能模拟生成一个新的对象。</li>
-<li>单例模式在功能代码通常卸载一个类中，如果功能涉及不合理，很容易违背单一职责原理。</li>
-</ol>
-<h2 id="实现（python）"><a href="#实现（python）" class="headerlink" title="实现（python）"></a>实现（python）</h2><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>在python中使用 import 引入对象使用，则就是单例模式（因为在第一次使用import加载后，会生成 .pyc文件，后面读都只会读这个文件），且这种方式是线程安全的。</p>
-<p>在test1.py中，创建一个类并实例化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>)<br>test = Test()<br></code></pre></td></tr></table></figure>
+                <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker-compose  up -d [server]<br><span class="hljs-comment">## 指定文件</span><br>docker-compose -f docker-compose-qc.yml --profile test1 up -d<br></code></pre></td></tr></table></figure>
+<h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3.8&quot;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">qc:</span><br>    <span class="hljs-attr">image:</span> <br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PROJECT_TO_RUN=test1</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8641:8641&quot;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xx-vm</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">test1</span><br>    <span class="hljs-attr">profiles:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">test1</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">../../xx1:/home/data/xx1</span><br><br><br>  <span class="hljs-attr">qcBase:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">test2</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PROJECT_TO_RUN=test2</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8646:8646&quot;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">xx-vm</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">test2</span><br>    <span class="hljs-attr">profiles:</span> <br>      <span class="hljs-bullet">-</span> <span class="hljs-string">test2</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">../../xx2:/home/data/xx2</span><br><br><span class="hljs-attr">networks:</span><br>  <span class="hljs-attr">xx-vm:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">bridge</span><br><br><br></code></pre></td></tr></table></figure>
+<h3 id="根据environment，起不通的服务脚本"><a href="#根据environment，起不通的服务脚本" class="headerlink" title="根据environment，起不通的服务脚本"></a>根据environment，起不通的服务脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-keyword">case</span> <span class="hljs-variable">$PROJECT_TO_RUN</span> <span class="hljs-keyword">in</span><br>    test1|test2)<br>        <span class="hljs-comment"># 匹配成功的逻辑</span><br>        <span class="hljs-comment"># 指定目录</span><br>        SERVICE_DIR=<span class="hljs-string">&quot;/home/data/<span class="hljs-variable">$PROJECT_TO_RUN</span>/&quot;</span><br>        <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-variable">$SERVICE_DIR</span>&quot;</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;当前用户(whoami): <span class="hljs-subst">$(whoami)</span>&quot;</span><br>        /bin/bash start.sh start<br>        <span class="hljs-comment"># 1.保证脚本一直再运行，docker可以监测到 2.将uwsgi 日志输出到docker 对容器的监测日志中</span><br>        <span class="hljs-built_in">tail</span> -f script/uwsgi.log<br>        ;;<br>    *)<br>        <span class="hljs-comment"># 其他情况</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Usage: docker run &lt;image&gt; [test1|test2]&quot;</span><br>        <span class="hljs-built_in">exit</span> 1<br>        ;;<br><span class="hljs-keyword">esac</span><br></code></pre></td></tr></table></figure>
 
-<p>在test2.py中引入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> test1 <span class="hljs-keyword">import</span> test<br></code></pre></td></tr></table></figure>
-<h3 id="方法2-代码实现（线程安全）"><a href="#方法2-代码实现（线程安全）" class="headerlink" title="方法2 代码实现（线程安全）"></a>方法2 代码实现（线程安全）</h3><p>代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls, *args, **kwargs</span>):<br>        <span class="hljs-comment"># 判断 该类中有没有_instance属性</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(cls, <span class="hljs-string">&quot;_instance&quot;</span>):<br>            <span class="hljs-comment"># 没有的话创建,并继承成原本的 __new__ 方法</span><br>            cls._instance = <span class="hljs-built_in">super</span>(Singleton, cls).__new__(cls)<br>        <span class="hljs-keyword">return</span> cls._instance<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">pass</span><br>    <br></code></pre></td></tr></table></figure>
-
-<p>测试(多线程测试)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">task</span>(<span class="hljs-params">arg</span>):<br>    obj = Singleton()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-built_in">id</span>(obj))<br><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>    t = threading.Thread(target=task,args=[i,])<br>    t.start()<br><br></code></pre></td></tr></table></figure>
-<p>输出</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br>id 1966023888<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -338,7 +310,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
   
 
@@ -353,7 +325,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8D%95%E4%BE%8B/">#单例</a>
+        <a href="/tags/docker-compose/">#docker-compose</a>
       
     </div>
   
@@ -365,8 +337,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>2.单例模式</div>
-      <div>https://sweetshance.github.io/2023/04/13/设计模式/2-python单例模式/</div>
+      <div>docker编排docker-compose</div>
+      <div>https://sweetshance.github.io/2025/05/21/docker/docker编排docker-compose/</div>
     </div>
     <div class="license-meta">
       
@@ -378,7 +350,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月13日</div>
+          <div>2025年5月21日</div>
         </div>
       
       
@@ -394,18 +366,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="5.建造者模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">5.建造者模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/" title="1. 简介">
-                        <span class="hidden-mobile">1. 简介</span>
+                      <a href="/2025/05/21/docker/docker%E9%83%A8%E7%BD%B2minio/" title="docker部署minio">
+                        <span class="hidden-mobile">docker部署minio</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
