@@ -226,15 +226,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" target="_self">
-          13.组合模式
+        <a href="/2023/08/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20-python%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_self">
+          20.python状态模式
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20-python%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          组合模式组合模式和组合关系不一样，组合模式使用于解决树形结构的场景，更多的是处理对象组织结构之间的问题，而组合关系则是通过将不同对象封装起来完成一个统一功能。 概念将对象组合成属性结构一表示整个部分的层次结构，组合模式可以让用户统一对待单个对象和对象的组合。 比如： 在计算机中目录结构， 包含了文件夹和文件两种元素，文件夹可以包含，文件夹和文件。使文件夹形成一个树形结构。  透明组合模式：抽象根节
+          状态模式备注: 状态模式和策略模式区别： 状态模式不同状态下做的事情不同，而策略模式做的都是同一件事情。 概念允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的累。用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。 结构 抽象状态类 具体状态类：根据具体场景来实现状态改变后的具体场景 上下文场景类： 包含抽象状态类的引用，调用具体状态类。  应用场景 对象根据自身状态
         </div>
       </a>
 
@@ -242,8 +242,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-04 20:25" pubdate>
-              2023-05-04
+            <time datetime="2023-08-10 14:52" pubdate>
+              2023-08-10
             </time>
           </div>
         
@@ -273,7 +273,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">#组合模式</a>
+              <a href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/">#状态模式</a>
             
           </div>
         
@@ -287,15 +287,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" target="_self">
-          12.享元模式
+        <a href="/2023/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/19-python%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+          19.python中介者模式
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/19-python%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          享元模式概念摒弃了在每个对象中保存所有数据的方式，通过共享多个对象所共有的相同状态，从而让我们能在有限的内存容量中载入更过对象。 比如：在计算机中26个英文字母，使用就是用了享元的概念： a = “c”  b = “c”  a is b  为 True, 也就是说a 和 b 取得值地址是一样得是一个对象。（26个英文字母取用就是用了享元得概念） 结构享元模式包含两种状态：  内部状态： 不会随着环
+          中介者模式中介租房，中介可以为租客和房东交换信息，这样租客不需要知道太多房东，只需要把自己需求告诉中介，中介负责将房东信息反馈给租户，房东同理 概念定义一个单独的（中介）对象，来封装一组对象之间的交互，将这组对象之间的交互委派给中介对象交互，避免对象之间的交互 结构 抽象的中介者(AbstractMediator): 包含一个沟通同事间消息的方法。 具体中介者(ConcteteMediator):
         </div>
       </a>
 
@@ -303,8 +303,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-26 10:42" pubdate>
-              2023-04-26
+            <time datetime="2023-07-28 16:18" pubdate>
+              2023-07-28
             </time>
           </div>
         
@@ -334,7 +334,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">#享元模式</a>
+              <a href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/">#中介者模式</a>
             
           </div>
         
@@ -348,15 +348,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-python%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" target="_self">
-          11.外观模式
+        <a href="/2023/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/18-python%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" target="_self">
+          18.python命令模式
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-python%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/18-python%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          外观模式概念外观模式也叫门面模式：为子系统中的一组接口提供统一的接口，定义了更高级别的接口，使子系统更易于使用且外部程序不需要关心内部子系统的具体细节。  结构 外观类（Facade）： 进行组合多个子系统 子系统类（SubSystem）：具体的功能  应用场景 简化复杂系统。比如：开发一套电商系统后（包含订单，商品，支付，会员等系统），我们不能让用户依次使用这些系统后才能完成商品的购买，而是需要
+          在实际开发中如果不支持将函数作为参数进行传递，就可以借助命令模式。 将函数封装成对象，将这个对象用作参数传递。 命令模式概念将请求封装为一个对象，这样可以使用不同的请求参数化其他对象（将不同请求依赖注入到其他对象），并且能够支持请求（命令）的排队执行、记录日志、撤销等功能。 结构 客户类创建必要的接收器（Receiver）对象。 抽象命令（Command）对象并且将步骤（1）创建的接收器对象配置给
         </div>
       </a>
 
@@ -364,8 +364,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-25 11:15" pubdate>
-              2023-04-25
+            <time datetime="2023-07-26 17:27" pubdate>
+              2023-07-26
             </time>
           </div>
         
@@ -395,7 +395,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">#外观模式</a>
+              <a href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/">#命令模式</a>
             
           </div>
         
@@ -409,15 +409,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
-          10.装饰器模式
+        <a href="/2023/07/19/web%E7%9F%A5%E8%AF%86/2.%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%A2%9E%E5%8A%A0%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE/" target="_self">
+          2.简单实现系统中增加缓存数据
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/19/web%E7%9F%A5%E8%AF%86/2.%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%A2%9E%E5%8A%A0%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE/" target="_self">
         <div>
-          装饰器模式概念再不修改原有方法的基础上动态的给一个对象添加一些额外的职责，就扩展功能而言，装饰着模式提供了一种比使用子类更灵活的替代方案。（其原理和特点和python的装饰器一样） 本章节讲解，会先以规范的设计模式来进行代码实现，其次会用python的装饰器来实现 结构 抽象构建角色(Component): 它是具体构建和抽象装饰类的共同父类 具体构建角色(ConcreteComponent):
+          背景 系统中数据越来越多，接口请求频繁，在数据库和view中增加一个缓存层，业务先从redis中查询，查询不到再去数据库中查，并更新到redis中 这个缓存实际上取值方式和更新方式都是一样的，只是需要加载到redis的数据不一样，所以采用一个简单的模板方法来实现。  代码实现(模板方法)12345678910111213141516171819202122232425262728293031323
         </div>
       </a>
 
@@ -425,8 +425,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-24 17:31" pubdate>
-              2023-04-24
+            <time datetime="2023-07-19 16:36" pubdate>
+              2023-07-19
             </time>
           </div>
         
@@ -441,7 +441,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/web%E7%9F%A5%E8%AF%86/" class="category-chain-item">web知识</a>
   
   
 
@@ -456,7 +456,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">#桥接模式</a>
+              <a href="/tags/%E7%BC%93%E5%AD%98/">#缓存</a>
             
           </div>
         
@@ -470,15 +470,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/9-python%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" target="_self">
-          9.桥接模式
+        <a href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_self">
+          17.责任链模式
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/9-python%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          桥接模式概念将抽象与实现分离，是他们可以独立变化。用组合关系代替继承关系来实现，从而降低抽象和实现这两个可变维度的耦合度。 用一种巧妙的方式处理多层继承存在的问题。用抽象关联来取代传统的多层继承，将类之间的静态继承转变为动态的组合关系，使系统更加灵活，易于扩展，有效的控制了类的个数（避免了继承层次的指数级爆炸） 结构 抽象化 (Abstraction) 角色： 定义抽象类，并包含一个对实现化对象(
+          责任链模式概念避免将一个请求的发送者与接收者耦合在一起，让多个对象都有机会处理请求，将接收请求的对象连接成一条链，并且沿着这条链传递请求，直到有一个对象能够处理它为止。 结构 抽象处理者（Handler）角色：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。 具体处理者（Concrete Handler）角色：实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该
         </div>
       </a>
 
@@ -486,8 +486,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-23 16:35" pubdate>
-              2023-04-23
+            <time datetime="2023-07-05 14:24" pubdate>
+              2023-07-05
             </time>
           </div>
         
@@ -517,7 +517,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">#桥接模式</a>
+              <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">#策略模式</a>
             
           </div>
         
@@ -531,15 +531,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8-python%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
-          8.适配器模式
+        <a href="/2023/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
+          16.策略模式
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8-python%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          适配器模式概念将一个类的接口转换成客户希望的另外一个接口，使得原来由于接口不兼容而不能一起工作的那些类可以一起工作。 分为:  类适配器(通过继承扩展来实现) 对象适配器(通过在一个类中定义另一个来调用实现)  前者类之间的耦合度比后者高，且要求程序员了解现有组件库中的相关组件的内部结构，所以应用相对较少些。 结构 目标接口 Target: 当前业务所期待的接口，它可以时抽象类或者接口 适配者类（
+          策略模式概念定义一系列算法，将每一个算法封装起来，并使他们可以相互替换，策略模式让算法可以独立于使用它的客户端。将定义、创建、使用进行解耦例如： 出行，可以选择，公交，火车，飞机。 结构 抽象策略类(Strategy): 定义抽象方法 具体策略类A(ConcreteStrategyA): 实现策略方法 具体策略类B(ConcreteStrategyB): 实现策略方法 上下文类(Context):
         </div>
       </a>
 
@@ -547,8 +547,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-21 18:48" pubdate>
-              2023-04-21
+            <time datetime="2023-07-04 14:50" pubdate>
+              2023-07-04
             </time>
           </div>
         
@@ -578,7 +578,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">#适配器模式</a>
+              <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">#策略模式</a>
             
           </div>
         
@@ -592,15 +592,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" target="_self">
-          7.代理模式
+        <a href="/2023/06/29/mysql/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/" target="_self">
+          mysql锁表问题
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/mysql/mysql%E9%94%81%E8%A1%A8%E9%97%AE%E9%A2%98/" target="_self">
         <div>
-          代理模式概念有些情况下，用户不能或者不想直接访问具体对象，需要通过中介来完成某项任务，中介就是代理对象。（通过不改变原始类的情况下，通过代理类来给原始类附加功能） 结构 抽象主题类： 通过接口或者抽象类声明正式主题和代理对象实现的业务 真实主题类： 实现抽象主题的具体业务 代理类： 提供了与真实主题相同的接口，其内部含有对真实主题的引用，他可以访问、控制或者扩展真实主题的功能  应用场景 在dja
+          前提在语句查询或者更新插入数据锁表后的处理 解决 相关信息查询 1234567891011121314151617181、查看正在进行中的事务SELECT * FROM information_schema.INNODB_TRX2、查看正在锁的事务SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;3、查看等待锁的事务SELECT * FROM INFORM
         </div>
       </a>
 
@@ -608,8 +608,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-20 18:52" pubdate>
-              2023-04-20
+            <time datetime="2023-06-29 16:03" pubdate>
+              2023-06-29
             </time>
           </div>
         
@@ -624,7 +624,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
   
   
 
@@ -639,7 +639,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E6%A8%A1%E5%BC%8F/">#代理模式模式</a>
+              <a href="/tags/mysql/">#mysql</a>
             
           </div>
         
@@ -653,15 +653,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_self">
-          6.原型模式
+        <a href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_self">
+          mysql值为json数据的相关操作
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/mysql/mysql%E5%80%BC%E4%B8%BAjson%E6%95%B0%E6%8D%AE%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_self">
         <div>
-          原型模式概念用于创建重复的对象，同时又能保证性能；简单理解就是一个对象的产生可以不由0起步，直接从一个已经具备一定雏形的对象克隆（节约创建对象所产生的开支），然后再修改为所需对象。类似：python 用的 copy 方法。 结构（java结构，通过继承Cloneable 重写clone 实现， python3 可以借助 copy实现）  抽象原型（Prototype）: 一个接口，负责定义对象复制
+          一、概述mysql 支持json数据类型的存储，那这些数据的更新就涉及json的一些修改操作，那就需要考虑如何使用sql进行安全的更新。mysql json 支持 数组、整数、浮点数、字符串、布尔、null 以及嵌套的json对象。  https://cloud.tencent.com/developer/article/1525726?from=15425  二、数据介绍 其中包含字符串，数组和
         </div>
       </a>
 
@@ -669,8 +669,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-19 14:12" pubdate>
-              2023-04-19
+            <time datetime="2023-06-29 09:59" pubdate>
+              2023-06-29
             </time>
           </div>
         
@@ -685,7 +685,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
   
   
 
@@ -700,7 +700,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">#建造者模式</a>
+              <a href="/tags/mysql/">#mysql</a>
             
           </div>
         
@@ -714,15 +714,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-python%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_self">
-          4.抽象工厂模式
+        <a href="/2023/06/29/django/django%E4%BD%BF%E7%94%A8redis%E9%9B%86%E7%BE%A4%E5%81%9A%E7%BC%93%E5%AD%98/" target="_self">
+          mysql值为json数据的相关操作
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-python%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/29/django/django%E4%BD%BF%E7%94%A8redis%E9%9B%86%E7%BE%A4%E5%81%9A%E7%BC%93%E5%AD%98/" target="_self">
         <div>
-          抽象工厂模式概念是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。 在工厂方法中，一个工厂只生产一种产品，抽象工厂可以理解为一个产品族（系列产品、生态）, 例如：小米工厂， 可以生产手机、生产电视、音响。 结构 抽象工厂， 提供工厂的创建产品接口 具体工厂, 实现抽象工厂并创建具体产品，同一个产品族的产品由一个工厂创建
+          1. 使用redis集群做cache 缓存配置 1234567891011121314151617181920212223CACHES = &#123;    &quot;default&quot;: &#123;        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,        &quot;LOCATION
         </div>
       </a>
 
@@ -730,8 +730,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-14 16:32" pubdate>
-              2023-04-14
+            <time datetime="2023-06-29 09:59" pubdate>
+              2023-06-29
             </time>
           </div>
         
@@ -746,7 +746,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/django/" class="category-chain-item">django</a>
   
   
 
@@ -761,7 +761,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">#抽象工厂模式</a>
+              <a href="/tags/session-cache/">#session. cache</a>
             
           </div>
         
@@ -775,15 +775,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-python%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_self">
-          3.工厂方法模式
+        <a href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_self">
+          15.模板方法模式
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-python%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          工厂方法模式概念创建产品对象定义一个工厂接口，并将实际创建推迟到子类。核心工厂类不在负责产品的创建，于是核心类就变成了一个抽象的工厂角色，只负责具体工厂子类必须实现的接口。进一步抽象的好处是，工厂方法模式可以使系统在不修改特定工厂角色的情况下引入新产品，满足开闭原则。 通俗点讲： 一个软件公司， 有好多产品线（抽象工厂），然后创建了一个部门（工厂），产品被拆分为很多块的概念（抽象产品），每块由一个
+          模板方法模式模板方法是一种基于继承的代码复用技术，它是一种类行为模式，模板方法模式其结构中只存在父类与子类之间的继承关系。主要作用是提高程序的复用性和可扩展性：  复用性是指，所有子类可以服用父类中提供的模板方法代码。 扩展性是指，框架通过模板模式提供扩展点，让框架用户可以在不修改框架源码的情况下，基于扩展点定制化框架的功能。  概念在操作中定义算法的框架，将一些步骤推迟到子类中。模板方法让子类在
         </div>
       </a>
 
@@ -791,8 +791,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-14 14:05" pubdate>
-              2023-04-14
+            <time datetime="2023-06-28 14:31" pubdate>
+              2023-06-28
             </time>
           </div>
         
@@ -822,7 +822,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">#工厂方法模式</a>
+              <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">#模板方法模式</a>
             
           </div>
         
@@ -834,7 +834,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

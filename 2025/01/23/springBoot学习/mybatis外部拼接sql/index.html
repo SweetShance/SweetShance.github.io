@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ShanCe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在 mybatis的xml里书写公共方法12345678910111213141516171819&lt;sql id&#x3D;&quot;Example_QueryParams&quot;&gt;        &lt;choose&gt;            &lt;when test&#x3D;&quot;criterion.noValue&quot;&gt;                $&amp;#123;c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis外部拼接sql">
+<meta property="og:url" content="https://sweetshance.github.io/2025/01/23/springBoot%E5%AD%A6%E4%B9%A0/mybatis%E5%A4%96%E9%83%A8%E6%8B%BC%E6%8E%A5sql/index.html">
+<meta property="og:site_name" content="ShanCe的博客">
+<meta property="og:description" content="在 mybatis的xml里书写公共方法12345678910111213141516171819&lt;sql id&#x3D;&quot;Example_QueryParams&quot;&gt;        &lt;choose&gt;            &lt;when test&#x3D;&quot;criterion.noValue&quot;&gt;                $&amp;#123;c">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-23T07:01:07.000Z">
+<meta property="article:modified_time" content="2025-01-23T10:20:38.545Z">
+<meta property="article:author" content="ShanCe">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>mybatis外部拼接sql - ShanCe的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sweetshance.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ShanCe</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="mybatis外部拼接sql"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        ShanCe
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-23 15:01" pubdate>
+          2025年1月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          119 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mybatis外部拼接sql</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="在-mybatis的xml里书写公共方法"><a href="#在-mybatis的xml里书写公共方法" class="headerlink" title="在 mybatis的xml里书写公共方法"></a>在 mybatis的xml里书写公共方法</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">sql</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;Example_QueryParams&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">choose</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;criterion.noValue&quot;</span>&gt;</span><br>                $&#123;criterion.condition&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;criterion.singleValue&quot;</span>&gt;</span><br>                $&#123;criterion.condition&#125; #&#123;criterion.value&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;criterion.betweenValue&quot;</span>&gt;</span><br>                $&#123;criterion.condition&#125; #&#123;criterion.value&#125; and #&#123;criterion.secondValue&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;criterion.listValue&quot;</span>&gt;</span><br>                $&#123;criterion.condition&#125;<br>                <span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;criterion.value&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;listItem&quot;</span> <span class="hljs-attr">open</span>=<span class="hljs-string">&quot;(&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot;,&quot;</span> <span class="hljs-attr">close</span>=<span class="hljs-string">&quot;)&quot;</span>&gt;</span><br>                    #&#123;listItem&#125;<br>                <span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">choose</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">sql</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="书写基础类"><a href="#书写基础类" class="headerlink" title="书写基础类"></a>书写基础类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hessianhealth.quality.entity;<br><br><br><span class="hljs-keyword">import</span> lombok.Data;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QueryParams</span> &#123;<br><br>    List&lt;Criterion&gt; criterionList;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">QueryParams</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.criterionList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addCriterion</span><span class="hljs-params">(String condition)</span> &#123;<br>        <span class="hljs-keyword">if</span> (condition == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(condition + <span class="hljs-string">&quot; cannot be null&quot;</span>);<br>        &#125;<br>        criterionList.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Criterion</span>(condition));<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addCriterion</span><span class="hljs-params">(String condition, Object value)</span> &#123;<br>        <span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(condition + value + <span class="hljs-string">&quot; cannot be null&quot;</span>);<br>        &#125;<br>        criterionList.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Criterion</span>(condition, value));<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addCriterion</span><span class="hljs-params">(String condition, Object value1, Object value2)</span> &#123;<br>        <span class="hljs-keyword">if</span> (value1 == <span class="hljs-literal">null</span> || value2 == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(condition + <span class="hljs-string">&quot; Between values for &quot;</span> + value1 + value2 + <span class="hljs-string">&quot; cannot be null&quot;</span>);<br>        &#125;<br>        criterionList.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Criterion</span>(condition, value1, value2));<br>    &#125;<br><br>    <span class="hljs-comment">// 合并其他条件</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">mergeCriterion</span><span class="hljs-params">(QueryParams queryParams)</span> &#123;<br>        <span class="hljs-keyword">if</span> (queryParams != <span class="hljs-literal">null</span> &amp;&amp; !queryParams.criterionList.isEmpty()) &#123;<br>            criterionList.addAll(queryParams.criterionList);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Criterion</span> &#123;<br><br>        <span class="hljs-keyword">private</span> String condition; <span class="hljs-comment">// 字段和操作符组成的条件（如 &quot;a.name =&quot;）</span><br><br>        <span class="hljs-keyword">private</span> Object value;<br><br>        <span class="hljs-keyword">private</span> Object secondValue;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> noValue; <span class="hljs-comment">// 判断是否没传值</span><br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> singleValue; <span class="hljs-comment">// 判断是否单个值</span><br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> betweenValue; <span class="hljs-comment">// 判断是否区间值</span><br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> listValue; <span class="hljs-comment">// 判断是否集合值</span><br><br>        <span class="hljs-keyword">protected</span> <span class="hljs-title function_">Criterion</span><span class="hljs-params">(String condition)</span> &#123;<br>            <span class="hljs-built_in">this</span>.condition = condition;<br>            <span class="hljs-built_in">this</span>.noValue = <span class="hljs-literal">true</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">protected</span> <span class="hljs-title function_">Criterion</span><span class="hljs-params">(String condition, Object value)</span> &#123;<br>            <span class="hljs-built_in">this</span>.condition = condition;<br>            <span class="hljs-built_in">this</span>.value = value;<br>            <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> List&lt;?&gt;) &#123;<br>                <span class="hljs-built_in">this</span>.listValue = <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-built_in">this</span>.singleValue = <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">protected</span> <span class="hljs-title function_">Criterion</span><span class="hljs-params">(String condition, Object value, Object secondValue)</span> &#123;<br>            <span class="hljs-built_in">this</span>.condition = condition;<br>            <span class="hljs-built_in">this</span>.value = value;<br>            <span class="hljs-built_in">this</span>.secondValue = secondValue;<br>            <span class="hljs-built_in">this</span>.betweenValue = <span class="hljs-literal">true</span>;<br>        &#125;<br><br>    &#125;<br><br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hessianhealth.quality.entity;<br><br><br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SafeCriteria</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> QueryParams queryParams;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">SafeCriteria</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.queryParams = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryParams</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andEqual</span><span class="hljs-params">(String column, Object value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;=&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andNotEqual</span><span class="hljs-params">(String column, Object value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;&lt;&gt;&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andGreaterThan</span><span class="hljs-params">(String column, Object value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;&gt;&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andGreaterThanEqual</span><span class="hljs-params">(String column, Object value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;&gt;=&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andLessThan</span><span class="hljs-params">(String column, Object value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;&lt;&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andLessThanEqual</span><span class="hljs-params">(String column, Object value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;&lt;=&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andLike</span><span class="hljs-params">(String column, String value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;like&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andRegexp</span><span class="hljs-params">(String column, String value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;regexp&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andNotRegexp</span><span class="hljs-params">(String column, String value)</span> &#123;<br>        addCondition(column, <span class="hljs-string">&quot;not regexp&quot;</span>, value);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andCondition</span><span class="hljs-params">(String column)</span> &#123;<br>        queryParams.addCriterion(column);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andIsNull</span><span class="hljs-params">(String column)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot; is null&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andIsNotNull</span><span class="hljs-params">(String column)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot; is not null&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andBetween</span><span class="hljs-params">(String column, String value1, String value2)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot;  between&quot;</span>, value1, value2);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andNotBetween</span><span class="hljs-params">(String column, String value1, String value2)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot; not between&quot;</span>, value1, value2);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andIn</span><span class="hljs-params">(String column, List&lt;Object&gt; values)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot; in&quot;</span>, values);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> SafeCriteria <span class="hljs-title function_">andNotIn</span><span class="hljs-params">(String column, List&lt;Object&gt; values)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot; not in&quot;</span>, values);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 组装条件方法</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> column</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> operator</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addCondition</span><span class="hljs-params">(String column, String operator, Object value)</span> &#123;<br>        queryParams.addCriterion(column + <span class="hljs-string">&quot; &quot;</span> + operator, value);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">mergeCriteria</span><span class="hljs-params">(SafeCriteria criteria)</span>&#123;<br>        queryParams.mergeCriterion(criteria.build());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">mergeCriteria</span><span class="hljs-params">(QueryParams queryParams)</span>&#123;<br>        queryParams.mergeCriterion(queryParams);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> QueryParams <span class="hljs-title function_">build</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> queryParams;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">checkNull</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> !<span class="hljs-built_in">this</span>.queryParams.criterionList.isEmpty();<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="使用生成自己的where条件"><a href="#使用生成自己的where条件" class="headerlink" title="使用生成自己的where条件"></a>使用生成自己的where条件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.hessianhealth.quality.util.SqlFormat;<br><br><span class="hljs-keyword">import</span> com.hessianhealth.quality.entity.QueryParams;<br><span class="hljs-keyword">import</span> com.hessianhealth.quality.entity.SafeCriteria;<br><span class="hljs-keyword">import</span> com.hessianhealth.quality.request.RectifyListFilterRequest;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * @Description 整改通知/整改管理列表筛选条件</span><br><span class="hljs-comment"> **/</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">RectifyListSqlFormatBase</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 整改通知/整改管理 患者表筛选数据(公共的患者数据筛选)</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> QueryParams</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">default</span> QueryParams <span class="hljs-title function_">patBaseSql</span><span class="hljs-params">(RectifyListFilterRequest rectifyListFilterBaseRequest)</span> &#123;<br>        <span class="hljs-type">SafeCriteria</span> <span class="hljs-variable">criteria</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SafeCriteria</span>();<br>        <span class="hljs-comment">// 质控节点</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getQualityStep().isEmpty()) &#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;quality_step&quot;</span>, rectifyListFilterBaseRequest.getQualityStep());<br>        &#125;<br><br><br>        <span class="hljs-comment">// 当前科室</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getNowDeptName().isEmpty()) &#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.now_dept_name&quot;</span>, rectifyListFilterBaseRequest.getNowDeptName());<br>        &#125;<br><br>        <span class="hljs-comment">// 病案号</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getCaseNo().isEmpty()) &#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.case_no&quot;</span>, rectifyListFilterBaseRequest.getCaseNo());<br>        &#125;<br>        <span class="hljs-comment">// 住院号</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getInpNo().isEmpty()) &#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.inp_no&quot;</span>, rectifyListFilterBaseRequest.getInpNo());<br>        &#125;<br>        <span class="hljs-comment">// 患者id</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getPatientId().isEmpty()) &#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.patient_id&quot;</span>, rectifyListFilterBaseRequest.getPatientId());<br>        &#125;<br>        <span class="hljs-comment">// 患者姓名</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getPersonName().isEmpty()) &#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.person_name&quot;</span>, rectifyListFilterBaseRequest.getPersonName());<br>        &#125;<br>        <span class="hljs-comment">// 入院日期</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getAdmissionStartTime().isEmpty()<br>                &amp;&amp; !rectifyListFilterBaseRequest.getAdmissionEndTime().isEmpty()) &#123;<br>            criteria.andBetween(<span class="hljs-string">&quot;mpv.admission_time&quot;</span>, rectifyListFilterBaseRequest.getAdmissionStartTime(),<br>                    rectifyListFilterBaseRequest.getAdmissionEndTime());<br>        &#125;<br>        <span class="hljs-comment">// 主任医师</span><br>        <span class="hljs-keyword">if</span>(!rectifyListFilterBaseRequest.getSeniorDoctorName().isEmpty())&#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.senior_doctor_name&quot;</span>, rectifyListFilterBaseRequest.getSeniorDoctorName());<br>        &#125;<br>        <span class="hljs-comment">// 主治医师</span><br>        <span class="hljs-keyword">if</span>(!rectifyListFilterBaseRequest.getAttendingDoctorName().isEmpty())&#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.attending_doctor_name&quot;</span>, rectifyListFilterBaseRequest.getAttendingDoctorName());<br>        &#125;<br>        <span class="hljs-comment">// 住院医师</span><br>        <span class="hljs-keyword">if</span>(!rectifyListFilterBaseRequest.getInpDoctorName().isEmpty())&#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mpv.inp_doctor_name&quot;</span>, rectifyListFilterBaseRequest.getInpDoctorName());<br>        &#125;<br>        <span class="hljs-keyword">return</span> criteria.build();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 整改通知/整改管理 患者整改表筛 (公共的患者整改数据筛选)</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> QueryParams</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">default</span> QueryParams <span class="hljs-title function_">rectifyPatBaseSql</span><span class="hljs-params">(RectifyListFilterRequest rectifyListFilterBaseRequest)</span> &#123;<br>        <span class="hljs-type">SafeCriteria</span> <span class="hljs-variable">criteria</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SafeCriteria</span>();<br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getNotifyStartTime().isEmpty()<br>                &amp;&amp; !rectifyListFilterBaseRequest.getNotifyEndTime().isEmpty()) &#123;<br>            criteria.andBetween(<span class="hljs-string">&quot;mr.rectify_notify_date&quot;</span>,<br>                    rectifyListFilterBaseRequest.getNotifyStartTime() + <span class="hljs-string">&quot; 00:00:00&quot;</span>,<br>                    rectifyListFilterBaseRequest.getNotifyEndTime() + <span class="hljs-string">&quot; 23:59:59&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// 整改科室</span><br>        <span class="hljs-keyword">if</span> (!rectifyListFilterBaseRequest.getDeptName().isEmpty()) &#123;<br>            criteria.andRegexp(<span class="hljs-string">&quot;mr.rectify_now_dept_name&quot;</span>, rectifyListFilterBaseRequest.getDeptName());<br>        &#125;<br>        <span class="hljs-comment">// 通知医师</span><br>        <span class="hljs-keyword">if</span>(!rectifyListFilterBaseRequest.getSendRectifyDoctorName().isEmpty())&#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mr.send_rectify_doctor_name&quot;</span>,<br>                    rectifyListFilterBaseRequest.getSendRectifyDoctorName());<br>        &#125;<br>        <span class="hljs-comment">// 质控医师</span><br>        <span class="hljs-keyword">if</span>(!rectifyListFilterBaseRequest.getRegularDoctorName().isEmpty())&#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mr.regular_doctor_name&quot;</span>,<br>                    rectifyListFilterBaseRequest.getRegularDoctorName());<br>        &#125;<br>        <span class="hljs-comment">// 责任医师</span><br>        <span class="hljs-keyword">if</span>(!rectifyListFilterBaseRequest.getResponsibilityDoctorName().isEmpty())&#123;<br>            criteria.andEqual(<span class="hljs-string">&quot;mr.responsibility_doctor_name&quot;</span>,<br>                    rectifyListFilterBaseRequest.getResponsibilityDoctorName());<br>        &#125;<br>        <span class="hljs-keyword">return</span> criteria.build();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自定义的患者信息查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> rectifyListFilterRequest 筛选请求参数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> QueryParams</span><br><span class="hljs-comment">     */</span><br>    QueryParams <span class="hljs-title function_">patSql</span><span class="hljs-params">(RectifyListFilterRequest rectifyListFilterRequest)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自定义的患者整改信息查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> rectifyListFilterRequest 筛选请求参数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> QueryParams</span><br><span class="hljs-comment">     */</span><br>    QueryParams <span class="hljs-title function_">rectifyPatSql</span><span class="hljs-params">(RectifyListFilterRequest rectifyListFilterRequest)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自定义的患者整改结果信息查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> rectifyListFilterRequest 筛选请求参数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> QueryParams</span><br><span class="hljs-comment">     */</span><br>    QueryParams <span class="hljs-title function_">rectifyPatRegSql</span><span class="hljs-params">(RectifyListFilterRequest rectifyListFilterRequest)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 主方法，获取相关筛选信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> rectifyListFilterRequest 请求参数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> QueryParams</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">default</span> QueryParams <span class="hljs-title function_">getSql</span><span class="hljs-params">(RectifyListFilterRequest rectifyListFilterRequest)</span>&#123;<br>        <span class="hljs-comment">// 公共患者信息</span><br>        <span class="hljs-type">QueryParams</span> <span class="hljs-variable">params</span> <span class="hljs-operator">=</span> patBaseSql(rectifyListFilterRequest);<br>        <span class="hljs-comment">// 公共患者整改信息</span><br>        <span class="hljs-type">QueryParams</span> <span class="hljs-variable">rectifyParams</span> <span class="hljs-operator">=</span> rectifyPatBaseSql(rectifyListFilterRequest);<br>        <span class="hljs-comment">// 自定义患者信息</span><br>        <span class="hljs-type">QueryParams</span> <span class="hljs-variable">patSqlParams</span> <span class="hljs-operator">=</span> patSql(rectifyListFilterRequest);<br>        <span class="hljs-comment">// 自定义患者整改信息</span><br>        <span class="hljs-type">QueryParams</span> <span class="hljs-variable">rectifyPatParams</span> <span class="hljs-operator">=</span> rectifyPatSql(rectifyListFilterRequest);<br>        <span class="hljs-comment">// 自定义患者整改结果信息</span><br>        <span class="hljs-type">QueryParams</span> <span class="hljs-variable">rectifyPatRegParams</span> <span class="hljs-operator">=</span> rectifyPatRegSql(rectifyListFilterRequest);<br><br>        params.mergeCriterion(rectifyParams);<br>        params.mergeCriterion(patSqlParams);<br>        params.mergeCriterion(rectifyPatParams);<br>        params.mergeCriterion(rectifyPatRegParams);<br>        <span class="hljs-keyword">return</span> params;<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="书写mapper"><a href="#书写mapper" class="headerlink" title="书写mapper"></a>书写mapper</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 整改通知列表查询</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> notifyFilter   筛选条件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> deductScoreStr select 得分或者扣分 分数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderByColumn  排序字段</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderByType    排序类型</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> List&lt;RectifyAndNotifyInfoVo&gt;</span><br><span class="hljs-comment">     */</span><br>    List&lt;RectifyAndNotifyInfoVo&gt; <span class="hljs-title function_">selectRectifyNotifyList</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;notifyFilter&quot;)</span> QueryParams notifyFilter,</span><br><span class="hljs-params">                                                         <span class="hljs-meta">@Param(&quot;deductScoreStr&quot;)</span> String deductScoreStr,</span><br><span class="hljs-params">                                                         <span class="hljs-meta">@Param(&quot;orderByColumn&quot;)</span> String orderByColumn,</span><br><span class="hljs-params">                                                         <span class="hljs-meta">@Param(&quot;orderByType&quot;)</span> String orderByType)</span>;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="书写xml"><a href="#书写xml" class="headerlink" title="书写xml"></a>书写xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectRectifyNotifyList&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;com.hessianhealth.quality.vo.RectifyAndNotifyInfoVo&quot;</span>&gt;</span><br>        select<br>            distinct mpv.patient_id patientId ,<br>            mpv.visit_id visitId,<br>            mpv.admission_time admissionTime,<br>            mpv.discharge_time dischargeTime,<br>            mpv.person_name personName,<br>            mpv.bed_no bedNo,<br>            mpv.case_no caseNo,<br>            mpv.inp_no inpNo,<br>            mpv.mr_level mrLevel,<br>            mpv.now_dept_name nowDeptName,<br>            mpv.now_district_name nowDistrictName,<br>            mpv.dept_admission_to_name deptAdmissionToName,<br>            mpv.dept_discharge_from_name deptDischargeFromName,<br><br>            mpv.district_discharge_from_name districtDischargeFromName,<br>            mpv.senior_doctor_name seniorDoctorName,<br>            mpv.attending_doctor_name attendingDoctorName,<br>            mpv.inp_doctor_name inpDoctorName,<br>            mpv.file_flag fileFlag,<br>            mpv.regular_node regularNode,<br>            mpv.mr_doctor_part_status mrDoctorPartStatus,<br>            mpv.catalog_date catalogDate,<br>            mr.rectify_id rectifyId,<br>            mr.rectify_notify_date rectifyNotifyDate,<br>            mr.rectify_confirm_date rectifyConfirmDate,<br>            mr.regular_doctor_name regularDoctorName,<br>            mr.regular_dept_name regularDeptName,<br>            mr.is_dismissed isDismissed,<br>            mr.rectify_progress rectifyProgress,<br>            mr.rectify_remark rectifyRemark,<br>            mr.quality_step qualityStep,<br>            mr.regular_res_num as problemNum,<br>            mr.rectify_operate_date rectifyOperateDate,<br>            mr.rectify_time_max as rectifyTime,<br>            mr.appeal_time_max as appealTime,<br>            mr.rectify_doctor_name rectifyDoctorName,<br>            mr.rectify_doctor_code rectifyDoctorCode,<br>            mr.responsibility_doctor_name responsibilityDoctorName,<br>            mr.responsibility_doctor_code responsibilityDoctorCode,<br>            mr.rectify_confirm_dept rectifyConfirmDept,<br>            mr.rectify_confirm_doctor rectifyConfirmDoctor,<br>            $&#123;deductScoreStr&#125;,<br>            0 as isHistoryPatient<br>            from mrq_pat_visit mpv<br>            join mrq_rectify mr<br>            on mpv.patient_id = mr.patient_id<br>            and mpv.visit_id = mr.visit_id<br>            and mpv.quality_step = mr.quality_step<br>            <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;notifyFilter != null&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;notifyFilter.criterionList&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;criterion&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot; and &quot;</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">refid</span>=<span class="hljs-string">&quot;Example_QueryParams&quot;</span>/&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br><br>            <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;orderByColumn != &#x27;&#x27;&quot;</span>&gt;</span><br>                order by $&#123;orderByColumn&#125; $&#123;orderByType&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// RectifyListFilterRequest 是请求参数包含属性值</span><br><span class="hljs-type">RectifyListFilterRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RectifyListFilterRequest</span>();<br>request.setDeptName(<span class="hljs-string">&quot;测试&quot;</span>);<br><span class="hljs-comment">// RectifyNotifyListSqlFormat 是继承RectifyListSqlFormatBase接口，实现自定义 条件</span><br><span class="hljs-type">RectifyNotifyListSqlFormat</span> <span class="hljs-variable">rectifyNotifyListSqlFormat</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RectifyNotifyListSqlFormat</span>();<br><span class="hljs-comment">// 获取最终数据</span><br><span class="hljs-type">QueryParams</span> <span class="hljs-variable">params</span> <span class="hljs-operator">=</span> rectifyNotifyListSqlFormat.getSql(request);<br><span class="hljs-comment">// 查询</span><br>List&lt;RectifyAndNotifyInfoVo&gt; rectifyAndNotifyInfoVoList = mrqRectifyMapper.selectRectifyNotifyList(params,  <span class="hljs-string">&quot;mpv.deduct_score&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mybatis/" class="category-chain-item">mybatis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/mybatis/">#mybatis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>mybatis外部拼接sql</div>
+      <div>https://sweetshance.github.io/2025/01/23/springBoot学习/mybatis外部拼接sql/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ShanCe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月23日</div>
+        </div>
+      
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/02/20/docker/docker%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/" title="docker基础了解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">docker基础了解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/pandas%E5%88%86%E7%BB%84%E5%B0%86%E5%A4%9A%E8%A1%8C%E5%A4%9A%E5%88%97%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7/" title="pandas分组将多行多列放在一起">
+                        <span class="hidden-mobile">pandas分组将多行多列放在一起</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="http://82.157.172.231/" target="_blank" rel="nofollow noopener"><span>无聊</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>ShanCe</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
