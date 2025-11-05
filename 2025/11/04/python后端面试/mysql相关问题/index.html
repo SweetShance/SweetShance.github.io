@@ -1,0 +1,837 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ShanCe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="请解释MySQL的存储引擎，重点对比InnoDB和MyISAM的区别，并说明如何选择适合的存储引擎。要求： 1.解释MySQL插件式存储引擎架构2.详细对比InnoDB和MyISAM的特性差异3.说明Memory、Archive等其他存储引擎的适用场景4.提供存储引擎选择的最佳实践5.演示如何查看和修改存储引擎 回答：  解释MySQL插件式存储引擎架构架构层次   连接池&#x2F;线程管理  sql解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql相关问题">
+<meta property="og:url" content="https://sweetshance.github.io/2025/11/04/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/mysql%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="ShanCe的博客">
+<meta property="og:description" content="请解释MySQL的存储引擎，重点对比InnoDB和MyISAM的区别，并说明如何选择适合的存储引擎。要求： 1.解释MySQL插件式存储引擎架构2.详细对比InnoDB和MyISAM的特性差异3.说明Memory、Archive等其他存储引擎的适用场景4.提供存储引擎选择的最佳实践5.演示如何查看和修改存储引擎 回答：  解释MySQL插件式存储引擎架构架构层次   连接池&#x2F;线程管理  sql解析">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-04T06:40:24.000Z">
+<meta property="article:modified_time" content="2025-11-05T05:39:02.685Z">
+<meta property="article:author" content="ShanCe">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>mysql相关问题 - ShanCe的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sweetshance.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ShanCe</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="mysql相关问题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        ShanCe
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-04 14:40" pubdate>
+          2025年11月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql相关问题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="请解释MySQL的存储引擎，重点对比InnoDB和MyISAM的区别，并说明如何选择适合的存储引擎。"><a href="#请解释MySQL的存储引擎，重点对比InnoDB和MyISAM的区别，并说明如何选择适合的存储引擎。" class="headerlink" title="请解释MySQL的存储引擎，重点对比InnoDB和MyISAM的区别，并说明如何选择适合的存储引擎。"></a>请解释MySQL的存储引擎，重点对比InnoDB和MyISAM的区别，并说明如何选择适合的存储引擎。</h3><p>要求：</p>
+<p>1.解释MySQL插件式存储引擎架构<br>2.详细对比InnoDB和MyISAM的特性差异<br>3.说明Memory、Archive等其他存储引擎的适用场景<br>4.提供存储引擎选择的最佳实践<br>5.演示如何查看和修改存储引擎</p>
+<p>回答：</p>
+<ol>
+<li>解释MySQL插件式存储引擎架构<br>架构层次</li>
+</ol>
+<ul>
+<li><p>连接池/线程管理</p>
+</li>
+<li><p>sql解析器，查询优化器</p>
+</li>
+<li><p>存储引擎接口</p>
+</li>
+<li><p>存储引擎<br>核心特点：</p>
+</li>
+<li><p>SQL层统一：所有SQL解析、优化、缓存等逻辑通用</p>
+</li>
+<li><p>引擎可插拔：不同表可使用不同存储引擎</p>
+</li>
+<li><p>API标准化：存储引擎实现标准接口</p>
+</li>
+<li><p>事务分离：事务支持由存储引擎实现</p>
+</li>
+</ul>
+<ol start="2">
+<li>详细对比InnoDB和MyISAM的特性差异<br>Innodb： 支持事务、行级锁、外键、崩溃后自动恢复<br>MyISAM： 不支持事务、表级锁、外键、崩溃后数据丢失， 对于全文索引快 适合大量读取，在读多写少的情况下有优势</li>
+<li>演示如何查看和修改存储引擎<br>备份库</li>
+</ol>
+<p>alter table 表名 engine=InnoDB;</p>
+<h3 id="请详细解释MySQL的索引机制，包括索引类型、工作原理和优化策略。"><a href="#请详细解释MySQL的索引机制，包括索引类型、工作原理和优化策略。" class="headerlink" title="请详细解释MySQL的索引机制，包括索引类型、工作原理和优化策略。"></a>请详细解释MySQL的索引机制，包括索引类型、工作原理和优化策略。</h3><p>要求：</p>
+<ol>
+<li>解释B+Tree索引的结构和工作原理<ul>
+<li>B+Tree索引结构：</li>
+<li>根节点：包含索引的列和指向下一级节点的指针</li>
+<li>非叶子节点：包含索引的列和指向下一级节点的指针</li>
+<li>叶子节点：包含索引的列和数据行</li>
+</ul>
+</li>
+</ol>
+<p>从第一级索引范围，一次向下找 直到找到</p>
+<p>聚簇索引和非聚簇索引</p>
+<ul>
+<li>数据按照主键顺序物理存储 </li>
+<li>叶子结点包含完整行数据</li>
+<li>每个表只能有一个聚蔟索引</li>
+</ul>
+<p>非聚簇索引：</p>
+<ul>
+<li>叶子结点存储主键值，需要回表查询</li>
+<li>可以创建多个二级索引</li>
+<li>查询需要两次索引查找</li>
+</ul>
+<ol start="2">
+<li>对比不同索引类型（主键、唯一、普通、全文、组合索引）<br>主键索引： 唯一且不能为空， 表数据按主键顺序物理存储， 自动创建索引<br>唯一索引： 唯一且可以为空， 创建索引时自动去除重复值</li>
+</ol>
+<p>普通索引： 允许重复值<br>全文索引： 进行语意匹配，模糊匹配到排索引 等关键词映射<br>组合索引： 索引包含多个列，需要考虑的是索引失效的情况，最左前缀树匹配原则。</p>
+<ol start="3">
+<li>说明索引的最左前缀原则和覆盖索引<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">-- 创建复合索引<br>CREATE INDEX idx_compound ON users(last_name, first_name, age);<br><br>-- ✅ 使用索引的查询<br>EXPLAIN SELECT * FROM users WHERE last_name = <span class="hljs-string">&#x27;张&#x27;</span>;                    -- 使用索引<br>EXPLAIN SELECT * FROM users WHERE last_name = <span class="hljs-string">&#x27;张&#x27;</span> AND first_name = <span class="hljs-string">&#x27;三&#x27;</span>; -- 使用索引<br>EXPLAIN SELECT * FROM users WHERE last_name = <span class="hljs-string">&#x27;张&#x27;</span> AND age &gt; <span class="hljs-number">20</span>;       -- 部分使用索引<br><br>-- ❌ 无法使用索引的查询<br>EXPLAIN SELECT * FROM users WHERE first_name = <span class="hljs-string">&#x27;三&#x27;</span>;                   -- 无法使用索引<br>EXPLAIN SELECT * FROM users WHERE age &gt; <span class="hljs-number">20</span>;                           -- 无法使用索引<br>EXPLAIN SELECT * FROM users WHERE last_name LIKE <span class="hljs-string">&#x27;%张%&#x27;</span>;              -- 无法使用索引<br></code></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">-- 创建覆盖索引<br>CREATE INDEX idx_covering ON users(email, name, age);<br><br>-- ✅ 覆盖索引查询（不需要回表）<br>EXPLAIN SELECT email, name, age FROM users WHERE email = <span class="hljs-string">&#x27;test@example.com&#x27;</span>;<br>-- Extra: Using index<br><br>-- ❌ 非覆盖索引查询（需要回表）<br>EXPLAIN SELECT * FROM users WHERE email = <span class="hljs-string">&#x27;test@example.com&#x27;</span>;<br>-- Extra: Using index condition<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>分析索引的失效场景和使用代价</li>
+</ol>
+<ul>
+<li>使用函数导致索引失效</li>
+<li>隐示类型转换 例如： select * from users where id = ‘1’; id 是 int</li>
+<li>前导通配符。例如: select * from users where name like ‘张%’;</li>
+<li>or 条件使用不当<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">-- ❌ OR条件导致索引失效<br>CREATE INDEX idx_age ON users(age);<br>CREATE INDEX idx_city ON users(city);<br><br>EXPLAIN SELECT * FROM users WHERE age &gt; <span class="hljs-number">25</span> OR city = <span class="hljs-string">&#x27;北京&#x27;</span>;<br>-- 可能无法有效使用索引<br><br>-- ✅ 优化为UNION<br>EXPLAIN <br>SELECT * FROM users WHERE age &gt; <span class="hljs-number">25</span><br>UNION<br>SELECT * FROM users WHERE city = <span class="hljs-string">&#x27;北京&#x27;</span>;<br>-- 可以分别使用索引<br></code></pre></td></tr></table></figure></li>
+<li>索引区别性不大的时候 例如值只有 a， b 创建了索引</li>
+</ul>
+<h3 id="请详细解释MySQL的事务隔离级别，包括不同隔离级别解决的问题和带来的并发副作用。"><a href="#请详细解释MySQL的事务隔离级别，包括不同隔离级别解决的问题和带来的并发副作用。" class="headerlink" title="请详细解释MySQL的事务隔离级别，包括不同隔离级别解决的问题和带来的并发副作用。"></a>请详细解释MySQL的事务隔离级别，包括不同隔离级别解决的问题和带来的并发副作用。</h3><p>要求：</p>
+<ol>
+<li>解释4种事务隔离级别（读未提交、读已提交、可重复读、可串行化）</li>
+</ol>
+<ul>
+<li>读未提交： 会出现，脏读， 不可重复度，幻读</li>
+<li>读已经提交： 解决了脏读的问题；但是会出现不可重复读和幻读，每次读取的都是最新数据，没有保证事务读取的一致性。</li>
+<li>可重复度： 解决了 脏读和可重复读问题； 事务第一次读取创建快找，整个事务期间都使用这个快照的数据。但是读取数据分为快找读和当前读，如果使用加锁查询的话会出现幻读（读到新的值）的情况。</li>
+<li>可串行读： 解决了 脏读，不可重复读和幻读，完全串行化执行，事务按顺序一个接一个执行，效率很慢</li>
+</ul>
+<ol start="2">
+<li>说明每种隔离级别解决的并发问题（脏读、不可重复读、幻读）</li>
+</ol>
+<ul>
+<li>脏读：一个事务读取了另一个事务未提交的数据。， 比如。B事务在修改 年龄 但是B事务还没有提交； A事务读取了，B事务回滚了， A读取的就是脏数据。</li>
+<li>不可重复读：一个事务读取了另一事务已经更新的数据。 事务A两次读取了一条数据，获取不同的结果，中间有B事务进行了提交</li>
+<li>幻读：一个事务读取了另一事务新增的数据。 事务A两次查询数据集合，发生变化，因为事务B新增了一条数据。</li>
+</ul>
+<ol start="3">
+<li>分析不同隔离级别的性能影响和适用场景</li>
+</ol>
+<ul>
+<li>读未提交：监控、统计 要求并发高的情况（允许脏读，要求实时性），</li>
+<li>读已提交：报表、web应用 （报表获取最近数据）</li>
+<li>可重复度： 交易系统、金融 （通用业务场景）</li>
+<li>可串行化： 清算、对账</li>
+</ul>
+<ol start="4">
+<li>提供实际代码示例演示各种并发问题</li>
+<li>讲解MySQL的MVCC（多版本并发控制）机制</li>
+</ol>
+<ul>
+<li>每行数据存在多个版本</li>
+<li>读操作读取历史快照</li>
+<li>写操作创建新版本</li>
+<li>读写操作互补阻塞。</li>
+</ul>
+<p>注意：<br>当前读：采用锁的机制来进行的保证数据准确的，且当前读的锁会持续到事务结束，</p>
+<h3 id="请详细解释MySQL的查询优化机制，包括执行计划分析、索引优化、查询重写和性能调优策略。"><a href="#请详细解释MySQL的查询优化机制，包括执行计划分析、索引优化、查询重写和性能调优策略。" class="headerlink" title="请详细解释MySQL的查询优化机制，包括执行计划分析、索引优化、查询重写和性能调优策略。"></a>请详细解释MySQL的查询优化机制，包括执行计划分析、索引优化、查询重写和性能调优策略。</h3><p>要求：</p>
+<ol>
+<li>解释EXPLAIN执行计划的各项参数含义和优化方法</li>
+</ol>
+<ul>
+<li>type：链接类型， const： 主键等值查询， eq_ref：关联字段唯一索引， ref：非唯一索引等值查询，  range：索引范围扫描， index：遍历索引数， all：全表扫</li>
+<li>key：实际使用索引字段。</li>
+<li>rows：预估扫描行数。</li>
+<li>Extra：额外信息 </li>
+<li>possible_keys：可能使用的索引 </li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">-- 好的Extra信息<br>Using index        -- 覆盖索引，无需回表<br>Using <span class="hljs-built_in">where</span>        -- 索引过滤<br><br>-- 需要优化的Extra信息  <br>Using filesort     -- 需要额外排序<br>Using temporary    -- 需要临时表<br>Using <span class="hljs-built_in">join</span> buffer  -- 需要使用连接缓冲<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>分析索引优化策略（索引选择、复合索引、覆盖索引）</li>
+</ol>
+<ol>
+<li>索引选择</li>
+</ol>
+<ul>
+<li>高效性选择，唯一值多的作为索引，例如。邮箱，电话，这种重复性低的</li>
+<li>常用查询字段，例如 时间， id</li>
+<li>常用于，排序分组字段</li>
+</ul>
+<ol start="2">
+<li>复合索引</li>
+</ol>
+<ul>
+<li>索引包含多个字段，<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_user_composite <span class="hljs-keyword">ON</span> users(last_name, first_name, age);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>需要考虑 最左前缀数 匹配 ， 必须查询 符合索引的第一个字段。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- ✅ 使用索引的查询</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;张&#x27;</span>;<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;张&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;三&#x27;</span>;<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;张&#x27;</span> <span class="hljs-keyword">AND</span> age <span class="hljs-operator">&gt;</span> <span class="hljs-number">25</span>;<br><br><span class="hljs-comment">-- ❌ 无法使用索引的查询</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;三&#x27;</span>; <span class="hljs-comment">-- 跳过last_name</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> age <span class="hljs-operator">&gt;</span> <span class="hljs-number">25</span>; <span class="hljs-comment">-- 跳过前导列</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>覆盖索引 就是索引包含所有的查询字段</li>
+</ol>
+<ul>
+<li>不需要回表查询。具体数据。</li>
+</ul>
+<ol start="3">
+<li>说明查询重写技巧和避免全表扫描的方法</li>
+</ol>
+<ul>
+<li>合理使用索引</li>
+<li>复合索引 遵循最左前缀数匹配原则</li>
+<li>查询时只返回需要的字段。</li>
+<li>使用 exists 代替in</li>
+<li>避免在where语句后使用函数，导致索引失效</li>
+<li>join 顺序优化，要小表驱动大表。</li>
+<li>避免使用子查询，优先采用join</li>
+<li>分页查询优化。limit 配合 where 使用</li>
+</ul>
+<ol start="4">
+<li><p>讲解慢查询日志分析和性能监控工具的使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">-- 查看慢查询配置<br>SHOW VARIABLES LIKE <span class="hljs-string">&#x27;slow_query%&#x27;</span>;<br>SHOW VARIABLES LIKE <span class="hljs-string">&#x27;long_query_time&#x27;</span>;<br><br>-- 启用慢查询日志<br>SET GLOBAL slow_query_log = <span class="hljs-number">1</span>;<br>SET GLOBAL long_query_time = <span class="hljs-number">2</span>; -- 超过<span class="hljs-number">2</span>秒记录<br>SET GLOBAL slow_query_log_file = <span class="hljs-string">&#x27;/var/log/mysql/slow.log&#x27;</span>;<br><br>-- 记录未使用索引的查询<br>SET GLOBAL log_queries_not_using_indexes = <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>提供实际SQL优化案例和性能对比数据</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/mysql/">#mysql</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>mysql相关问题</div>
+      <div>https://sweetshance.github.io/2025/11/04/python后端面试/mysql相关问题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ShanCe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月4日</div>
+        </div>
+      
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/11/05/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/redis%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" title="redis相关问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">redis相关问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/02/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/2-python%E5%90%8E%E7%AB%AF%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95/" title="2.python后端相关面试">
+                        <span class="hidden-mobile">2.python后端相关面试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="http://82.157.172.231/" target="_blank" rel="nofollow noopener"><span>无聊</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>ShanCe</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

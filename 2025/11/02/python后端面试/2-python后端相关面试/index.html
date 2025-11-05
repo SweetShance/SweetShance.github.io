@@ -1,0 +1,819 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ShanCe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.python 运算符的重载12345678910111213141516171819202122232425262728293031323334class Vector:    def __init__(self, a, b, c ):        self.a &#x3D; a        self.b &#x3D; b        self.c &#x3D; c    def __add__(self, othe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.python后端相关面试">
+<meta property="og:url" content="https://sweetshance.github.io/2025/11/02/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/2-python%E5%90%8E%E7%AB%AF%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95/index.html">
+<meta property="og:site_name" content="ShanCe的博客">
+<meta property="og:description" content="1.python 运算符的重载12345678910111213141516171819202122232425262728293031323334class Vector:    def __init__(self, a, b, c ):        self.a &#x3D; a        self.b &#x3D; b        self.c &#x3D; c    def __add__(self, othe">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-02T07:10:40.000Z">
+<meta property="article:modified_time" content="2025-11-05T05:38:43.094Z">
+<meta property="article:author" content="ShanCe">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2.python后端相关面试 - ShanCe的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sweetshance.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ShanCe</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2.python后端相关面试"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        ShanCe
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-02 15:10" pubdate>
+          2025年11月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          162 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2.python后端相关面试</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="1-python-运算符的重载"><a href="#1-python-运算符的重载" class="headerlink" title="1.python 运算符的重载"></a>1.python 运算符的重载</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Vector</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, a, b, c </span>):<br>        self.a = a<br>        self.b = b<br>        self.c = c<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__add__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> [self.a + other.a, self.b + other.b, self.c + other.c]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__sub__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> [self.a - other.a, self.b - other.b, self.c - other.c]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__mul__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> [self.a * other.a, self.b * other.b, self.c * other.c]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__truediv__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> [self.a / other.a, self.b / other.b, self.c / other.c]<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, item</span>):<br>        <span class="hljs-keyword">if</span> item == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">return</span> self.a<br>        <span class="hljs-keyword">elif</span> item == <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> self.b<br>        <span class="hljs-keyword">elif</span> item == <span class="hljs-number">2</span>:<br>            <span class="hljs-keyword">return</span> self.c<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    v1 = Vector(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)<br>    v2 = Vector(<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>)<br>    <span class="hljs-built_in">print</span>(v1 + v2)<br>    <span class="hljs-built_in">print</span>(v1 - v2)<br>    <span class="hljs-built_in">print</span>(v1 * v2)<br>    <span class="hljs-built_in">print</span>(v1 / v2)<br>    <span class="hljs-built_in">print</span>(v1[<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用python上下文管理实现-获取redis-key-并带有超时检测功能"><a href="#使用python上下文管理实现-获取redis-key-并带有超时检测功能" class="headerlink" title="使用python上下文管理实现 获取redis key 并带有超时检测功能"></a>使用python上下文管理实现 获取redis key 并带有超时检测功能</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> contextlib <span class="hljs-keyword">import</span> contextmanager<br><br>redis = &#123;&#125;<br><br><span class="hljs-meta">@contextmanager</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_redis_key</span>(<span class="hljs-params">key, timeout=<span class="hljs-number">60</span></span>):<br>    found = <span class="hljs-literal">False</span><br>    result = <span class="hljs-literal">None</span><br>    start_time = time.time()<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">while</span> time.time() - start_time &lt; timeout:<br>            <span class="hljs-keyword">if</span> key <span class="hljs-keyword">in</span> redis:<br>                result = redis[key]<br>                found = <span class="hljs-literal">True</span><br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;timeout&#x27;</span>)<br>        <br>        <span class="hljs-keyword">if</span> found:<br>            <span class="hljs-keyword">yield</span> result<br>    <span class="hljs-keyword">finally</span>:<br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+<h3 id="3、django-的信号机制"><a href="#3、django-的信号机制" class="headerlink" title="3、django 的信号机制"></a>3、django 的信号机制</h3><p>Django 的信号机制允许在 Django 的不同部分之间传递信息。当某些事件发生时，信号会触发，并调用相应的处理函数。 </p>
+<p>核心概念：</p>
+<p>发送者（Sender）：触发信号的对象（如Model、Request等）</p>
+<p>信号（Signal）：特定事件的通知（如保存、删除等）</p>
+<p>接收者（Receiver）：监听信号并执行相应操作的函数</p>
+<p>调度器（Dispatcher）：管理信号和接收者的注册关系</p>
+<p>pre_save 信号在保存模型实例之前触发。<br>post_save 信号在保存模型实例时触发。<br>pre_delete 信号在删除模型实例之前触发。<br>post_delete 信号在删除模型实例时触发。<br>pre_init 信号在初始化模型实例之前触发。<br>post_init 信号在初始化模型实例时触发。<br>m2m_changed 信号在 ManyToManyField 字段值改变时触发。<br>pre_migrate 信号在迁移操作之前触发。<br>post_migrate 信号在迁移操作之后触发。</p>
+<h3 id="请解释Django的信号机制（Signals），并实现一个完整的信号系统来处理以下业务场景："><a href="#请解释Django的信号机制（Signals），并实现一个完整的信号系统来处理以下业务场景：" class="headerlink" title="请解释Django的信号机制（Signals），并实现一个完整的信号系统来处理以下业务场景："></a>请解释Django的信号机制（Signals），并实现一个完整的信号系统来处理以下业务场景：</h3><p>要求：</p>
+<p>解释Django信号的工作原理和内置信号类型</p>
+<p>实现用户注册后的自动处理（发送欢迎邮件、创建用户档案等）</p>
+<p>实现订单状态变更的监听和通知</p>
+<p>演示信号与异步任务（Celery）的结合使用</p>
+<p>提供信号的最佳实践和性能考虑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@receiver(<span class="hljs-params">post_save, sender=User</span>)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">handle_user_registration</span>(<span class="hljs-params">sender, instance, created, **kwargs</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        用户注册后的自动化处理</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> created:<br>            logger.info(<span class="hljs-string">f&quot;新用户注册: <span class="hljs-subst">&#123;instance.username&#125;</span> (ID: <span class="hljs-subst">&#123;instance.<span class="hljs-built_in">id</span>&#125;</span>)&quot;</span>)<br>            <br>            <span class="hljs-comment"># 使用事务确保数据一致性</span><br>            <span class="hljs-keyword">with</span> transaction.atomic():<br>                <span class="hljs-comment"># 1. 创建用户档案</span><br>                UserProfile.objects.create(<br>                    user=instance,<br>                    email_verified=<span class="hljs-literal">False</span>,<br>                    registration_ip=kwargs.get(<span class="hljs-string">&#x27;request_ip&#x27;</span>, <span class="hljs-string">&#x27;unknown&#x27;</span>) <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;request_ip&#x27;</span> <span class="hljs-keyword">in</span> kwargs <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;unknown&#x27;</span><br>                )<br>                <br>                <span class="hljs-comment"># 2. 发送欢迎邮件（异步）</span><br>                <span class="hljs-keyword">from</span> .tasks <span class="hljs-keyword">import</span> send_welcome_email<br>                send_welcome_email.delay(instance.<span class="hljs-built_in">id</span>)<br>                <br>                <span class="hljs-comment"># 3. 分配默认权限组</span><br>                default_group = Group.objects.get(name=<span class="hljs-string">&#x27;普通用户&#x27;</span>)<br>                instance.groups.add(default_group)<br>                <br>                <span class="hljs-comment"># 4. 记录注册事件</span><br>                UserActivity.objects.create(<br>                    user=instance,<br>                    activity_type=<span class="hljs-string">&#x27;REGISTER&#x27;</span>,<br>                    description=<span class="hljs-string">&#x27;用户注册&#x27;</span><br>                )<br>            <br>            logger.info(<span class="hljs-string">f&quot;用户 <span class="hljs-subst">&#123;instance.username&#125;</span> 注册流程完成&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="请解释-Python-中的生成器-Generator-和迭代器-Iterator-的区别与联系。并实现一个生成器函数，用于分页读取大型数据集（例如从数据库或大文件中读取数据）。"><a href="#请解释-Python-中的生成器-Generator-和迭代器-Iterator-的区别与联系。并实现一个生成器函数，用于分页读取大型数据集（例如从数据库或大文件中读取数据）。" class="headerlink" title="请解释 Python 中的生成器 (Generator)和迭代器 (Iterator)的区别与联系。并实现一个生成器函数，用于分页读取大型数据集（例如从数据库或大文件中读取数据）。"></a>请解释 Python 中的生成器 (Generator)和迭代器 (Iterator)的区别与联系。并实现一个生成器函数，用于分页读取大型数据集（例如从数据库或大文件中读取数据）。</h3><p>迭代器：<br>    1.是一个带状态的对象，在你调用 next() 方法时，会返回下一个元素。任何实现了 <strong>iter</strong>() 和 <strong>next</strong>() 方法的对象都可以被迭代。<br>    2. 他不会把元素一次性加载到内存中而是，在需要的时候进行加载。<br>生成器：<br>    1.不通过return 返回而是通过 yield 返回的， 所有生成器一定是迭代器，但并非所有迭代器都是生成器。<br>    生成器的列表推导示： (x*x for x in range(10))</p>
+<p>yield 的作用是暂停函数，并返回一个值。当调用next 的时候，会从 yield 的位置继续执行，直到再次遇到 yield 或 return。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_page</span>(<span class="hljs-params">page_size=<span class="hljs-number">100</span>, page_num=<span class="hljs-number">2</span></span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;fastapi.out.log&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> r:<br>        current = <span class="hljs-number">0</span><br>        current_page = []<br>        start_line = (page_num - <span class="hljs-number">1</span>) * page_size + <span class="hljs-number">1</span><br>        end_line = page_num * page_size<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> r:<br>            current += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> current &gt; end_line:<br>                <span class="hljs-keyword">break</span><br>            <span class="hljs-keyword">if</span> current &gt;= start_line:<br>                current_page.append(line)<br>        <span class="hljs-keyword">yield</span> current_page<br>        <br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> read_page(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(i))<br></code></pre></td></tr></table></figure>
+<h3 id="请解释-Python-中的装饰器-Decorator-的工作原理，并实现一个带参数的装饰器，该装饰器用于记录函数的执行时间，并且可以设置时间单位（秒、毫秒、微秒）。"><a href="#请解释-Python-中的装饰器-Decorator-的工作原理，并实现一个带参数的装饰器，该装饰器用于记录函数的执行时间，并且可以设置时间单位（秒、毫秒、微秒）。" class="headerlink" title="请解释 Python 中的装饰器 (Decorator)的工作原理，并实现一个带参数的装饰器，该装饰器用于记录函数的执行时间，并且可以设置时间单位（秒、毫秒、微秒）。"></a>请解释 Python 中的装饰器 (Decorator)的工作原理，并实现一个带参数的装饰器，该装饰器用于记录函数的执行时间，并且可以设置时间单位（秒、毫秒、微秒）。</h3><p>要求：<br>解释装饰器的工作原理（函数包装、闭包概念）</p>
+<p>实现一个带参数的装饰器 @timer(unit=’ms’)</p>
+<p>支持三种时间单位：秒（’s’）、毫秒（’ms’）、微秒（’us’）</p>
+<p>写一个测试函数来验证装饰器的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> functools<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">timer</span>(<span class="hljs-params">unit=<span class="hljs-string">&#x27;ms&#x27;</span></span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">func</span>):<br><span class="hljs-meta">        @functools.wraps(<span class="hljs-params">func</span>)</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner</span>(<span class="hljs-params">*args, **kwargs</span>):<br>            start = time.time()<br>            res = func(*args, **kwargs)<br>            t =  time.time() - start<br>            <span class="hljs-keyword">match</span> unit:<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ms&#x27;</span>:<br>                    t *= <span class="hljs-number">1000</span><br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;s&#x27;</span>:<br>                    t = t<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;us&#x27;</span>:<br>                    t *= <span class="hljs-number">1000</span> * <span class="hljs-number">1000</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;&#125;函数运行时间：&#123;&#125; &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(func.__name__, t, unit))<br>            <span class="hljs-keyword">return</span> res<br>        <span class="hljs-keyword">return</span> inner<br>    <span class="hljs-keyword">return</span> wrapper<br></code></pre></td></tr></table></figure>
+
+<h3 id="请解释-Python-中的GIL（全局解释器锁）对多线程编程的影响，并编写代码演示-GIL-在-CPU-密集型任务和-I-O-密集型任务中的不同表现。"><a href="#请解释-Python-中的GIL（全局解释器锁）对多线程编程的影响，并编写代码演示-GIL-在-CPU-密集型任务和-I-O-密集型任务中的不同表现。" class="headerlink" title="请解释 Python 中的GIL（全局解释器锁）对多线程编程的影响，并编写代码演示 GIL 在 CPU 密集型任务和 I/O 密集型任务中的不同表现。"></a>请解释 Python 中的GIL（全局解释器锁）对多线程编程的影响，并编写代码演示 GIL 在 CPU 密集型任务和 I/O 密集型任务中的不同表现。</h3><p>要求：<br>解释 GIL 的概念和作用</p>
+<p>说明 GIL 对多线程性能的影响</p>
+<p>编写代码对比单线程、多线程、多进程在 CPU 密集型任务中的表现</p>
+<p>编写代码演示多线程在 I/O 密集型任务中的优势</p>
+<p>提出绕过 GIL 限制的解决方案</p>
+<p>1.GIL 是python解释器的一个锁，保证在任何时候只有一个线程在执行python字节码，实现python 内部的线程安全。<br>2.GIL的存在使python即使在多cpu的情况下也没有办法做到真正意义上的多线程（但是对于I/O密集型的任务，多线程还是有优势的）</p>
+<p>绕过GIL限制， 使用多进程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> multiprocessing<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cpu_bound_task</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;CPU 密集型任务&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">while</span> n &gt; <span class="hljs-number">0</span>:<br>        n -= <span class="hljs-number">1</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">io_bound_task</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;I/O 密集型任务&quot;&quot;&quot;</span><br>    time.sleep(<span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 你的测试代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_single</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>        cpu_bound_task(<span class="hljs-number">10000000</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_ingle_io</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>        io_bound_task()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_threading</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;多线程测试&quot;&quot;&quot;</span><br>    threads = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>        thread = threading.Thread(target=cpu_bound_task, args=(<span class="hljs-number">10000000</span>,))<br>        thread.start()<br>        threads.append(thread)<br>    <span class="hljs-keyword">for</span> thread <span class="hljs-keyword">in</span> threads:<br>        thread.join()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_threding_io</span>():<br>    threads = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>):<br>        th = threading.Thread(target=io_bound_task)<br>        th.start()<br>        threads.append(th)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> threads:<br>        i.join()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_multiprocessing</span>():<br>    processes = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br><br>        process = multiprocessing.Process(target=cpu_bound_task, args=(<span class="hljs-number">10000000</span>,))<br>        process.start()<br>        processes.append(process)<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> processes:<br>        j.join()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_multiprocessing_io</span>():<br>    processes = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>):<br>        process = multiprocessing.Process(target=io_bound_task)<br>        process.start()<br>        processes.append(process)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> processes:<br>        i.join()<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    start_time_1 = time.time()<br>    test_single()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;单线程&quot;</span>, time.time() - start_time_1)<br><br>    start_time_2 = time.time()<br>    test_ingle_io()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;单线程io&quot;</span>, time.time() - start_time_2)<br><br>    start_time = time.time()<br>    test_threading()<br>    end_time = time.time()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;多线程&quot;</span>, end_time - start_time)<br>    test_threding_io()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;多线程io&quot;</span>, time.time() - end_time)<br><br><br>    start_time3 = time.time()<br>    test_multiprocessing()<br>    end_time3 = time.time()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;多进程&quot;</span>, end_time3 - start_time3)<br>    test_multiprocessing_io()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;多进程io&quot;</span>, time.time() - end_time3)<br></code></pre></td></tr></table></figure>
+
+<h3 id="请解释-Python-中的元类-Metaclass-的概念和工作原理，并实现一个自定义元类，用于自动为类添加以下功能："><a href="#请解释-Python-中的元类-Metaclass-的概念和工作原理，并实现一个自定义元类，用于自动为类添加以下功能：" class="headerlink" title="请解释 Python 中的元类 (Metaclass)的概念和工作原理，并实现一个自定义元类，用于自动为类添加以下功能："></a>请解释 Python 中的元类 (Metaclass)的概念和工作原理，并实现一个自定义元类，用于自动为类添加以下功能：</h3><p>解释元类的作用和 __new__、__init__、__call__方法在元类中的调用时机</p>
+<p>实现一个元类 AutoRegisterMeta，自动为类添加以下功能：</p>
+<p>自动注册类到全局注册表</p>
+<p>自动为类添加创建时间戳</p>
+<p>自动为类添加 get_class_info()方法，返回类信息</p>
+<p>自动验证类必须有 __doc__文档字符串</p>
+<p>演示这个元类在 Django 模型中的应用场景</p>
+<p>示例用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(metaclass=AutoRegisterMeta):<br>    <span class="hljs-string">&quot;&quot;&quot;这是一个测试模型&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name</span>):<br>        self.name = name<br><br><span class="hljs-comment"># 自动获得的功能：</span><br><span class="hljs-built_in">print</span>(MyModel.get_class_info())  <span class="hljs-comment"># 输出类信息</span><br><span class="hljs-built_in">print</span>(AutoRegisterMeta.registry)  <span class="hljs-comment"># 查看所有注册的类</span><br></code></pre></td></tr></table></figure>
+
+<p>解释： 元类是创建类的类。就像类是用来创建实例的模板一样，元类是用来创建类的模板。<br><strong>new</strong> 创建类对象是调用<br><strong>init</strong> 初始化类对象是调用<br><strong>call</strong> 是元类的一个特殊方法，当类被实例化时，<strong>call</strong> 方法会被调用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AutoRegisterMeta</span>(<span class="hljs-title class_ inherited__">type</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;自动注册模型类&quot;&quot;&quot;</span><br>    registry = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls, name, bases, attrs</span>):<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;__doc__&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> attrs:<br>            <span class="hljs-keyword">raise</span> TypeError(<span class="hljs-string">f&quot;请为模型类<span class="hljs-subst">&#123;name&#125;</span>添加文档注释&quot;</span>)<br><br>        attrs[<span class="hljs-string">&quot;create_at&quot;</span>] = time.time()<br>        attrs[<span class="hljs-string">&quot;created_at_str&quot;</span>] = datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)<br><br><br>        new_class = <span class="hljs-built_in">super</span>().__new__(cls, name, bases, attrs)<br>        <span class="hljs-keyword">if</span> name <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> cls.registry:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;注册模型类：&quot;</span>, name)<br>            cls.registry[name] = new_class<br>        <span class="hljs-keyword">return</span> new_class<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, bases, attrs</span>):<br>        <span class="hljs-built_in">super</span>().__init__(name, bases, attrs)    <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_class_info</span>(<span class="hljs-params">cls</span>):<br>            <span class="hljs-string">&quot;&quot;&quot;获取所有注册的模型类信息&quot;&quot;&quot;</span><br>            <span class="hljs-keyword">return</span> cls.__name__, cls.__doc__, <span class="hljs-built_in">getattr</span>(cls, <span class="hljs-string">&quot;created_at_str&quot;</span>, <span class="hljs-string">&#x27;unknown&#x27;</span>)<br>        <br>        self.get_class_info = <span class="hljs-built_in">classmethod</span>(get_class_info)<br><br>    <br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        instance = <span class="hljs-built_in">super</span>().__call__(*args, **kwargs)<br>        instance._instance_created_at = time.time()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(metaclass=AutoRegisterMeta):<br>    <span class="hljs-string">&quot;&quot;&quot;这是一个测试模型&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name</span>):<br>        self.name = name<br><br><span class="hljs-comment"># 自动获得的功能：</span><br><span class="hljs-built_in">print</span>(MyModel.get_class_info())  <span class="hljs-comment"># 输出类信息</span><br><span class="hljs-built_in">print</span>(AutoRegisterMeta.registry)  <span class="hljs-comment"># 查看所有注册的类</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。"><a href="#请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。" class="headerlink" title="请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。"></a>请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。</h3><p>要求：</p>
+<p>解释列表的过度分配（over-allocation）策略</p>
+<p>演示列表扩容时的内存增长模式</p>
+<p>对比 append()、extend()、insert()操作的内存行为</p>
+<p>提供优化建议</p>
+<p>核心设计：<br>    内存连续：元素存储在连续的 内存块中<br>    随机访问：列表的元素可以通过索引快速访问<br>    列表的动态扩容机制：当空间不足时自动分配更大的内存块<br>过度分配策略：<br>每次满园的时候不止增加一个二十按照 几何级数 进行扩容 0 4 8 16 25 35 </p>
+<ol>
+<li>append() 操作<br>最佳情况：容量足够，直接追加，O(1)时间复杂度<br>最坏情况：需要扩容，复制所有元素到新数组，O(n)时间复杂度<br>分摊分析：平均每次append仍是O(1)</li>
+<li>insert(0, item) 操作<br>需要将所有元素向后移动，O(n)时间复杂度<br>可能触发扩容，性能极差<br>推荐使用collections.deque</li>
+<li>extend() 操作<br>一次性扩容到所需大小，避免多次扩容<br>比多个append()更高效</li>
+</ol>
+<h3 id="请解释Python中字典（Dictionary）的内存分配策略，并与列表进行对比。重点说明："><a href="#请解释Python中字典（Dictionary）的内存分配策略，并与列表进行对比。重点说明：" class="headerlink" title="请解释Python中字典（Dictionary）的内存分配策略，并与列表进行对比。重点说明："></a>请解释Python中字典（Dictionary）的内存分配策略，并与列表进行对比。重点说明：</h3><p>要求：</p>
+<p>解释字典的哈希表实现原理</p>
+<p>描述字典的扩容机制和负载因子</p>
+<p>对比字典和列表在不同操作下的内存使用和性能</p>
+<p>演示字典键的插入顺序保留特性（Python 3.6+）</p>
+<p>提供字典内存优化的实际建议</p>
+<p>示例代码框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_dict_memory</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;分析字典的内存分配&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compare_dict_vs_list</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;对比字典和列表的性能&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-comment"># 演示字典的插入顺序保留</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">demonstrate_insertion_order</span>():<br>    <span class="hljs-comment"># 你的代码...</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>字典分为 索引数组和条目数组，索引数据存的是hash值与条目数组的对应关系，条目数组按插入顺序存储 键值对<br>存储逻辑：首先将key进行hash，如果该hash值已存在，则使用开放寻址法，寻找空闲位置。<br>取值逻辑： 通过hash值找到索引位置，然后通过索引位置找到条目数组中的键值对，如果值 不一样，采用开放寻址接着寻找</li>
+</ol>
+<ol start="2">
+<li>字典的扩容机制：<br>按当前大小的2倍或者4倍进行扩容，扩容细节是：<br>分配新的索引数组和条目数据，重新计算key的hash值，将旧的护具复制到新的数据组中，将旧的内存回收。</li>
+</ol>
+<p>列表的话因为是索引数组，所以是连续的，所以存储 紧凑，内存效率高，而字典的话会有大量的空桶，内存效率低，扩容频率上来说，列表扩容频率高但是增量小，字典不频繁但是增量大。</p>
+<p>提供字典内存优化的实际建议： 在存储的时候使用更紧凑的键，增加内存使用效率</p>
+<h3 id="请解释Python中字符串（String）的内存管理机制，包括字符串驻留、内存布局和性能特征。"><a href="#请解释Python中字符串（String）的内存管理机制，包括字符串驻留、内存布局和性能特征。" class="headerlink" title="请解释Python中字符串（String）的内存管理机制，包括字符串驻留、内存布局和性能特征。"></a>请解释Python中字符串（String）的内存管理机制，包括字符串驻留、内存布局和性能特征。</h3><p>要求：</p>
+<p>解释字符串的不可变性和内存分配策略</p>
+<p>说明字符串驻留（interning）机制及其应用场景</p>
+<p>分析不同字符串创建方式的内存差异</p>
+<p>演示大字符串拼接的性能问题及优化方案</p>
+<p>对比字节串（bytes）和字符串的内存使用</p>
+<p>示例代码框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_string_memory</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;分析字符串内存使用&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">demonstrate_string_interning</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;演示字符串驻留&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">string_concatenation_performance</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;字符串拼接性能测试&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-comment"># 内存布局分析</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">string_memory_layout</span>():<br>    <span class="hljs-comment"># 你的代码...</span><br></code></pre></td></tr></table></figure>
+
+<p>内存分配策略: </p>
+<ol>
+<li>创建新字符串时分配新内存</li>
+<li>修改操作实际是 创建新对象</li>
+<li>相同内容的字符串可悲安全共享 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">s1 = <span class="hljs-string">&#x27;hello&#x27;</span><br>s2 = s1. <span class="hljs-comment"># s1和s2 指向同一内存地址</span><br>s1 = s1 + <span class="hljs-string">&#x27;world&#x27;</span>。<span class="hljs-comment"># 创建新对象 s2 还是指向 hello</span><br><br><br><span class="hljs-comment"># 不同创建方式的内存对比</span><br>方式<span class="hljs-number">1</span>: s = <span class="hljs-string">&quot;hello&quot;</span> * <span class="hljs-number">1000</span>        <span class="hljs-comment"># 预计算，一次性分配</span><br>方式<span class="hljs-number">2</span>: s = <span class="hljs-string">&quot;&quot;</span>; <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>): s += <span class="hljs-string">&quot;hello&quot;</span>  <span class="hljs-comment"># 多次分配，低效</span><br>方式<span class="hljs-number">3</span>: s = <span class="hljs-string">&quot;&quot;</span>.join([<span class="hljs-string">&quot;hello&quot;</span>] * <span class="hljs-number">1000</span>)  <span class="hljs-comment"># 高效，单次分配</span><br><br><span class="hljs-comment"># 内存结果：</span><br><span class="hljs-comment"># 方式1: 最优（预计算长度）</span><br><span class="hljs-comment"># 方式2: 最差（O(n²)时间复杂度）</span><br><span class="hljs-comment"># 方式3: 推荐（线性时间复杂度）</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="请解释Python中生成器（Generator）和迭代器（Iterator）的内存管理机制，并对比它们与列表在内存效率上的差异。"><a href="#请解释Python中生成器（Generator）和迭代器（Iterator）的内存管理机制，并对比它们与列表在内存效率上的差异。" class="headerlink" title="请解释Python中生成器（Generator）和迭代器（Iterator）的内存管理机制，并对比它们与列表在内存效率上的差异。"></a>请解释Python中生成器（Generator）和迭代器（Iterator）的内存管理机制，并对比它们与列表在内存效率上的差异。</h3><p>要求：</p>
+<p>解释生成器的惰性计算原理和内存优势</p>
+<p>说明生成器表达式的内存使用特点</p>
+<p>对比生成器、迭代器和列表在处理大数据集时的内存差异</p>
+<p>演示生成器在流式数据处理中的应用</p>
+<p>分析生成器的性能权衡（时间 vs 空间）</p>
+<p>示例代码框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> tracemalloc<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">memory_comparison</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;内存使用对比：列表 vs 生成器&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generator_vs_iterator</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;生成器与迭代器的对比&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">streaming_data_example</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;流式数据处理示例&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-comment"># 性能分析</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">performance_analysis</span>():<br>    <span class="hljs-comment"># 你的代码...</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>生成器的惰性计算原理：按需生成，而不是预先计算所有结果,当调用 <strong>next</strong> 一次返回，只能读一次，也可以用for 循环来迭代读取</li>
+</ol>
+<p>迭代器和生成器：</p>
+<p>相同点： </p>
+<h3 id="请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。"><a href="#请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。" class="headerlink" title="请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。"></a>请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。</h3><p>要求：</p>
+<p>解释Python对象的内存布局（__dict__vs __slots__）</p>
+<p>说明__slots__如何减少内存占用及其使用场景</p>
+<p>对比普通类和带有__slots__的类的内存差异</p>
+<p>演示使用__slots__的性能优势</p>
+<p>提供对象内存优化的最佳实践</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">from</span> pympler <span class="hljs-keyword">import</span> asizeof  <span class="hljs-comment"># 需要安装：pip install pympler</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RegularClass</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;普通类&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, x, y, z</span>):<br>        self.x = x<br>        self.y = y<br>        self.z = z<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SlotsClass</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;使用__slots__的类&quot;&quot;&quot;</span><br>    __slots__ = [<span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>, <span class="hljs-string">&#x27;z&#x27;</span>]<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, x, y, z</span>):<br>        self.x = x<br>        self.y = y<br>        self.z = z<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">memory_comparison</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;内存使用对比&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">performance_comparison</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;性能对比&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 你的代码...</span><br><br><span class="hljs-comment"># 实际应用示例</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">practical_optimization</span>():<br>    <span class="hljs-comment"># 你的代码...</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="web-django"><a href="#web-django" class="headerlink" title="web django"></a>web django</h2><h3 id="请解释Django的MTV架构模式，并说明它与传统MVC模式的区别。同时实现一个完整的Django视图，演示如何正确处理HTTP请求、数据库操作和模板渲染。"><a href="#请解释Django的MTV架构模式，并说明它与传统MVC模式的区别。同时实现一个完整的Django视图，演示如何正确处理HTTP请求、数据库操作和模板渲染。" class="headerlink" title="请解释Django的MTV架构模式，并说明它与传统MVC模式的区别。同时实现一个完整的Django视图，演示如何正确处理HTTP请求、数据库操作和模板渲染。"></a>请解释Django的MTV架构模式，并说明它与传统MVC模式的区别。同时实现一个完整的Django视图，演示如何正确处理HTTP请求、数据库操作和模板渲染。</h3><p>要求：</p>
+<p>解释Django的MTV（Model-Template-View）架构</p>
+<p>对比MTV与MVC的异同点</p>
+<p>mtv 是 model 模型层，templates 模板展示层和 view 逻辑层<br>mtv和mvc 本质上是相同的，<br>不同的是，mvc中 控制层使用来进行业务逻辑处理的，v 视图层是 用来展示的， mtv 中模板层用来展示，试图层用来处理逻辑</p>
+<h3 id="请解释Django的ORM（对象关系映射）机制，并实现一个复杂的查询系统，演示如何优化数据库性能。"><a href="#请解释Django的ORM（对象关系映射）机制，并实现一个复杂的查询系统，演示如何优化数据库性能。" class="headerlink" title="请解释Django的ORM（对象关系映射）机制，并实现一个复杂的查询系统，演示如何优化数据库性能。"></a>请解释Django的ORM（对象关系映射）机制，并实现一个复杂的查询系统，演示如何优化数据库性能。</h3><p>要求：</p>
+<p>解释Django ORM的工作原理和优势</p>
+<p>演示复杂查询（多表关联、聚合、子查询等）</p>
+<p>展示查询性能优化技巧（select_related, prefetch_related等）</p>
+<p>实现数据库事务和并发控制</p>
+<p>提供查询性能分析和调试方法</p>
+<ol>
+<li>ORM 工作原理<br>orm 是将数据库表映射为python对象的技术<br>优势： </li>
+<li>数据库 无关性：支持多种数据库</li>
+<li>类型安全，python 类型自动映射到数据库类型中</li>
+<li>防止sql注入，自动参数化查询语句</li>
+<li>代码可读性<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models<br><span class="hljs-keyword">from</span> django.contrib.auth.models <span class="hljs-keyword">import</span> User<br><span class="hljs-keyword">from</span> django.core.validators <span class="hljs-keyword">import</span> MinValueValidator, MaxValueValidator<br><span class="hljs-keyword">from</span> decimal <span class="hljs-keyword">import</span> Decimal<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Category</span>(models.Model):<br>    <span class="hljs-string">&quot;&quot;&quot;商品分类&quot;&quot;&quot;</span><br>    name = models.CharField(max_length=<span class="hljs-number">100</span>, unique=<span class="hljs-literal">True</span>)<br>    slug = models.SlugField(max_length=<span class="hljs-number">100</span>, unique=<span class="hljs-literal">True</span>)<br>    description = models.TextField(blank=<span class="hljs-literal">True</span>)<br>    created_at = models.DateTimeField(auto_now_add=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Meta</span>:<br>        verbose_name = <span class="hljs-string">&quot;分类&quot;</span><br>        verbose_name_plural = <span class="hljs-string">&quot;分类&quot;</span><br>        ordering = [<span class="hljs-string">&#x27;name&#x27;</span>]<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self.name<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Product</span>(models.Model):<br>    <span class="hljs-string">&quot;&quot;&quot;商品模型&quot;&quot;&quot;</span><br>    name = models.CharField(max_length=<span class="hljs-number">200</span>, verbose_name=<span class="hljs-string">&quot;商品名称&quot;</span>)<br>    slug = models.SlugField(max_length=<span class="hljs-number">200</span>, unique=<span class="hljs-literal">True</span>)<br>    description = models.TextField(verbose_name=<span class="hljs-string">&quot;商品描述&quot;</span>)<br>    category = models.ForeignKey(<br>        Category, <br>        on_delete=models.CASCADE, <br>        related_name=<span class="hljs-string">&#x27;products&#x27;</span>,<br>        verbose_name=<span class="hljs-string">&quot;分类&quot;</span><br>    )<br>    price = models.DecimalField(<br>        max_digits=<span class="hljs-number">10</span>, <br>        decimal_places=<span class="hljs-number">2</span>,<br>        validators=[MinValueValidator(Decimal(<span class="hljs-string">&#x27;0.01&#x27;</span>))],<br>        verbose_name=<span class="hljs-string">&quot;价格&quot;</span><br>    )<br>    stock = models.PositiveIntegerField(default=<span class="hljs-number">0</span>, verbose_name=<span class="hljs-string">&quot;库存&quot;</span>)<br>    available = models.BooleanField(default=<span class="hljs-literal">True</span>, verbose_name=<span class="hljs-string">&quot;上架状态&quot;</span>)<br>    created_at = models.DateTimeField(auto_now_add=<span class="hljs-literal">True</span>)<br>    updated_at = models.DateTimeField(auto_now=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-comment"># 性能优化：添加索引</span><br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Meta</span>:<br>        indexes = [<br>            models.Index(fields=[<span class="hljs-string">&#x27;name&#x27;</span>]),<br>            models.Index(fields=[<span class="hljs-string">&#x27;-created_at&#x27;</span>]),<br>            models.Index(fields=[<span class="hljs-string">&#x27;price&#x27;</span>]),<br>            models.Index(fields=[<span class="hljs-string">&#x27;available&#x27;</span>]),<br>        ]<br>        ordering = [<span class="hljs-string">&#x27;-created_at&#x27;</span>]<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.name&#125;</span> (¥<span class="hljs-subst">&#123;self.price&#125;</span>)&quot;</span><br>    <br><span class="hljs-meta">    @property</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">in_stock</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;库存状态属性&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> self.stock &gt; <span class="hljs-number">0</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Customer</span>(models.Model):<br>    <span class="hljs-string">&quot;&quot;&quot;客户模型（扩展User）&quot;&quot;&quot;</span><br>    user = models.OneToOneField(User, on_delete=models.CASCADE)<br>    phone = models.CharField(max_length=<span class="hljs-number">20</span>, blank=<span class="hljs-literal">True</span>)<br>    address = models.TextField(blank=<span class="hljs-literal">True</span>)<br>    birth_date = models.DateField(null=<span class="hljs-literal">True</span>, blank=<span class="hljs-literal">True</span>)<br>    created_at = models.DateTimeField(auto_now_add=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.user.username&#125;</span>&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Order</span>(models.Model):<br>    <span class="hljs-string">&quot;&quot;&quot;订单模型&quot;&quot;&quot;</span><br>    ORDER_STATUS = (<br>        (<span class="hljs-string">&#x27;pending&#x27;</span>, <span class="hljs-string">&#x27;待支付&#x27;</span>),<br>        (<span class="hljs-string">&#x27;paid&#x27;</span>, <span class="hljs-string">&#x27;已支付&#x27;</span>),<br>        (<span class="hljs-string">&#x27;shipped&#x27;</span>, <span class="hljs-string">&#x27;已发货&#x27;</span>),<br>        (<span class="hljs-string">&#x27;delivered&#x27;</span>, <span class="hljs-string">&#x27;已送达&#x27;</span>),<br>        (<span class="hljs-string">&#x27;cancelled&#x27;</span>, <span class="hljs-string">&#x27;已取消&#x27;</span>),<br>        (<span class="hljs-string">&#x27;refunded&#x27;</span>, <span class="hljs-string">&#x27;已退款&#x27;</span>),<br>    )<br>    <br>    customer = models.ForeignKey(<br>        Customer, <br>        on_delete=models.CASCADE, <br>        related_name=<span class="hljs-string">&#x27;orders&#x27;</span><br>    )<br>    order_number = models.CharField(max_length=<span class="hljs-number">20</span>, unique=<span class="hljs-literal">True</span>)<br>    status = models.CharField(max_length=<span class="hljs-number">20</span>, choices=ORDER_STATUS, default=<span class="hljs-string">&#x27;pending&#x27;</span>)<br>    total_amount = models.DecimalField(max_digits=<span class="hljs-number">10</span>, decimal_places=<span class="hljs-number">2</span>, default=<span class="hljs-number">0</span>)<br>    created_at = models.DateTimeField(auto_now_add=<span class="hljs-literal">True</span>)<br>    updated_at = models.DateTimeField(auto_now=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Meta</span>:<br>        indexes = [<br>            models.Index(fields=[<span class="hljs-string">&#x27;-created_at&#x27;</span>]),<br>            models.Index(fields=[<span class="hljs-string">&#x27;status&#x27;</span>]),<br>            models.Index(fields=[<span class="hljs-string">&#x27;customer&#x27;</span>, <span class="hljs-string">&#x27;-created_at&#x27;</span>]),<br>        ]<br>        ordering = [<span class="hljs-string">&#x27;-created_at&#x27;</span>]<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;订单 <span class="hljs-subst">&#123;self.order_number&#125;</span> - <span class="hljs-subst">&#123;self.get_status_display()&#125;</span>&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderItem</span>(models.Model):<br>    <span class="hljs-string">&quot;&quot;&quot;订单项&quot;&quot;&quot;</span><br>    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name=<span class="hljs-string">&#x27;items&#x27;</span>)<br>    product = models.ForeignKey(Product, on_delete=models.CASCADE)<br>    quantity = models.PositiveIntegerField(default=<span class="hljs-number">1</span>)<br>    price = models.DecimalField(max_digits=<span class="hljs-number">10</span>, decimal_places=<span class="hljs-number">2</span>)  <span class="hljs-comment"># 下单时的价格</span><br>    <br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Meta</span>:<br>        unique_together = [<span class="hljs-string">&#x27;order&#x27;</span>, <span class="hljs-string">&#x27;product&#x27;</span>]<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.product.name&#125;</span> x <span class="hljs-subst">&#123;self.quantity&#125;</span>&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ProductReview</span>(models.Model):<br>    <span class="hljs-string">&quot;&quot;&quot;商品评价&quot;&quot;&quot;</span><br>    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name=<span class="hljs-string">&#x27;reviews&#x27;</span>)<br>    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)<br>    rating = models.PositiveSmallIntegerField(<br>        validators=[MinValueValidator(<span class="hljs-number">1</span>), MaxValueValidator(<span class="hljs-number">5</span>)]<br>    )<br>    comment = models.TextField(blank=<span class="hljs-literal">True</span>)<br>    created_at = models.DateTimeField(auto_now_add=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Meta</span>:<br>        indexes = [<br>            models.Index(fields=[<span class="hljs-string">&#x27;product&#x27;</span>, <span class="hljs-string">&#x27;-created_at&#x27;</span>]),<br>            models.Index(fields=[<span class="hljs-string">&#x27;rating&#x27;</span>]),<br>        ]<br>        unique_together = [<span class="hljs-string">&#x27;product&#x27;</span>, <span class="hljs-string">&#x27;customer&#x27;</span>]  <span class="hljs-comment"># 防止重复评价</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs python">简单查询<br><span class="hljs-comment"># N + 1 查询问题</span><br>orders = Order.objects.<span class="hljs-built_in">all</span>()[:<span class="hljs-number">5</span>]<br><span class="hljs-keyword">for</span> order <span class="hljs-keyword">in</span> orders:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  订单 <span class="hljs-subst">&#123;order.order_number&#125;</span> 有 <span class="hljs-subst">&#123;order.items.count()&#125;</span> 个商品&quot;</span>)  <span class="hljs-comment"># 每次循环都查询数据库</span><br><br><span class="hljs-comment"># 优化（只查询一次）</span><br>orders_optimized = Order.objects.select_related(<span class="hljs-string">&#x27;customer&#x27;</span>).prefetch_related(<span class="hljs-string">&#x27;items__product&#x27;</span>)[:<span class="hljs-number">5</span>]<br>    <span class="hljs-keyword">for</span> order <span class="hljs-keyword">in</span> orders_optimized:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  订单 <span class="hljs-subst">&#123;order.order_number&#125;</span> 属于 <span class="hljs-subst">&#123;order.customer.user.username&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> order.items.<span class="hljs-built_in">all</span>():  <span class="hljs-comment"># 不会产生额外查询</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;    商品: <span class="hljs-subst">&#123;item.product.name&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 聚合查询</span><br><span class="hljs-keyword">from</span> django.db.models <span class="hljs-keyword">import</span> Count, Sum, Avg<br>    <br>category_stats = Category.objects.annotate(<br>    product_count=Count(<span class="hljs-string">&#x27;products&#x27;</span>),<br>    avg_price=Avg(<span class="hljs-string">&#x27;products__price&#x27;</span>),<br>    total_stock=Sum(<span class="hljs-string">&#x27;products__stock&#x27;</span>)<br>).<span class="hljs-built_in">filter</span>(product_count__gt=<span class="hljs-number">0</span>)<br><br><span class="hljs-keyword">for</span> cat <span class="hljs-keyword">in</span> category_stats:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  <span class="hljs-subst">&#123;cat.name&#125;</span>: <span class="hljs-subst">&#123;cat.product_count&#125;</span>商品, 均价¥<span class="hljs-subst">&#123;cat.avg_price:<span class="hljs-number">.2</span>f&#125;</span>, 总库存<span class="hljs-subst">&#123;cat.total_stock&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 4. 子查询</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n4. 子查询:&quot;</span>)<br><span class="hljs-keyword">from</span> django.db.models <span class="hljs-keyword">import</span> Subquery, OuterRef<br><br><span class="hljs-comment"># 查找每个分类中最贵的商品</span><br>expensive_products = Product.objects.<span class="hljs-built_in">filter</span>(<br>    category=OuterRef(<span class="hljs-string">&#x27;pk&#x27;</span>)<br>).order_by(<span class="hljs-string">&#x27;-price&#x27;</span>)<br><br>categories_with_expensive = Category.objects.annotate(<br>    most_expensive_price=Subquery(expensive_products.values(<span class="hljs-string">&#x27;price&#x27;</span>)[:<span class="hljs-number">1</span>])<br>).<span class="hljs-built_in">filter</span>(most_expensive_price__isnull=<span class="hljs-literal">False</span>)<br><br><span class="hljs-keyword">for</span> cat <span class="hljs-keyword">in</span> categories_with_expensive:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  <span class="hljs-subst">&#123;cat.name&#125;</span> 最贵商品: ¥<span class="hljs-subst">&#123;cat.most_expensive_price&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 5. 条件聚合</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n5. 条件聚合:&quot;</span>)<br><span class="hljs-keyword">from</span> django.db.models <span class="hljs-keyword">import</span> Case, When, IntegerField<br><br>product_status = Product.objects.annotate(<br>    status_category=Case(<br>        When(stock=<span class="hljs-number">0</span>, then=<span class="hljs-number">0</span>),  <span class="hljs-comment"># 缺货</span><br>        When(stock__lt=<span class="hljs-number">10</span>, then=<span class="hljs-number">1</span>),  <span class="hljs-comment"># 库存紧张</span><br>        When(price__gt=<span class="hljs-number">1000</span>, then=<span class="hljs-number">2</span>),  <span class="hljs-comment"># 高价商品</span><br>        default=<span class="hljs-number">3</span>,  <span class="hljs-comment"># 正常</span><br>        output_field=IntegerField(),<br>    )<br>).values(<span class="hljs-string">&#x27;status_category&#x27;</span>).annotate(count=Count(<span class="hljs-string">&#x27;id&#x27;</span>))<br><br><span class="hljs-keyword">for</span> stat <span class="hljs-keyword">in</span> product_status:<br>    status_map = &#123;<span class="hljs-number">0</span>: <span class="hljs-string">&#x27;缺货&#x27;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;紧张&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;高价&#x27;</span>, <span class="hljs-number">3</span>: <span class="hljs-string">&#x27;正常&#x27;</span>&#125;<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  <span class="hljs-subst">&#123;status_map[stat[<span class="hljs-string">&#x27;status_category&#x27;</span>]]&#125;</span>: <span class="hljs-subst">&#123;stat[<span class="hljs-string">&#x27;count&#x27;</span>]&#125;</span>个商品&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="请解释Django的中间件（Middleware）机制，并实现一个完整的中间件系统来处理以下需求："><a href="#请解释Django的中间件（Middleware）机制，并实现一个完整的中间件系统来处理以下需求：" class="headerlink" title="请解释Django的中间件（Middleware）机制，并实现一个完整的中间件系统来处理以下需求："></a>请解释Django的中间件（Middleware）机制，并实现一个完整的中间件系统来处理以下需求：</h2><p>要求：</p>
+<p>解释中间件的工作原理和生命周期</p>
+<p>实现性能监控中间件（记录请求响应时间）</p>
+<p>实现用户行为日志中间件（记录用户操作）</p>
+<p>实现异常处理中间件（统一错误处理）</p>
+<p>演示中间件的执行顺序和配置方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">PerformanceMiddleware</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;性能监控中间件&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, get_response</span>):<br>        self.get_response = get_response<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self, request</span>):<br>        <span class="hljs-comment"># 你的实现...</span><br>        start_time = time.time()<br>        response = self.get_response(request)<br>        duration = time.time() - start_time<br>        self._log_time(request, response, duration)<br>        <span class="hljs-keyword">return</span> response<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_log_time</span>(<span class="hljs-params">self, request, response, duration</span>):<br><br>        log_data = &#123;<br>            <span class="hljs-string">&#x27;path&#x27;</span>: request.path,<br>            <span class="hljs-string">&#x27;method&#x27;</span>: request.method,<br>            <span class="hljs-string">&#x27;status_code&#x27;</span>: response.status_code,<br>            <span class="hljs-string">&#x27;duration&#x27;</span>: duration<br>        &#125;<br>        logger.info(log_data)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ErrorMiddleware</span>(<span class="hljs-title class_ inherited__">MiddlewareMixin</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, get_response</span>):<br>        self.get_response = get_response<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self, request</span>):<br>        <span class="hljs-keyword">try</span>:<br>            response = self.get_response(request)<br>        <span class="hljs-keyword">except</span> PermissionError <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-keyword">return</span> JsonResponse(&#123;<span class="hljs-string">&quot;msg&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;data&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,  <span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-string">&quot;&quot;</span>&#125;)<br><br><span class="hljs-comment"># settings.py 配置</span><br>MIDDLEWARE = [<br>    <span class="hljs-comment"># 你的中间件配置...</span><br>]<br></code></pre></td></tr></table></figure>
+
+<p>中间件生命周期： 中间件 1,2,3-&gt;试图-&gt;中间件3，2，1 -&gt;响应</p>
+<p>常用中间件：</p>
+<ol>
+<li>‘django.middleware.security.SecurityMiddleware’ 安全中间件：https重定向，安全头设置，内容嗅探防护， 点击劫持防护</li>
+<li>‘django.middleware.csrf.CsrfViewMiddleware’ csrf 中间件</li>
+<li>djdjango.contrib.sessions.middleware.SessionMiddleware’ session 中间件:管理用户会话，支持多种后端保存，自动设置session cookie</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9D%A2%E8%AF%95/" class="category-chain-item">面试</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/">#python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2.python后端相关面试</div>
+      <div>https://sweetshance.github.io/2025/11/02/python后端面试/2-python后端相关面试/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ShanCe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月2日</div>
+        </div>
+      
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/11/04/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/mysql%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" title="mysql相关问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">mysql相关问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/10/15/web%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86/" title="自动化证书管理">
+                        <span class="hidden-mobile">自动化证书管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="http://82.157.172.231/" target="_blank" rel="nofollow noopener"><span>无聊</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>ShanCe</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
