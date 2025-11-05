@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>自动化证书管理</title>
+    <link href="/2025/10/15/web%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86/"/>
+    <url>/2025/10/15/web%E7%9F%A5%E8%AF%86/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Let’s-Encrypt-certbot"><a href="#Let’s-Encrypt-certbot" class="headerlink" title="Let’s Encrypt + certbot"></a>Let’s Encrypt + certbot</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装certbot（自动续期，永久免费）</span><br>sudo apt update<br>sudo apt install certbot python3-certbot-nginx<br><br><span class="hljs-comment"># 一键获取并配置证书</span><br>sudo certbot --nginx -d www.carefreede.top -d carefreede.top<br><br><span class="hljs-comment"># 自动续期设置（解决3个月问题）</span><br>sudo crontab -e<br><span class="hljs-comment"># 添加：0 12 * * * /usr/bin/certbot renew --quiet</span><br></code></pre></td></tr></table></figure><p>验证自动续期：​</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 测试续期（不实际执行）</span><br>sudo certbot renew --dry-run<br><br><span class="hljs-comment"># 强制立即续期测试</span><br>sudo certbot renew --force-renewal<br></code></pre></td></tr></table></figure><h3 id="nginx-配置示例（关于ssl配置这个命令会自己修改这里只是为了记录）"><a href="#nginx-配置示例（关于ssl配置这个命令会自己修改这里只是为了记录）" class="headerlink" title="nginx 配置示例（关于ssl配置这个命令会自己修改这里只是为了记录）"></a>nginx 配置示例（关于ssl配置这个命令会自己修改这里只是为了记录）</h3><p>myweb.conf</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs conf">server &#123;<br>    listen 80;<br>    server_name www.carefreede.top;  # 你的域名<br><br>    return 301 https://$host$request_uri;  # HTTP 跳转 HTTPS<br>&#125;<br></code></pre></td></tr></table></figure><p>ssl.conf</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs conf">server &#123;<br>    listen   443 ssl http2; # HTTPS 需要使用的端口<br>    server_name carefreede.top;<br>    ssl_certificate /etc/letsencrypt/live/www.carefreede.top/fullchain.pem; # managed by Certbot<br> # 网站新证书路径<br>    ssl_certificate_key /etc/letsencrypt/live/www.carefreede.top/privkey.pem; # managed by Certbot<br> # 网站新私钥路径<br>    # SSL 优化配置<br>    ssl_session_timeout 1d;<br>    ssl_session_cache shared:SSL:10m;<br>    ssl_protocols TLSv1.2 TLSv1.3;   # 推荐仅使用 TLS 1.2+（更安全）<br>    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;<br>    ssl_prefer_server_ciphers on;<br><br>    location / &#123;<br>        proxy_pass http://127.0.0.1:xxxx;<br>        proxy_set_header Host $host;<br>        proxy_set_header X-Real-IP $remote_addr;<br>        proxy_http_version 1.1;<br>        proxy_set_header Connection &quot;&quot;;<br>        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>        proxy_set_header X-Forwarded-Proto $scheme;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>django-cacheops使用</title>
     <link href="/2025/07/10/django/django-cacheops%E4%BD%BF%E7%94%A8/"/>
     <url>/2025/07/10/django/django-cacheops%E4%BD%BF%E7%94%A8/</url>
@@ -422,6 +435,214 @@
     <tags>
       
       <tag>hexo换电脑迁移</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1. 简介</title>
+    <link href="/2024/08/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/"/>
+    <url>/2024/08/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式可以多个组合使用使其更适合项目</p><p>不可过度使用设计模式（避免降低代码可读性）</p><h2 id="六大设计原则："><a href="#六大设计原则：" class="headerlink" title="六大设计原则："></a>六大设计原则：</h2><ol><li>单一职责原则：一个类只负责完成一个职责或者功能。（不要设计大而全的类，而是要设计力度小，功能单一的类） <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">类中的代码行数、函数、属性过多。<br>类的依赖过多<br>私有方法过多<br>类中大量的方法都在集中操作几个属性<br></code></pre></td></tr></table></figure></li><li>开放封闭原则： 软件中的对象、类、模块和函数对扩展应该是开放的，但对于修改是封闭的。这意味着应该用抽象定义结构，用具体实现扩展细节，以此确保软件系统开发和维护过程的可靠性。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">需求发生变化时，应该采取扩展的方式实现，而不是修改。<br></code></pre></td></tr></table></figure></li><li>里氏替换原则：子类能够替换程序中对象出现的任何地方，并且保证原来的程序的逻辑行为不变及正确性不被破坏。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">替换：面向对象语言所支持的多态特性。<br>通过接口就可以知道方法的行为。<br></code></pre></td></tr></table></figure></li><li>接口分离原则：要为各个类建立他们需要的专用接口，而不是视图去建立一个很庞大的接口供所有依赖它的类去调用。</li><li>依赖倒置原则：在设计代码架构时，高层模块不应该依赖低层模块，二者都应该依赖于抽象。抽象不应该依赖于细节，细节应该依赖于抽象。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">高层模块抽取低层模块的共性，形成抽象。<br>保持始终依赖抽象，而不是实现。（例如一些类，参数或者属性的类型应该是抽象接口，而不是具体实现）<br></code></pre></td></tr></table></figure></li><li>迪米特法则：一个类/模块对其他类/模块有越少的了解越好。简单来说迪米特法则想要表达的思想就是：不该有直接依赖关系的类之间，不要有依赖；有依赖关系的类之间，尽量只依赖必要的接口。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">可以通过第三方转发的方式进行调用，降低类与类之间的耦合。<br></code></pre></td></tr></table></figure></li></ol><h2 id="创建型模式（5）"><a href="#创建型模式（5）" class="headerlink" title="创建型模式（5）"></a>创建型模式（5）</h2><pre><code class="hljs">对象实例化的模式，创建型模式用于解耦对象的实例化过程</code></pre><ol><li>单例模式， <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">go</a></li><li>工厂方法模式, <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-python%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">go</a></li><li>抽象工厂模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li><li>建造者模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li><li>原型模式, <a href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">go</a></li></ol><h2 id="结构型模式（7）"><a href="#结构型模式（7）" class="headerlink" title="结构型模式（7）"></a>结构型模式（7）</h2><pre><code class="hljs">把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象</code></pre><ol><li>代理模式，<a href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">go</a></li><li>适配器模式，<a href="/2023/04/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8-python%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></li><li>桥接模式，<a href="/2023/04/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/9-python%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">go</a></li><li>装饰器模式，<a href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></li><li>外观模式，<a href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-python%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">go</a></li><li>享元模式，<a href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">go</a></li><li>组合模式，<a href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">go</a></li></ol><h2 id="行为型模式（11）"><a href="#行为型模式（11）" class="headerlink" title="行为型模式（11）"></a>行为型模式（11）</h2><pre><code class="hljs">类和对象如何交互，行为型模式用于描述程序在运行时复杂的流程控制，即描述多个类或对象之间怎样相互协作共同完成一个任务。涉及划分责任和算法。</code></pre><ol><li><p>观察者模式, <a href="/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/14-python%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>模板模式, <a href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>策略模式, <a href="/2023/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>责任链模式, <a href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>命令模式, <a href="/2023/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/18-python%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>中介者模式, <a href="/2023/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/19-python%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>状态模式, <a href="/2023/08/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20-python%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>备忘录模式, <a href="/2023/08/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/21-python%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>迭代器模式, <a href="/2023/08/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/22-python%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>解释器模式, <a href="/2023/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/23-python%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>访问者模式, <a href="/2023/08/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/24-python%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2. 位运算</title>
+    <link href="/2024/08/13/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    <url>/2024/08/13/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
+    
+    <content type="html"><![CDATA[<p>从现代计算机中所有的数据二进制的形式存储在设备中。即 0、1 两种状态，计算机对二进制数据进行的运算(+、-、*、/)都是叫位运算，即将符号位共同参与运算的运算。</p><table><thead><tr><th>符号</th><th>描述</th><th>运算规则</th></tr></thead><tbody><tr><td>&amp;</td><td>与</td><td>两个位都为1时，结果才为1</td></tr><tr><td>|</td><td>或</td><td>两个位都为0时，结果才为0</td></tr><tr><td>^</td><td>异或</td><td>两个位相同为0，相异为1</td></tr><tr><td>~</td><td>取反</td><td>0变1，1变0</td></tr><tr><td>&lt;&lt;</td><td>左移</td><td>各二进位全部左移若干位，高位丢弃，低位补0</td></tr><tr><td>&gt;&gt;</td><td>右移</td><td>各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不一样，有的补符号位（算术右移），有的补0（逻辑右移）</td></tr></tbody></table><h1 id="一、异或-概念"><a href="#一、异或-概念" class="headerlink" title="一、异或 概念"></a>一、异或 概念</h1><ol><li>异或的符号 ^</li><li>如果两个数不相同，则异或的结果为1；如果两个数相同，则异或的结果为0</li><li>基础异或概念 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> ^ <span class="hljs-number">0</span> # 结果为<span class="hljs-number">1</span><br><span class="hljs-attribute">1</span> ^ <span class="hljs-number">1</span> # 结果为<span class="hljs-number">0</span><br><span class="hljs-attribute">x</span> ^ (-<span class="hljs-number">1</span>) = -x<br></code></pre></td></tr></table></figure></li><li>异或是二进制的数按位进行异或 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">例如：5 ^ 3<br>就是101 ^<span class="hljs-number"> 011 </span><br>按位置：<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 0 </span>= 1,<span class="hljs-number"> 0 </span>^<span class="hljs-number"> 1 </span>= 1,<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 0 </span>结果为<span class="hljs-number"> 110 </span>转10进制 6<br></code></pre></td></tr></table></figure></li><li>满足交换律，结合律，自反率（ A ^ B ^ B = A ^ 0 = A）</li><li>将两个数异或的结果与其中一个数异或能得到另一个结果：例如 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">x</span> = <span class="hljs-number">4</span><br><span class="hljs-attribute">b</span> = <span class="hljs-number">5</span><br><span class="hljs-attribute">z</span> = x ^ b <br><span class="hljs-attribute">z</span> ^ b = x = <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure></li></ol><h2 id="题目一、-a-3-b-2-交换两个数"><a href="#题目一、-a-3-b-2-交换两个数" class="headerlink" title="题目一、 a = 3,  b = 2 交换两个数"></a>题目一、 a = 3,  b = 2 交换两个数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">方法一: 用异或实现<br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> <br>    <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    解析：<br>        使用原理<span class="hljs-number">6</span><br>        <span class="hljs-number">1</span>. 两个数异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>        <span class="hljs-number">2</span>. 与其中一个异或能拿到另一个数<br>            <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候b存的就是之前a的值)<br>        <span class="hljs-number">3</span>. <span class="hljs-selector-tag">b</span> 在与<span class="hljs-selector-tag">a</span> 异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候, <span class="hljs-selector-tag">a</span> 拿到的就是b之前的值，因为b现在里边存的是之前a的值)<br>            <br>方法二： python<br>    <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">b</span>, a<br></code></pre></td></tr></table></figure><h2 id="题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。"><a href="#题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。" class="headerlink" title="题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。"></a>题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。</h2><p>解题思路: 0 跟任何数异或都是任何数，两个相同的数异或为0，哪所有数异或数</p><p>```<br>data_list = [11,11,22,22,33]<br>tmp = 0<br>for i in data_list:<br>    tmp ^= i</p><p>print(tmp)</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1. Cookie、session、token</title>
+    <link href="/2024/08/13/web%E7%9F%A5%E8%AF%86/1.cookie%E3%80%81session%E3%80%81token%E4%BA%86%E8%A7%A3/"/>
+    <url>/2024/08/13/web%E7%9F%A5%E8%AF%86/1.cookie%E3%80%81session%E3%80%81token%E4%BA%86%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul><li>在应用程序中，一个用户的所有请求应该属于一个用户，简单说，一个用户进行的所有操作，都应该是对当前用户的操作。但是目前很多程序使用的是 HTTP 协议，但是HTTP协议本身是无状态的协议，简单说，一次请求结束，客户端和服务器就断开连接了，下一次请求就无法跟踪会话，所以诞生了 Cookie、Session、Token集中方式。</li></ul><h2 id="1-Cookie"><a href="#1-Cookie" class="headerlink" title="1.Cookie"></a>1.Cookie</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><ul><li>服务器给客户端办法了一个通行证，每个人，访问的时候呆着通行证，那这样每次访问服务器就知道是谁访问的了，那么每次做的操作就是对通行证上这个人进行操作。</li><li>Cookie是存储在客户端的一种机制，如果浏览器禁止Cookie那么，这种认证方式就失效了</li><li>Cookie 除了可以使用字符串，也可以是用base64图片 </li></ul><h3 id="1-2-流程"><a href="#1-2-流程" class="headerlink" title="1.2 流程"></a>1.2 流程</h3><ul><li>在用户第一次请求或者登录服务器的时候，服务器给客户端发一个cookie（服务端会将Cookie加入到HttpResponse中），下次请求的时候带上这个cookie就行(一般浏览器会自己帮着处理这个过程)。</li></ul><h3 id="1-3-Cookie有效期"><a href="#1-3-Cookie有效期" class="headerlink" title="1.3 Cookie有效期"></a>1.3 Cookie有效期</h3><ul><li>Cookie的maxAge决定着Cookie的有效期，单位为秒（Second)</li><li>maxAge 值为-1 则表示，只在当前窗口以及子窗口有效。</li></ul><h3 id="1-4-Cookie的安全性"><a href="#1-4-Cookie的安全性" class="headerlink" title="1.4 Cookie的安全性"></a>1.4 Cookie的安全性</h3><ul><li>可以设置Cookie的secure属性为true。浏览器只会在HTTPS和SSL等安全协议中传输此类Cookie。</li><li>可以对Cookie进行加密，防止别人伪造Cookie(如果是明文，别人随便伪造一个通行证，去访问服务器，就存在安全隐患)</li></ul><h3 id="1-5-禁止跨域访问"><a href="#1-5-禁止跨域访问" class="headerlink" title="1.5 禁止跨域访问"></a>1.5 禁止跨域访问</h3><ul><li>例如百度的网站不会使用谷歌的Cookie</li></ul><h3 id="1-6-应用"><a href="#1-6-应用" class="headerlink" title="1.6 应用"></a>1.6 应用</h3><ul><li>Cookies最典型的应用是判定注册用户是否已经登录网站，用户可能会得到提示，是否在下一次进入此网站时保留用户信息以便简化登录手续，这些都是Cookies的功用。另一个重要应用场合是“购物车”之类处理。用户可能会在一段时间内在同一家网站的不同页面中选择不同的商品，这些信息都会写入Cookies，以便在最后付款时提取信息。</li></ul><h2 id="2-Session"><a href="#2-Session" class="headerlink" title="2.Session"></a>2.Session</h2><h3 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h3><ul><li>Session是服务器端使用的一种记录客户端状态的机制，使用上比Cookie简单一些，相应的也增加了服务器的存储压力。</li></ul><h3 id="2-2-流程"><a href="#2-2-流程" class="headerlink" title="2.2 流程"></a>2.2 流程</h3><ul><li>用户在第一次请求服务器的时候，会创建一个此用户的session（用户信息一般时Object所以会存放一些用户信息，现在一般存放在 mysql、redis 或者其他的存储系统中), 然后把session_id 放回给客户端</li><li>客户端在以后访问服务器的时候带着session_id，服务器拿到session_id 后会根据session_id，去取session信息，检验用户是否登录然后拿到用户相应信息</li></ul><h3 id="2-3-session的有效期"><a href="#2-3-session的有效期" class="headerlink" title="2.3 session的有效期"></a>2.3 session的有效期</h3><ul><li>一般超过时间没有访问的session会从服务器删除们就失效了</li></ul><h3 id="2-4-使用"><a href="#2-4-使用" class="headerlink" title="2.4 使用"></a>2.4 使用</h3><ul><li>结合Cookie来一起使用，Cookie 存放 Session_id信息，服务器存放Session信息</li><li>URL地址重定向（解决浏览器禁止使用token的情况）, 将Session_id 写到url中然后重新访问带这个session_id的地址，来做到带着session_id访问。</li></ul><h3 id="2-5-优点"><a href="#2-5-优点" class="headerlink" title="2.5 优点"></a>2.5 优点</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">session</span> 传输数据少，数据结构灵活：相较于 cookie 来说，<span class="hljs-keyword">session</span> 存储在服务端，客户端仅保留换取 <span class="hljs-keyword">session</span> 的用户凭证。因此传输数据量小，速度快。<br><span class="hljs-keyword">session</span> 更安全：检验、生成、验证都是在服务端按照指定规则完成，而 cookie 可能被客户端通过 js 代码篡改。<br></code></pre></td></tr></table></figure><h3 id="2-6缺点"><a href="#2-6缺点" class="headerlink" title="2.6缺点"></a>2.6缺点</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">服务器是有状态的。多台后端服务器无法共享 <span class="hljs-keyword">session</span>。解决方法是，专门准备一台 <span class="hljs-keyword">session</span> 服务器，关于 <span class="hljs-keyword">session</span> 的所有操作都交给它来调用。而服务器之间的调用，可以走内网 ip，走 RPC 调用（不走 http）这个方法没试过，一般我都是将 <span class="hljs-keyword">session</span>存到redis或者mysql中。<br></code></pre></td></tr></table></figure><h2 id="3-Token"><a href="#3-Token" class="headerlink" title="3.Token"></a>3.Token</h2><h3 id="3-1-流程"><a href="#3-1-流程" class="headerlink" title="3.1 流程"></a>3.1 流程</h3><ul><li>用户第一次登录后，服务器会生成一个Token 令牌，并将此令牌返回给客户端，以后访问，客户端带上这个Token就行</li><li>Token 一般时用户信息加上签名和过期时间进行的加密数据。<h3 id="3-2-有效期"><a href="#3-2-有效期" class="headerlink" title="3.2 有效期"></a>3.2 有效期</h3></li><li>一般有效期由token中的过期时间来决定</li><li>在有效器到期后可以采用refresh token 流程来更新过期时间（用token里的信息加上新的过期时间进行加密）<h3 id="3-3-优点："><a href="#3-3-优点：" class="headerlink" title="3.3 优点："></a>3.3 优点：</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stata">支持跨域访问: Cookie是不允许垮域访问的，<span class="hljs-keyword">token</span>支持；<br><br>无状态： <span class="hljs-keyword">token</span>无状态，session有状态的；<br><br>去耦: 不需要绑定到一个特定的身份验证方案。<span class="hljs-keyword">Token</span>可以在任何地方生成，只要在 你的API被调用的时候， 你可以进行<span class="hljs-keyword">Token</span>生成调用即可；<br><br>更适用于移动应用: Cookie不支持手机端访问的；<br><br>性能: 在网络传输的过程中，性能更好；<br><br>基于标准化: 你的API可以采用标准化的 JSON Web <span class="hljs-keyword">Token</span> (JWT). 这个标准已经存在 多个后端库（.<span class="hljs-keyword">NET</span>, Ruby, Java,Python, PHP）和多家公司的支持（如： Firebase,Google, Microsoft）。<br></code></pre></td></tr></table></figure><h3 id="3-4-缺点"><a href="#3-4-缺点" class="headerlink" title="3.4 缺点"></a>3.4 缺点</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">占带宽，正常情况下要比 session_id 更大，需要消耗更多流量，挤占更多带宽，假如你的网站每月有 <span class="hljs-number">10</span> 万次的浏览器，就意味着要多开销几十兆的流量。听起来并不多，但日积月累也是不小一笔开销。实际上，许多人会在 <span class="hljs-keyword">JWT </span>中存储的信息会更多；<br><br>无法在服务端注销，那么久很难解决劫持问题；<br><br>性能问题，<span class="hljs-keyword">JWT </span>的卖点之一就是加密签名，由于这个特性，接收方得以验证 <span class="hljs-keyword">JWT </span>是否有效且被信任。但是大多数 Web 身份认证应用中，<span class="hljs-keyword">JWT </span>都会被存储到 Cookie 中，这就是说你有了两个层面的签名。听着似乎很牛逼，但是没有任何优势，为此，你需要花费两倍的 CPU 开销来验证签名。对于有着严格性能要求的 Web 应用，这并不理想，尤其对于单线程环境。<br><br></code></pre></td></tr></table></figure></li></ul><h3 id="区别"><a href="#区别" class="headerlink" title="区别:"></a>区别:</h3><ol><li>cookie 数据载体，把session放到cookie返回给客户端，每次请求携带cookie</li><li>session是诞生并保存在服务器里的，由服务器主导一切</li><li>token诞生在服务器保存在客户端，由客户端主导一切（app不支持cookie和session，使用token）</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>web知识</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>cookie</tag>
+      
+      <tag>session</tag>
+      
+      <tag>token</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>两个view在一行显示</title>
+    <link href="/2024/08/13/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/"/>
+    <url>/2024/08/13/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/</url>
+    
+    <content type="html"><![CDATA[<h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text&quot;</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text-title&quot;</span>&gt;</span>章节目录<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">t-icon</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-icon&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;arrow-up-down-1&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;倒序&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">t-icon</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">0</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">1</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>正序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">t-divider</span> <span class="hljs-attr">dashed</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">t-divider</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   </span><br><span class="language-xml"> <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure><h1 id="css-实现-了解-flex-flex-wrap"><a href="#css-实现-了解-flex-flex-wrap" class="headerlink" title="css 实现(了解 flex, flex-wrap)"></a>css 实现(了解 flex, flex-wrap)</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.cata-text</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-wrap</span>: nowrap;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">7vh</span>;<br>  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>小程序学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>css</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1. Cookie、session、token</title>
+    <link href="/2024/08/13/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/"/>
+    <url>/2024/08/13/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/</url>
+    
+    <content type="html"><![CDATA[<h3 id="使用nginx部署vue项目后-刷新会找不到页面解决解决方法"><a href="#使用nginx部署vue项目后-刷新会找不到页面解决解决方法" class="headerlink" title="使用nginx部署vue项目后,刷新会找不到页面解决解决方法"></a>使用nginx部署vue项目后,刷新会找不到页面解决解决方法</h3><ol><li><p>增加nginx 配置</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">server &#123;<br>    ...<br>    location / &#123;<br>        try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span><span class="hljs-regexp">/ /i</span>ndex.html;<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure><p>以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i ) ，如果找不到匹配的文件，则尝试匹配路径加上斜杠 ( uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠 (uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠(uri/)，最后将请求定位到Vue应用的入口文件 (/index.html)。这样可以确保在刷新页面时，Nginx会正确地将请求导向Vue应用。</p></li><li><p>重新加载Nginx配置并重启Nginx服务。<br>整个配置文件和Nginx的位置可能因操作系统和安装方式而有所不同，一般在 Linux 系统下，配置文件路径位于 /etc/nginx/nginx.conf 或 /etc/nginx/sites-available/default。<br>修改配置文件后，要重新加载Nginx配置，可以使用以下命令（需要具有管理员权限）：</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nginx -s reload</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>nginx 部署vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>uwsgi</tag>
+      
+      <tag>vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>python字典Dict类型底层原理.md</title>
+    <link href="/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E5%AD%97%E5%85%B8Dict%E7%B1%BB%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"/>
+    <url>/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E5%AD%97%E5%85%B8Dict%E7%B1%BB%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>都知道python字典类型时间复杂度是O(1),是以空间换时间的一种数据类型，那么为什么字典的可以这么快？使用的时候又应该注意什么呢？</p><h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>dict 底层是一个维护这一张哈希表，哈希表中存储了哈希值、键、值。dict的查询速度就是因为哈希值进行提升的。</p><p>备注：哈希值，在python中，不可变对象都又一个唯一哈希值，可使用方法查看： hash(“刘”) </p><h2 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h2><p>首先将键进行hash运算，得到一个hash值，让后将相应的值存在以该hash值为下表的数组空间中。</p><h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>同样对键进行hash，然后根据这个hash值，从列表中进行下标取值。</p><h2 id="哈希碰撞解决办法"><a href="#哈希碰撞解决办法" class="headerlink" title="哈希碰撞解决办法"></a>哈希碰撞解决办法</h2><pre><code class="hljs">很明显对于这些键进行hash的时候，有的时候会发现hash值是一样的，这就产生了hash碰撞的问题</code></pre><ol><li>开放寻址<br>开放寻址法中，所有的元素都存放在散列表里，当产生哈希冲突时，通过一个探测函数计算出下一个候选位置，如果下一个获选位置还是有冲突，那么不断通过探测函数往下找，直到找个一个空槽来存放待插入元素。</li><li>再哈希法<br>这个方法是按顺序规定多个哈希函数，每次查询的时候按顺序调用哈希函数，调用到第一个为空的时候返回不存在，调用到此键的时候返回其值。</li><li>链地址法<br>将所有关键字哈希值相同的记录都存在同一线性链表中，这样不需要占用其他的哈希地址，相同的哈希值在一条链表上，按顺序遍历就可以找到。</li><li>公共溢出区<br>其基本思想是：所有关键字和基本表中关键字为相同哈希值的记录，不管他们由哈希函数得到的哈希地址是什么，一旦发生冲突，都填入溢出表。<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li><li>Python会根据哈希数组的拥挤程度对其扩容。“扩容”指的是:创造更大的数组，这时候会对已经存在的键值对重新进行哈希取余运算保存到其它位置；一般接近 2/3 时，数组就会扩容。扩容后，偏移量的数字个数增加，如数组长度扩容到16时，可以用最右边4位数字作为偏移量。</li><li>往字典里添加新建可能导致扩容，导致哈希数组中键的次序变化。因此，不要再遍历字典的同时进行字典的修改。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>修改pip源</title>
+    <link href="/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%BF%AE%E6%94%B9pip%E6%BA%90/"/>
+    <url>/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%BF%AE%E6%94%B9pip%E6%BA%90/</url>
+    
+    <content type="html"><![CDATA[<p>Linux系统：</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">mkdir ~/.pip<br>cat &gt; ~/.pip/pip.conf &lt;&lt; EOF<br>[<span class="hljs-keyword">global</span>]<br><span class="hljs-keyword">trusted</span>-host=mirrors.aliyun.com<br><span class="hljs-keyword">index</span>-url=https://mirrors.aliyun.com/pypi/simple/<br></code></pre></td></tr></table></figure><p>Windows系统：<br>首先在window的文件夹窗口输入 ： %APPDATA%<br>然后创建pip文件夹<br>最后创建pip.ini文件，写入如下内容</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[<span class="hljs-keyword">global</span>]<br><span class="hljs-keyword">index</span>-url = https://mirrors.aliyun.com/pypi/simple/<br>[install]<br><span class="hljs-keyword">trusted</span>-host=mirrors.aliyun.com<br></code></pre></td></tr></table></figure><p>或者临时</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">pip install -i https:<span class="hljs-regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple gevent<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>pip相关</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>celery经常出现worker卡住的情况</title>
+    <link href="/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/"/>
+    <url>/2024/08/13/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/</url>
+    
+    <content type="html"><![CDATA[<h3 id="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"><a href="#在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加" class="headerlink" title="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"></a>在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加</h3><p>在celery的config的文件中增加配置</p><ol><li>如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE = True ，这样可以有效防止死锁 。</li><li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">CELERYD_FORCE</span>=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>celery</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+      <tag>celery</tag>
       
     </tags>
     
@@ -1001,85 +1222,6 @@
   
   
   <entry>
-    <title>celery经常出现worker卡住的情况</title>
-    <link href="/2023/11/20/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/"/>
-    <url>/2023/11/20/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/celery%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0worker%E5%8D%A1%E4%BD%8F%E7%9A%84%E6%83%85%E5%86%B5/</url>
-    
-    <content type="html"><![CDATA[<h3 id="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"><a href="#在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加" class="headerlink" title="在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加"></a>在使用celery的时候经常出现任务执行一般卡住，worker被占用，导致celery队列不断增加</h3><p>在celery的config的文件中增加配置</p><ol><li>如果当前worker的并发是prefork（多进程）,那么有可能是由于死锁原因造成！ 可以在配置中添加CELERYD_FORCE = True ，这样可以有效防止死锁 。</li><li>如果存在进程hanging的情况，也可以使用time_limit，设定任务的执行超时时间，当超过这个时间的话，就先生成新的进程，并通过信号将hanging的进程杀死<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">CELERYD_FORCE</span>=<span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>celery</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>python</tag>
-      
-      <tag>celery</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>1. Cookie、session、token</title>
-    <link href="/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/"/>
-    <url>/2023/11/14/web%E7%9F%A5%E8%AF%86/3.uwsgi%E9%83%A8%E7%BD%B2vue%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2404/</url>
-    
-    <content type="html"><![CDATA[<h3 id="使用nginx部署vue项目后-刷新会找不到页面解决解决方法"><a href="#使用nginx部署vue项目后-刷新会找不到页面解决解决方法" class="headerlink" title="使用nginx部署vue项目后,刷新会找不到页面解决解决方法"></a>使用nginx部署vue项目后,刷新会找不到页面解决解决方法</h3><ol><li><p>增加nginx 配置</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">server &#123;<br>    ...<br>    location / &#123;<br>        try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span><span class="hljs-regexp">/ /i</span>ndex.html;<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure><p>以上配置允许Nginx尝试按照以下顺序查找文件：首先尝试匹配实际的文件路径 (u r i ) ，如果找不到匹配的文件，则尝试匹配路径加上斜杠 ( uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠 (uri)，如果找不到匹配的文件，则尝试匹配路径加上斜杠(uri/)，最后将请求定位到Vue应用的入口文件 (/index.html)。这样可以确保在刷新页面时，Nginx会正确地将请求导向Vue应用。</p></li><li><p>重新加载Nginx配置并重启Nginx服务。<br>整个配置文件和Nginx的位置可能因操作系统和安装方式而有所不同，一般在 Linux 系统下，配置文件路径位于 /etc/nginx/nginx.conf 或 /etc/nginx/sites-available/default。<br>修改配置文件后，要重新加载Nginx配置，可以使用以下命令（需要具有管理员权限）：</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nginx -s reload</span><br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>nginx 部署vue</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>uwsgi</tag>
-      
-      <tag>vue</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>两个view在一行显示</title>
-    <link href="/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/"/>
-    <url>/2023/11/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E6%89%A9%E5%B1%95%E5%AD%A6%E4%B9%A0/%E4%B8%A4%E4%B8%AAview%20%E5%9C%A8%E4%B8%80%E8%A1%8C/</url>
-    
-    <content type="html"><![CDATA[<h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text&quot;</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-text-title&quot;</span>&gt;</span>章节目录<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;right&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">t-icon</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cata-icon&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;arrow-up-down-1&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;倒序&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">t-icon</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">0</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-text&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;sorted_book_list&quot;</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">sort_type</span> == <span class="hljs-number">1</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>正序<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">t-divider</span> <span class="hljs-attr">dashed</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>倒序<span class="hljs-tag">&lt;/<span class="hljs-name">t-divider</span>&gt;</span></span><br><span class="language-xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">   </span><br><span class="language-xml"> <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure><h1 id="css-实现-了解-flex-flex-wrap"><a href="#css-实现-了解-flex-flex-wrap" class="headerlink" title="css 实现(了解 flex, flex-wrap)"></a>css 实现(了解 flex, flex-wrap)</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.cata-text</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-wrap</span>: nowrap;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">7vh</span>;<br>  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>小程序学习</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>css</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>uwsgi最大监听队列</title>
     <link href="/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/"/>
     <url>/2023/11/01/uwsgi/uwsgi%E6%9C%80%E5%A4%A7%E7%9B%91%E5%90%AC%E9%98%9F%E5%88%97/</url>
@@ -1216,56 +1358,6 @@
     <tags>
       
       <tag>小程序tdesign-miniprogram</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>修改pip源</title>
-    <link href="/2023/08/30/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%BF%AE%E6%94%B9pip%E6%BA%90/"/>
-    <url>/2023/08/30/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E4%BF%AE%E6%94%B9pip%E6%BA%90/</url>
-    
-    <content type="html"><![CDATA[<p>Linux系统：</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">mkdir ~/.pip<br>cat &gt; ~/.pip/pip.conf &lt;&lt; EOF<br>[<span class="hljs-keyword">global</span>]<br><span class="hljs-keyword">trusted</span>-host=mirrors.aliyun.com<br><span class="hljs-keyword">index</span>-url=https://mirrors.aliyun.com/pypi/simple/<br></code></pre></td></tr></table></figure><p>Windows系统：<br>首先在window的文件夹窗口输入 ： %APPDATA%<br>然后创建pip文件夹<br>最后创建pip.ini文件，写入如下内容</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[<span class="hljs-keyword">global</span>]<br><span class="hljs-keyword">index</span>-url = https://mirrors.aliyun.com/pypi/simple/<br>[install]<br><span class="hljs-keyword">trusted</span>-host=mirrors.aliyun.com<br></code></pre></td></tr></table></figure><p>或者临时</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">pip install -i https:<span class="hljs-regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple gevent<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>python</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>pip相关</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>python字典Dict类型底层原理.md</title>
-    <link href="/2023/08/29/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E5%AD%97%E5%85%B8Dict%E7%B1%BB%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"/>
-    <url>/2023/08/29/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E5%AD%97%E5%85%B8Dict%E7%B1%BB%E5%9E%8B%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</url>
-    
-    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>都知道python字典类型时间复杂度是O(1),是以空间换时间的一种数据类型，那么为什么字典的可以这么快？使用的时候又应该注意什么呢？</p><h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>dict 底层是一个维护这一张哈希表，哈希表中存储了哈希值、键、值。dict的查询速度就是因为哈希值进行提升的。</p><p>备注：哈希值，在python中，不可变对象都又一个唯一哈希值，可使用方法查看： hash(“刘”) </p><h2 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h2><p>首先将键进行hash运算，得到一个hash值，让后将相应的值存在以该hash值为下表的数组空间中。</p><h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>同样对键进行hash，然后根据这个hash值，从列表中进行下标取值。</p><h2 id="哈希碰撞解决办法"><a href="#哈希碰撞解决办法" class="headerlink" title="哈希碰撞解决办法"></a>哈希碰撞解决办法</h2><pre><code class="hljs">很明显对于这些键进行hash的时候，有的时候会发现hash值是一样的，这就产生了hash碰撞的问题</code></pre><ol><li>开放寻址<br>开放寻址法中，所有的元素都存放在散列表里，当产生哈希冲突时，通过一个探测函数计算出下一个候选位置，如果下一个获选位置还是有冲突，那么不断通过探测函数往下找，直到找个一个空槽来存放待插入元素。</li><li>再哈希法<br>这个方法是按顺序规定多个哈希函数，每次查询的时候按顺序调用哈希函数，调用到第一个为空的时候返回不存在，调用到此键的时候返回其值。</li><li>链地址法<br>将所有关键字哈希值相同的记录都存在同一线性链表中，这样不需要占用其他的哈希地址，相同的哈希值在一条链表上，按顺序遍历就可以找到。</li><li>公共溢出区<br>其基本思想是：所有关键字和基本表中关键字为相同哈希值的记录，不管他们由哈希函数得到的哈希地址是什么，一旦发生冲突，都填入溢出表。<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li><li>Python会根据哈希数组的拥挤程度对其扩容。“扩容”指的是:创造更大的数组，这时候会对已经存在的键值对重新进行哈希取余运算保存到其它位置；一般接近 2/3 时，数组就会扩容。扩容后，偏移量的数字个数增加，如数组长度扩容到16时，可以用最右边4位数字作为偏移量。</li><li>往字典里添加新建可能导致扩容，导致哈希数组中键的次序变化。因此，不要再遍历字典的同时进行字典的修改。</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>python</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>python</tag>
       
     </tags>
     
@@ -1578,7 +1670,7 @@
     <link href="/2023/06/29/django/django%E4%BD%BF%E7%94%A8redis%E9%9B%86%E7%BE%A4%E5%81%9A%E7%BC%93%E5%AD%98/"/>
     <url>/2023/06/29/django/django%E4%BD%BF%E7%94%A8redis%E9%9B%86%E7%BE%A4%E5%81%9A%E7%BC%93%E5%AD%98/</url>
     
-    <content type="html"><![CDATA[<h3 id="1-使用redis集群做cache-缓存"><a href="#1-使用redis集群做cache-缓存" class="headerlink" title="1. 使用redis集群做cache 缓存"></a>1. 使用redis集群做cache 缓存</h3><p>配置</p><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs clean">CACHES = &#123;<br>    <span class="hljs-string">&quot;default&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;BACKEND&quot;</span>: <span class="hljs-string">&quot;django_redis.cache.RedisCache&quot;</span>,<br>        <span class="hljs-string">&quot;LOCATION&quot;</span>: [<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7000&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7001&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7002&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7003&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7004&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7005&quot;</span>,<br>        ],<br>        <span class="hljs-string">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-string">&#x27;REDIS_CLIENT_CLASS&#x27;</span>: <span class="hljs-string">&#x27;rediscluster.RedisCluster&#x27;</span>,      # 连接类<br>            <span class="hljs-string">&#x27;CONNECTION_POOL_CLASS&#x27;</span>: <span class="hljs-string">&#x27;rediscluster.connection.ClusterConnectionPool&#x27;</span>,   # 连接池类<br>            <span class="hljs-string">&#x27;CONNECTION_POOL_KWARGS&#x27;</span>: &#123;     # 连接池参数<br>                <span class="hljs-string">&#x27;skip_full_coverage_check&#x27;</span>: <span class="hljs-literal">True</span>  # 连接报错时加参数：config get cluster-require-full-coverage<br>            &#125;,<br>        &#125;,<br>        # <span class="hljs-string">&quot;KEY_PREFIX&quot;</span>: <span class="hljs-string">&quot;myapp&quot;</span>,  # key前缀，默认为<span class="hljs-string">&#x27;&#x27;</span><br>        # <span class="hljs-string">&quot;VERSION&quot;</span>: <span class="hljs-number">1</span>,  # 版本号<br>        # <span class="hljs-string">&quot;KEY_FUNCTION&quot;</span>: <span class="hljs-string">&quot;cache_ext.key_function.make_key&quot;</span>,  # 自定义前缀规则，默认 KEY_PREFIX:VERSION:key<br>    &#125;,<br>&#125;<br></code></pre></td></tr></table></figure><p>备注：</p><ol><li>如果报错，认证有问题则修改 redis 方式：redis://:<a href="mailto:&#x70;&#97;&#115;&#115;&#x77;&#111;&#x72;&#x64;&#64;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#x2e;&#56;&#46;&#x34;&#50;">&#x70;&#97;&#115;&#115;&#x77;&#111;&#x72;&#x64;&#64;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#x2e;&#56;&#46;&#x34;&#50;</a>:7005 password 支持空字符串</li><li>如果集群访问有问题则LOCATION只用一个地址</li></ol><h3 id="2-session-是使用过cache"><a href="#2-session-是使用过cache" class="headerlink" title="2. session 是使用过cache"></a>2. session 是使用过cache</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">SESSION_CACHE_ALIAS</span> = <span class="hljs-string">&#x27;default&#x27;</span><br><span class="hljs-comment"># SESSION_COOKIE_AGE = 3600 # 默认两周单位秒</span><br><span class="hljs-attr">SESSION_COOKIE_DOMAIN</span> = None <span class="hljs-comment"># session cookie域名 默认没有设置就是当前域名</span><br><span class="hljs-attr">SESSION_COOKIE_HTTPONLY</span> = <span class="hljs-literal">True</span> <span class="hljs-comment"># 设置session cookie是httponly</span><br><span class="hljs-attr">SESSION_COOKIE_NAME</span> = f<span class="hljs-string">&#x27;session_qc_&#123;REDIS_BASE_KEY&#125;&#x27;</span> <span class="hljs-comment"># session cookie的名字</span><br><span class="hljs-attr">SESSION_COOKIE_PATH</span> = <span class="hljs-string">&#x27;/&#x27;</span> <span class="hljs-comment"># session cookie的path</span><br><span class="hljs-attr">SESSION_COOKIE_SECURE</span> = <span class="hljs-literal">False</span> <span class="hljs-comment"># session cookie的secure</span><br><span class="hljs-attr">SESSION_ENGINE</span> = <span class="hljs-string">&#x27;django.contrib.sessions.backends.cache&#x27;</span> <span class="hljs-comment"># session存贮位置默认db</span><br><span class="hljs-attr">SESSION_EXPIRE_AT_BROWSER_CLOSE</span> = <span class="hljs-literal">False</span><br><span class="hljs-attr">SESSION_SAVE_EVERY_REQUEST</span> = <span class="hljs-literal">True</span>  <span class="hljs-comment"># session超时机制是否生效, 只有在为True时，SESSION_EXPIRE_AT_BROWSER_CLOSE 才会生效</span><br><br></code></pre></td></tr></table></figure><h3 id="3-报错"><a href="#3-报错" class="headerlink" title="3. 报错"></a>3. 报错</h3><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xquery">Django：Could<span class="hljs-built_in"> not</span> find backend <span class="hljs-string">&#x27;django_redis.cache.RedisCache&#x27;</span>: cannot <span class="hljs-keyword">import</span><span class="hljs-built_in"> name</span> <span class="hljs-string">&#x27;six&#x27;</span><br></code></pre></td></tr></table></figure><p>3.1 原因django 版本太高回退到 2.2.7 版本</p><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pip3</span> install django==<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure><p>3.2 依旧报错</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">File &quot;/usr/local/lib/python3.6/site-packages/django/db/backends/mysql/operations.py&quot;, <span class="hljs-type">line</span> <span class="hljs-number">146</span>, <span class="hljs-keyword">in</span> last_executed_query<br>query = query.decode(errors=<span class="hljs-string">&#x27;replace&#x27;</span>)<br>AttributeError: <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-keyword">object</span> has <span class="hljs-keyword">no</span> <span class="hljs-keyword">attribute</span> <span class="hljs-string">&#x27;decode&#x27;</span><br></code></pre></td></tr></table></figure><p>解决办法，将文件 146 行 decode改成encode<br>修改后的结果</p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">query</span> = <span class="hljs-keyword">query</span>.<span class="hljs-keyword">encode</span>(errors=&#x27;<span class="hljs-keyword">replace</span>&#x27;)<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h3 id="1-使用redis集群做cache-缓存"><a href="#1-使用redis集群做cache-缓存" class="headerlink" title="1. 使用redis集群做cache 缓存"></a>1. 使用redis集群做cache 缓存</h3><p>配置</p><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs clean">CACHES = &#123;<br>    <span class="hljs-string">&quot;default&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;BACKEND&quot;</span>: <span class="hljs-string">&quot;django_redis.cache.RedisCache&quot;</span>,<br>        <span class="hljs-string">&quot;LOCATION&quot;</span>: [<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7000&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7001&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7002&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7003&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7004&quot;</span>,<br>            <span class="hljs-string">&quot;redis://192.168.8.42:7005&quot;</span>,<br>        ],<br>        <span class="hljs-string">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-string">&#x27;REDIS_CLIENT_CLASS&#x27;</span>: <span class="hljs-string">&#x27;rediscluster.RedisCluster&#x27;</span>,      # 连接类<br>            <span class="hljs-string">&#x27;CONNECTION_POOL_CLASS&#x27;</span>: <span class="hljs-string">&#x27;rediscluster.connection.ClusterConnectionPool&#x27;</span>,   # 连接池类<br>            <span class="hljs-string">&#x27;CONNECTION_POOL_KWARGS&#x27;</span>: &#123;     # 连接池参数<br>                <span class="hljs-string">&#x27;skip_full_coverage_check&#x27;</span>: <span class="hljs-literal">True</span>  # 连接报错时加参数：config get cluster-require-full-coverage<br>            &#125;,<br>        &#125;,<br>        # <span class="hljs-string">&quot;KEY_PREFIX&quot;</span>: <span class="hljs-string">&quot;myapp&quot;</span>,  # key前缀，默认为<span class="hljs-string">&#x27;&#x27;</span><br>        # <span class="hljs-string">&quot;VERSION&quot;</span>: <span class="hljs-number">1</span>,  # 版本号<br>        # <span class="hljs-string">&quot;KEY_FUNCTION&quot;</span>: <span class="hljs-string">&quot;cache_ext.key_function.make_key&quot;</span>,  # 自定义前缀规则，默认 KEY_PREFIX:VERSION:key<br>    &#125;,<br>&#125;<br></code></pre></td></tr></table></figure><p>备注：</p><ol><li>如果报错，认证有问题则修改 redis 方式：redis://:<a href="mailto:&#x70;&#x61;&#x73;&#115;&#x77;&#x6f;&#x72;&#x64;&#64;&#49;&#x39;&#x32;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x38;&#46;&#52;&#x32;">&#x70;&#x61;&#x73;&#115;&#x77;&#x6f;&#x72;&#x64;&#64;&#49;&#x39;&#x32;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x38;&#46;&#52;&#x32;</a>:7005 password 支持空字符串</li><li>如果集群访问有问题则LOCATION只用一个地址</li></ol><h3 id="2-session-是使用过cache"><a href="#2-session-是使用过cache" class="headerlink" title="2. session 是使用过cache"></a>2. session 是使用过cache</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">SESSION_CACHE_ALIAS</span> = <span class="hljs-string">&#x27;default&#x27;</span><br><span class="hljs-comment"># SESSION_COOKIE_AGE = 3600 # 默认两周单位秒</span><br><span class="hljs-attr">SESSION_COOKIE_DOMAIN</span> = None <span class="hljs-comment"># session cookie域名 默认没有设置就是当前域名</span><br><span class="hljs-attr">SESSION_COOKIE_HTTPONLY</span> = <span class="hljs-literal">True</span> <span class="hljs-comment"># 设置session cookie是httponly</span><br><span class="hljs-attr">SESSION_COOKIE_NAME</span> = f<span class="hljs-string">&#x27;session_qc_&#123;REDIS_BASE_KEY&#125;&#x27;</span> <span class="hljs-comment"># session cookie的名字</span><br><span class="hljs-attr">SESSION_COOKIE_PATH</span> = <span class="hljs-string">&#x27;/&#x27;</span> <span class="hljs-comment"># session cookie的path</span><br><span class="hljs-attr">SESSION_COOKIE_SECURE</span> = <span class="hljs-literal">False</span> <span class="hljs-comment"># session cookie的secure</span><br><span class="hljs-attr">SESSION_ENGINE</span> = <span class="hljs-string">&#x27;django.contrib.sessions.backends.cache&#x27;</span> <span class="hljs-comment"># session存贮位置默认db</span><br><span class="hljs-attr">SESSION_EXPIRE_AT_BROWSER_CLOSE</span> = <span class="hljs-literal">False</span><br><span class="hljs-attr">SESSION_SAVE_EVERY_REQUEST</span> = <span class="hljs-literal">True</span>  <span class="hljs-comment"># session超时机制是否生效, 只有在为True时，SESSION_EXPIRE_AT_BROWSER_CLOSE 才会生效</span><br><br></code></pre></td></tr></table></figure><h3 id="3-报错"><a href="#3-报错" class="headerlink" title="3. 报错"></a>3. 报错</h3><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xquery">Django：Could<span class="hljs-built_in"> not</span> find backend <span class="hljs-string">&#x27;django_redis.cache.RedisCache&#x27;</span>: cannot <span class="hljs-keyword">import</span><span class="hljs-built_in"> name</span> <span class="hljs-string">&#x27;six&#x27;</span><br></code></pre></td></tr></table></figure><p>3.1 原因django 版本太高回退到 2.2.7 版本</p><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pip3</span> install django==<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure><p>3.2 依旧报错</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">File &quot;/usr/local/lib/python3.6/site-packages/django/db/backends/mysql/operations.py&quot;, <span class="hljs-type">line</span> <span class="hljs-number">146</span>, <span class="hljs-keyword">in</span> last_executed_query<br>query = query.decode(errors=<span class="hljs-string">&#x27;replace&#x27;</span>)<br>AttributeError: <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-keyword">object</span> has <span class="hljs-keyword">no</span> <span class="hljs-keyword">attribute</span> <span class="hljs-string">&#x27;decode&#x27;</span><br></code></pre></td></tr></table></figure><p>解决办法，将文件 146 行 decode改成encode<br>修改后的结果</p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">query</span> = <span class="hljs-keyword">query</span>.<span class="hljs-keyword">encode</span>(errors=&#x27;<span class="hljs-keyword">replace</span>&#x27;)<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -1941,85 +2033,6 @@
     <tags>
       
       <tag>单例</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>1. 简介</title>
-    <link href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/"/>
-    <url>/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%AE%80%E4%BB%8B/</url>
-    
-    <content type="html"><![CDATA[<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式可以多个组合使用使其更适合项目</p><p>不可过度使用设计模式（避免降低代码可读性）</p><h2 id="六大设计原则："><a href="#六大设计原则：" class="headerlink" title="六大设计原则："></a>六大设计原则：</h2><ol><li>单一职责原则：一个类只负责完成一个职责或者功能。（不要设计大而全的类，而是要设计力度小，功能单一的类） <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">类中的代码行数、函数、属性过多。<br>类的依赖过多<br>私有方法过多<br>类中大量的方法都在集中操作几个属性<br></code></pre></td></tr></table></figure></li><li>开放封闭原则： 软件中的对象、类、模块和函数对扩展应该是开放的，但对于修改是封闭的。这意味着应该用抽象定义结构，用具体实现扩展细节，以此确保软件系统开发和维护过程的可靠性。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">需求发生变化时，应该采取扩展的方式实现，而不是修改。<br></code></pre></td></tr></table></figure></li><li>里氏替换原则：子类能够替换程序中对象出现的任何地方，并且保证原来的程序的逻辑行为不变及正确性不被破坏。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">替换：面向对象语言所支持的多态特性。<br>通过接口就可以知道方法的行为。<br></code></pre></td></tr></table></figure></li><li>接口分离原则：要为各个类建立他们需要的专用接口，而不是视图去建立一个很庞大的接口供所有依赖它的类去调用。</li><li>依赖倒置原则：在设计代码架构时，高层模块不应该依赖低层模块，二者都应该依赖于抽象。抽象不应该依赖于细节，细节应该依赖于抽象。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">高层模块抽取低层模块的共性，形成抽象。<br>保持始终依赖抽象，而不是实现。（例如一些类，参数或者属性的类型应该是抽象接口，而不是具体实现）<br></code></pre></td></tr></table></figure></li><li>迪米特法则：一个类/模块对其他类/模块有越少的了解越好。简单来说迪米特法则想要表达的思想就是：不该有直接依赖关系的类之间，不要有依赖；有依赖关系的类之间，尽量只依赖必要的接口。 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">可以通过第三方转发的方式进行调用，降低类与类之间的耦合。<br></code></pre></td></tr></table></figure></li></ol><h2 id="创建型模式（5）"><a href="#创建型模式（5）" class="headerlink" title="创建型模式（5）"></a>创建型模式（5）</h2><pre><code class="hljs">对象实例化的模式，创建型模式用于解耦对象的实例化过程</code></pre><ol><li>单例模式， <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">go</a></li><li>工厂方法模式, <a href="/2023/04/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/3-python%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">go</a></li><li>抽象工厂模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li><li>建造者模式, <a href="/2023/04/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5-python%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></li><li>原型模式, <a href="/2023/04/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6-python%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">go</a></li></ol><h2 id="结构型模式（7）"><a href="#结构型模式（7）" class="headerlink" title="结构型模式（7）"></a>结构型模式（7）</h2><pre><code class="hljs">把类或对象结合在一起形成一个更大的结构. 前者采用继承来组织接口和类，后者采用关联来组合对象</code></pre><ol><li>代理模式，<a href="/2023/04/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/7-python%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">go</a></li><li>适配器模式，<a href="/2023/04/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8-python%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></li><li>桥接模式，<a href="/2023/04/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/9-python%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">go</a></li><li>装饰器模式，<a href="/2023/04/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/10-python%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></li><li>外观模式，<a href="/2023/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/11-python%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">go</a></li><li>享元模式，<a href="/2023/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/12-python%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">go</a></li><li>组合模式，<a href="/2023/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/13-python%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">go</a></li></ol><h2 id="行为型模式（11）"><a href="#行为型模式（11）" class="headerlink" title="行为型模式（11）"></a>行为型模式（11）</h2><pre><code class="hljs">类和对象如何交互，行为型模式用于描述程序在运行时复杂的流程控制，即描述多个类或对象之间怎样相互协作共同完成一个任务。涉及划分责任和算法。</code></pre><ol><li><p>观察者模式, <a href="/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/14-python%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>模板模式, <a href="/2023/06/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/15-python%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>策略模式, <a href="/2023/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/16-python%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>责任链模式, <a href="/2023/07/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/17-python%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>命令模式, <a href="/2023/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/18-python%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>中介者模式, <a href="/2023/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/19-python%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>状态模式, <a href="/2023/08/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20-python%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>备忘录模式, <a href="/2023/08/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/21-python%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>迭代器模式, <a href="/2023/08/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/22-python%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>解释器模式, <a href="/2023/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/23-python%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/">go</a></p></li><li><p>访问者模式, <a href="/2023/08/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/24-python%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/">go</a></p></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>设计模式</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>设计模式</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>1. Cookie、session、token</title>
-    <link href="/2023/04/04/web%E7%9F%A5%E8%AF%86/1.cookie%E3%80%81session%E3%80%81token%E4%BA%86%E8%A7%A3/"/>
-    <url>/2023/04/04/web%E7%9F%A5%E8%AF%86/1.cookie%E3%80%81session%E3%80%81token%E4%BA%86%E8%A7%A3/</url>
-    
-    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul><li>在应用程序中，一个用户的所有请求应该属于一个用户，简单说，一个用户进行的所有操作，都应该是对当前用户的操作。但是目前很多程序使用的是 HTTP 协议，但是HTTP协议本身是无状态的协议，简单说，一次请求结束，客户端和服务器就断开连接了，下一次请求就无法跟踪会话，所以诞生了 Cookie、Session、Token集中方式。</li></ul><h2 id="1-Cookie"><a href="#1-Cookie" class="headerlink" title="1.Cookie"></a>1.Cookie</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><ul><li>服务器给客户端办法了一个通行证，每个人，访问的时候呆着通行证，那这样每次访问服务器就知道是谁访问的了，那么每次做的操作就是对通行证上这个人进行操作。</li><li>Cookie是存储在客户端的一种机制，如果浏览器禁止Cookie那么，这种认证方式就失效了</li><li>Cookie 除了可以使用字符串，也可以是用base64图片 </li></ul><h3 id="1-2-流程"><a href="#1-2-流程" class="headerlink" title="1.2 流程"></a>1.2 流程</h3><ul><li>在用户第一次请求或者登录服务器的时候，服务器给客户端发一个cookie（服务端会将Cookie加入到HttpResponse中），下次请求的时候带上这个cookie就行(一般浏览器会自己帮着处理这个过程)。</li></ul><h3 id="1-3-Cookie有效期"><a href="#1-3-Cookie有效期" class="headerlink" title="1.3 Cookie有效期"></a>1.3 Cookie有效期</h3><ul><li>Cookie的maxAge决定着Cookie的有效期，单位为秒（Second)</li><li>maxAge 值为-1 则表示，只在当前窗口以及子窗口有效。</li></ul><h3 id="1-4-Cookie的安全性"><a href="#1-4-Cookie的安全性" class="headerlink" title="1.4 Cookie的安全性"></a>1.4 Cookie的安全性</h3><ul><li>可以设置Cookie的secure属性为true。浏览器只会在HTTPS和SSL等安全协议中传输此类Cookie。</li><li>可以对Cookie进行加密，防止别人伪造Cookie(如果是明文，别人随便伪造一个通行证，去访问服务器，就存在安全隐患)</li></ul><h3 id="1-5-禁止跨域访问"><a href="#1-5-禁止跨域访问" class="headerlink" title="1.5 禁止跨域访问"></a>1.5 禁止跨域访问</h3><ul><li>例如百度的网站不会使用谷歌的Cookie</li></ul><h3 id="1-6-应用"><a href="#1-6-应用" class="headerlink" title="1.6 应用"></a>1.6 应用</h3><ul><li>Cookies最典型的应用是判定注册用户是否已经登录网站，用户可能会得到提示，是否在下一次进入此网站时保留用户信息以便简化登录手续，这些都是Cookies的功用。另一个重要应用场合是“购物车”之类处理。用户可能会在一段时间内在同一家网站的不同页面中选择不同的商品，这些信息都会写入Cookies，以便在最后付款时提取信息。</li></ul><h2 id="2-Session"><a href="#2-Session" class="headerlink" title="2.Session"></a>2.Session</h2><h3 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h3><ul><li>Session是服务器端使用的一种记录客户端状态的机制，使用上比Cookie简单一些，相应的也增加了服务器的存储压力。</li></ul><h3 id="2-2-流程"><a href="#2-2-流程" class="headerlink" title="2.2 流程"></a>2.2 流程</h3><ul><li>用户在第一次请求服务器的时候，会创建一个此用户的session（用户信息一般时Object所以会存放一些用户信息，现在一般存放在 mysql、redis 或者其他的存储系统中), 然后把session_id 放回给客户端</li><li>客户端在以后访问服务器的时候带着session_id，服务器拿到session_id 后会根据session_id，去取session信息，检验用户是否登录然后拿到用户相应信息</li></ul><h3 id="2-3-session的有效期"><a href="#2-3-session的有效期" class="headerlink" title="2.3 session的有效期"></a>2.3 session的有效期</h3><ul><li>一般超过时间没有访问的session会从服务器删除们就失效了</li></ul><h3 id="2-4-使用"><a href="#2-4-使用" class="headerlink" title="2.4 使用"></a>2.4 使用</h3><ul><li>结合Cookie来一起使用，Cookie 存放 Session_id信息，服务器存放Session信息</li><li>URL地址重定向（解决浏览器禁止使用token的情况）, 将Session_id 写到url中然后重新访问带这个session_id的地址，来做到带着session_id访问。</li></ul><h3 id="2-5-优点"><a href="#2-5-优点" class="headerlink" title="2.5 优点"></a>2.5 优点</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">session</span> 传输数据少，数据结构灵活：相较于 cookie 来说，<span class="hljs-keyword">session</span> 存储在服务端，客户端仅保留换取 <span class="hljs-keyword">session</span> 的用户凭证。因此传输数据量小，速度快。<br><span class="hljs-keyword">session</span> 更安全：检验、生成、验证都是在服务端按照指定规则完成，而 cookie 可能被客户端通过 js 代码篡改。<br></code></pre></td></tr></table></figure><h3 id="2-6缺点"><a href="#2-6缺点" class="headerlink" title="2.6缺点"></a>2.6缺点</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">服务器是有状态的。多台后端服务器无法共享 <span class="hljs-keyword">session</span>。解决方法是，专门准备一台 <span class="hljs-keyword">session</span> 服务器，关于 <span class="hljs-keyword">session</span> 的所有操作都交给它来调用。而服务器之间的调用，可以走内网 ip，走 RPC 调用（不走 http）这个方法没试过，一般我都是将 <span class="hljs-keyword">session</span>存到redis或者mysql中。<br></code></pre></td></tr></table></figure><h2 id="3-Token"><a href="#3-Token" class="headerlink" title="3.Token"></a>3.Token</h2><h3 id="3-1-流程"><a href="#3-1-流程" class="headerlink" title="3.1 流程"></a>3.1 流程</h3><ul><li>用户第一次登录后，服务器会生成一个Token 令牌，并将此令牌返回给客户端，以后访问，客户端带上这个Token就行</li><li>Token 一般时用户信息加上签名和过期时间进行的加密数据。<h3 id="3-2-有效期"><a href="#3-2-有效期" class="headerlink" title="3.2 有效期"></a>3.2 有效期</h3></li><li>一般有效期由token中的过期时间来决定</li><li>在有效器到期后可以采用refresh token 流程来更新过期时间（用token里的信息加上新的过期时间进行加密）<h3 id="3-3-优点："><a href="#3-3-优点：" class="headerlink" title="3.3 优点："></a>3.3 优点：</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stata">支持跨域访问: Cookie是不允许垮域访问的，<span class="hljs-keyword">token</span>支持；<br><br>无状态： <span class="hljs-keyword">token</span>无状态，session有状态的；<br><br>去耦: 不需要绑定到一个特定的身份验证方案。<span class="hljs-keyword">Token</span>可以在任何地方生成，只要在 你的API被调用的时候， 你可以进行<span class="hljs-keyword">Token</span>生成调用即可；<br><br>更适用于移动应用: Cookie不支持手机端访问的；<br><br>性能: 在网络传输的过程中，性能更好；<br><br>基于标准化: 你的API可以采用标准化的 JSON Web <span class="hljs-keyword">Token</span> (JWT). 这个标准已经存在 多个后端库（.<span class="hljs-keyword">NET</span>, Ruby, Java,Python, PHP）和多家公司的支持（如： Firebase,Google, Microsoft）。<br></code></pre></td></tr></table></figure><h3 id="3-4-缺点"><a href="#3-4-缺点" class="headerlink" title="3.4 缺点"></a>3.4 缺点</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">占带宽，正常情况下要比 session_id 更大，需要消耗更多流量，挤占更多带宽，假如你的网站每月有 <span class="hljs-number">10</span> 万次的浏览器，就意味着要多开销几十兆的流量。听起来并不多，但日积月累也是不小一笔开销。实际上，许多人会在 <span class="hljs-keyword">JWT </span>中存储的信息会更多；<br><br>无法在服务端注销，那么久很难解决劫持问题；<br><br>性能问题，<span class="hljs-keyword">JWT </span>的卖点之一就是加密签名，由于这个特性，接收方得以验证 <span class="hljs-keyword">JWT </span>是否有效且被信任。但是大多数 Web 身份认证应用中，<span class="hljs-keyword">JWT </span>都会被存储到 Cookie 中，这就是说你有了两个层面的签名。听着似乎很牛逼，但是没有任何优势，为此，你需要花费两倍的 CPU 开销来验证签名。对于有着严格性能要求的 Web 应用，这并不理想，尤其对于单线程环境。<br><br></code></pre></td></tr></table></figure></li></ul><h3 id="区别"><a href="#区别" class="headerlink" title="区别:"></a>区别:</h3><ol><li>cookie 数据载体，把session放到cookie返回给客户端，每次请求携带cookie</li><li>session是诞生并保存在服务器里的，由服务器主导一切</li><li>token诞生在服务器保存在客户端，由客户端主导一切（app不支持cookie和session，使用token）</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>web知识</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>cookie</tag>
-      
-      <tag>session</tag>
-      
-      <tag>token</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2. 位运算</title>
-    <link href="/2023/04/03/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    <url>/2023/04/03/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
-    
-    <content type="html"><![CDATA[<p>从现代计算机中所有的数据二进制的形式存储在设备中。即 0、1 两种状态，计算机对二进制数据进行的运算(+、-、*、/)都是叫位运算，即将符号位共同参与运算的运算。</p><table><thead><tr><th>符号</th><th>描述</th><th>运算规则</th></tr></thead><tbody><tr><td>&amp;</td><td>与</td><td>两个位都为1时，结果才为1</td></tr><tr><td>|</td><td>或</td><td>两个位都为0时，结果才为0</td></tr><tr><td>^</td><td>异或</td><td>两个位相同为0，相异为1</td></tr><tr><td>~</td><td>取反</td><td>0变1，1变0</td></tr><tr><td>&lt;&lt;</td><td>左移</td><td>各二进位全部左移若干位，高位丢弃，低位补0</td></tr><tr><td>&gt;&gt;</td><td>右移</td><td>各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不一样，有的补符号位（算术右移），有的补0（逻辑右移）</td></tr></tbody></table><h1 id="一、异或-概念"><a href="#一、异或-概念" class="headerlink" title="一、异或 概念"></a>一、异或 概念</h1><ol><li>异或的符号 ^</li><li>如果两个数不相同，则异或的结果为1；如果两个数相同，则异或的结果为0</li><li>基础异或概念 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> ^ <span class="hljs-number">0</span> # 结果为<span class="hljs-number">1</span><br><span class="hljs-attribute">1</span> ^ <span class="hljs-number">1</span> # 结果为<span class="hljs-number">0</span><br><span class="hljs-attribute">x</span> ^ (-<span class="hljs-number">1</span>) = -x<br></code></pre></td></tr></table></figure></li><li>异或是二进制的数按位进行异或 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">例如：5 ^ 3<br>就是101 ^<span class="hljs-number"> 011 </span><br>按位置：<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 0 </span>= 1,<span class="hljs-number"> 0 </span>^<span class="hljs-number"> 1 </span>= 1,<span class="hljs-number"> 1 </span>^<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 0 </span>结果为<span class="hljs-number"> 110 </span>转10进制 6<br></code></pre></td></tr></table></figure></li><li>满足交换律，结合律，自反率（ A ^ B ^ B = A ^ 0 = A）</li><li>将两个数异或的结果与其中一个数异或能得到另一个结果：例如 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">x</span> = <span class="hljs-number">4</span><br><span class="hljs-attribute">b</span> = <span class="hljs-number">5</span><br><span class="hljs-attribute">z</span> = x ^ b <br><span class="hljs-attribute">z</span> ^ b = x = <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure></li></ol><h2 id="题目一、-a-3-b-2-交换两个数"><a href="#题目一、-a-3-b-2-交换两个数" class="headerlink" title="题目一、 a = 3,  b = 2 交换两个数"></a>题目一、 a = 3,  b = 2 交换两个数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">方法一: 用异或实现<br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> <br>    <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>    解析：<br>        使用原理<span class="hljs-number">6</span><br>        <span class="hljs-number">1</span>. 两个数异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span><br>        <span class="hljs-number">2</span>. 与其中一个异或能拿到另一个数<br>            <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候b存的就是之前a的值)<br>        <span class="hljs-number">3</span>. <span class="hljs-selector-tag">b</span> 在与<span class="hljs-selector-tag">a</span> 异或<br>            <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> (这个时候, <span class="hljs-selector-tag">a</span> 拿到的就是b之前的值，因为b现在里边存的是之前a的值)<br>            <br>方法二： python<br>    <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">b</span>, a<br></code></pre></td></tr></table></figure><h2 id="题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。"><a href="#题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。" class="headerlink" title="题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。"></a>题目二、一个数组一个数出现奇数次，其他都出现了偶数次，怎么找到并打印。</h2><p>解题思路: 0 跟任何数异或都是任何数，两个相同的数异或为0，哪所有数异或数</p><p>```<br>data_list = [11,11,22,22,33]<br>tmp = 0<br>for i in data_list:<br>    tmp ^= i</p><p>print(tmp)</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>算法学习</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>位运算</tag>
       
     </tags>
     

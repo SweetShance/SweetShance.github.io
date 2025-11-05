@@ -226,6 +226,457 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2024/06/18/celery+django%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/2-celery%E6%96%B9%E6%B3%95/" target="_self">
+          2.celery方法
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/18/celery+django%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/2-celery%E6%96%B9%E6%B3%95/" target="_self">
+        <div>
+          前言除了之前集成的flower或者django-clery-result, django-celery-beat之外，可能需要我们自己在项目中集成，所以记录一些可能会使用的方法，不断完善 获取所有正在运行的任务1234567from celery import current_appinspect = current_app.control.inspect([])# 获取所有的任务active_t
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-18 15:45" pubdate>
+              2024-06-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/06/18/web%E7%9F%A5%E8%AF%86/vue%E4%BD%BF%E7%94%A8proxyTable%E5%8A%A0axios%E5%AE%9E%E7%8E%B0%E5%90%8E%E7%AB%AF%E5%9C%B0%E5%9D%80%E8%87%AA%E5%8A%A8%E6%8B%BC%E6%8E%A5/" target="_self">
+          vue使用proxyTable加axios实现后端地址自动拼接
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/18/web%E7%9F%A5%E8%AF%86/vue%E4%BD%BF%E7%94%A8proxyTable%E5%8A%A0axios%E5%AE%9E%E7%8E%B0%E5%90%8E%E7%AB%AF%E5%9C%B0%E5%9D%80%E8%87%AA%E5%8A%A8%E6%8B%BC%E6%8E%A5/" target="_self">
+        <div>
+          背景如果项目，是在多个现场部署，后端地址不固定，总不能每打一个包，修改一下 axios的baseUrl 实现方法一不配置baseUrl让自动获取浏览器url拼接后端接口  axios createbaseURL不配置具体ip+端口，可以不配置或者配置后端接口前缀12345678const $http = axios.create(&#123;    // baseURL: GLOBAL.base_
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-18 13:44" pubdate>
+              2024-06-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/06/17/celery+django%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/1-celery-django%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          1.celery-django环境搭建
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/17/celery+django%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/1-celery-django%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+        <div>
+          文档地址：https://docs.celeryq.dev/en/v5.2.3/index.html 项目构建1.环境安装1234pip install celery==5.1.2pip install redis==4.3.5pip install django-celery-beat==2.2.0pip install django-celery-results==2.0.1  django-
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-17 17:38" pubdate>
+              2024-06-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/06/14/celery+django%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/celery-django%E6%8A%A5%E9%94%99/" target="_self">
+          celery+django报错
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/14/celery+django%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/celery-django%E6%8A%A5%E9%94%99/" target="_self">
+        <div>
+          前言celery: 5.1.2django: Django==3.2.25 报错信息ValueError: not enough values to unpack (expected 3, got 0)123456Traceback (most recent call last):  File &quot;D:\work_test\toolWeb\celery_about\celeryAbout\
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-14 19:31" pubdate>
+              2024-06-14
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/05/10/django/%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%A4%BA%E4%BE%8B/" target="_self">
+          简单测试用例示例
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/10/django/%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%A4%BA%E4%BE%8B/" target="_self">
+        <div>
+          贴一个django简单测试用例初始化数据的json 文件（供项目部署和测试使用）文件名 init_data.json, 位置项目根目录（和template同级）123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-05-10 18:35" pubdate>
+              2024-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/django/" class="category-chain-item">django</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/django-Test/">#django Test</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/05/10/django/django%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A0%81/" target="_self">
+          django初始化数据库编码
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/10/django/django%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A0%81/" target="_self">
+        <div>
+          配置 1234567891011121314151617DATABASES = &#123;    &#x27;default&#x27;: &#123;        &#x27;ENGINE&#x27;: &#x27;django.db.backends.mysql&#x27;,  # 使用pymysql        &#x27;NAME&#x27;: &#x27;tools&#x27;,
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-05-10 15:56" pubdate>
+              2024-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/django/" class="category-chain-item">django</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/django%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/">#django数据库配置</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/05/09/uwsgi/supervisorctl-django-uwsgi%E9%83%A8%E7%BD%B2/" target="_self">
+          supervisorctl+django+uwsgi部署
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/09/uwsgi/supervisorctl-django-uwsgi%E9%83%A8%E7%BD%B2/" target="_self">
+        <div>
+          supervisor简介 supervisor可以监控和管理多个进程，确保他们持续运行，并能实时监控，不需要像以往一样需要使用systemctl去查看该服务的状态。 supervisor可以提高服务的可靠性和稳定性，能让服务出现意外退出时，自动重启。 supervisor 提供了一个简单的管理界面和命令行工具，使得管理和监控进程变得方便易用。  supervisor简的主要组成部分 supervi
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-05-09 15:30" pubdate>
+              2024-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/uwsgi/" class="category-chain-item">uwsgi</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/uwsgi/django/" class="category-chain-item">django</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/uwsgi/django/supervisor/" class="category-chain-item">supervisor</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/django%E9%83%A8%E7%BD%B2/">#django部署</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/04/23/mysql/Mysql%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+          Mysql忘记root密码解决方案
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/04/23/mysql/Mysql%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+        <div>
+          场景一：重置root密码原理： mysql提供了特殊启动方式，跳过权限表验证，启动后，登录不需要提供密码。登陆后，即可修改密码，刷新权限，重启mysql即可 停止正在运行的mysql12# root 权限service mysqld stop 以–skip-grant-tables 选项启动服务，跳过权限表验证 方法一：指定运行选项，只在本次启动生效12./bin/mysqld_safe --sk
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-04-23 11:13" pubdate>
+              2024-04-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql/">#mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/04/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/vscode+django/" target="_self">
+          Vscode + Python + Django
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/04/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/vscode+django/" target="_self">
+        <div>
+          Vscode + Python + Django开发环境常见问题Vscode 越来越好用了，轻量还跨平台。 1, 主程序安装。  汉化：左侧工具条的扩展菜单，搜索 chinese 第一个就是汉化包 ，安装后重启。  安装Python扩展：还是扩展菜单，搜索python 一般第一个就是， 注释为：Linting，Debugging (multi-threaded, …..  我用过Kite 自动补全
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-04-19 10:14" pubdate>
+              2024-04-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vscode-Python-Django/" class="category-chain-item">Vscode + Python + Django</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Vscode-Python-Django/">#Vscode + Python + Django</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2024/04/18/%E5%88%86%E4%BA%AB/%E7%BD%91%E7%9B%98%E5%88%86%E4%BA%AB/" target="_self">
           网盘分享
         </a>
@@ -274,507 +725,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%BD%91%E7%9B%98/">#网盘</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/03/29/redis/%E5%86%85%E5%AD%98%E8%B6%85%E5%87%BA/" target="_self">
-          Redis报错“ OOM command not allowed when used memory &gt; &#39;maxmemory&#39; ”
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/03/29/redis/%E5%86%85%E5%AD%98%E8%B6%85%E5%87%BA/" target="_self">
-        <div>
-          错误输出 OOM command not allowed when used memory &gt; ‘maxmemory’； 意思是使用内存超出了redis的最大内存闲置  登录redis1./redis-cli -h IP -p port -a passwd 查看信息1info memory  12345678910111213141516# Memoryused_memory:4268086
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-29 11:18" pubdate>
-              2024-03-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/redis/" class="category-chain-item">redis</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/redis%E6%8A%A5%E9%94%99/">#redis报错</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/03/22/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/1-python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/" target="_self">
-          面试
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/03/22/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/1-python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/" target="_self">
-        <div>
-          操作系统进程和线程之间有什么区别12345671. 进程是运行中的程序，线程是进程内部的一个执行序列2. 进程是资源分配的单元，线程是执行单元3. 进程间切换代价大，线程间切换代价小4. 进程拥有资源多，线程拥有资源少5. 多个线程共享进程的资源延伸：进程为啥切换代价比线程大？ 参考资料:https://www.ruanyifeng.com/blog/2013/04/processes_and_t
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-22 16:23" pubdate>
-              2024-03-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/01/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/requests%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/" target="_self">
-          requests使用代理
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/19/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/requests%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/" target="_self">
-        <div>
-          示例12345678910proxy = &#x27;115.203.28.25:16584&#x27;proxies = &#123;    &quot;http&quot;: &quot;http://%(proxy)s/&quot; % &#123;&#x27;proxy&#x27;: proxy&#125;,    &quot;https&quot;: &quot;http://%(pro
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-19 16:24" pubdate>
-              2024-01-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/request%E3%80%81%E4%BB%A3%E7%90%86/">#request、代理</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/3-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
-          3.二叉树的序列化和反序列化
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/3-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
-        <div>
-          解释：一棵树在运行时是在内存中的，假如程序中断这颗树就不存在了。如何把这个树备份和恢复，这个过程就是序列化（备份成字符串结构存到硬盘中）和反序列化（还原到内存中） 思路将一个树的先序遍历记录下来，其中叶子节点指向的null 也需要记录，表示一个结束符。然后使用代码进行复原。例如上图的：”1,2,4,null,null,5,null,null,3,6,null,null,7,null,null” 实
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-26 15:05" pubdate>
-              2023-12-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="category-chain-item">算法学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E3%80%81%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">#二叉树、二叉树序列化和反序列化</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/25/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E7%9A%84logging%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_self">
-          python的logging实现多进程安全
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/25/python%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/python%E7%9A%84logging%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_self">
-        <div>
-          一、重写doRollover，实现文件的多进程锁(时间分割)1.Python多进程日志轮转多进程条件下 celery task中的日志写入可能会出现一系列问题 2.python 自带日志处理器基础日志模块 logging — Logging facility for Python — Python 3.12.1 documentation 基于基础模块的日志文件处理模块 logging.handl
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-25 11:15" pubdate>
-              2023-12-25
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/21/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" target="_self">
-          2.二叉树的遍历
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/21/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" target="_self">
-        <div>
-          构建树123456789101112131415161718192021222324252627282930313233class Node:    def __init__(self, value) -&gt; None:        self.value = value        self.lchild = None # 左孩子        self.rchild = None #
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-21 17:44" pubdate>
-              2023-12-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="category-chain-item">算法学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E3%80%81%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">#二叉树、二叉树遍历</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/19/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/1.%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A6%82%E5%BF%B5/" target="_self">
-          二叉树概念
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/19/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/1.%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A6%82%E5%BF%B5/" target="_self">
-        <div>
-          是指树中节点的度不大于2的有序树，它是一种最简单且最重要的树。二叉树的递归定义为：二叉树是一棵空树，或者是一棵由一个根节点和两棵互不相交的，分别称作根的左子树和右子树组成的非空树；左子树和右子树又同样都是二叉树。注意：  每个节点最多有两颗子树，也就是度不大于2 左子树和右子树是有定义的，不能颠倒，即使某个节点只有一颗子树，也有左右之分  1. 概念 根节点：一个树只有一个树根，例如上图 A 就
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-19 16:23" pubdate>
-              2023-12-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="category-chain-item">算法学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">#二叉树</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/12/mysql/%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90/" target="_self">
-          mysql 创建用户分配权限
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/12/mysql/%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90/" target="_self">
-        <div>
-          创建用户1CREATE USER &#x27;用户名&#x27;@&#x27;%或者IP&#x27; IDENTIFIED BY &#x27;密码&#x27;;   分配权限授权某个用户所有数据库所有权限 1GRANT ALL PRIVILEGES ON *.* TO &quot;用户名&quot;@&quot;IP/localhost/%&quot;  授予某个用户所有数据库读权限 1GRANT
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-12 10:16" pubdate>
-              2023-12-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">#mysql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/11/git/git%E5%AD%A6%E4%B9%A0/" target="_self">
-          git学习
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/11/git/git%E5%AD%A6%E4%B9%A0/" target="_self">
-        <div>
-          stash  当想记录工作目录和索引的当前状态，但又想返回一个干净的工作目录时使用，可以保存本地修改，并恢复工作目录以匹配头部提交。 应用场景  某一天你正在 feature 分支开发新需求，突然产品经理跑过来说线上有bug，必须马上修复。而此时你的功能开发到一半，于是你急忙想切到 master 分支，因为当前有文件更改了，需要提交commit保持工作区干净才能切分支。由于情况紧急，  commi
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-11 10:16" pubdate>
-              2023-12-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/git/" class="category-chain-item">git</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/git-stash/">#git stash</a>
-            
-              <a href="/tags/git-reset/">#git reset</a>
-            
-              <a href="/tags/git-cherry-pick/">#git cherry-pick</a>
-            
-              <a href="/tags/git-revert/">#git revert</a>
-            
-              <a href="/tags/git-reflog/">#git reflog</a>
             
           </div>
         
