@@ -24,7 +24,7 @@
 <meta property="og:description" content="操作系统进程和线程之间有什么区别12345671. 进程是运行中的程序，线程是进程内部的一个执行序列2. 进程是资源分配的单元，线程是执行单元3. 进程间切换代价大，线程间切换代价小4. 进程拥有资源多，线程拥有资源少5. 多个线程共享进程的资源延伸：进程为啥切换代价比线程大？ 参考资料:https:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2013&#x2F;04&#x2F;processes_and_t">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-22T08:23:54.000Z">
-<meta property="article:modified_time" content="2025-11-05T13:14:06.073Z">
+<meta property="article:modified_time" content="2025-11-06T02:26:29.839Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
@@ -393,7 +393,7 @@
 <li>接口层增加校验，如用户鉴权，id基础校验，id&lt;=0的直接拦截；</li>
 <li>从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对 写成key-null，缓存有效时间可以设置短点，如30秒（设置太长时间会导致正常情况也没法使用）。</li>
 </ol>
-<h4 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h4><p><strong>描述：</strong><br>缓存击穿是，缓存中没有但数据库中有的数据（一般是缓存时间到期），这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成压力过大<br><strong>解决方案：</strong></p>
+<h4 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h4><p><strong>描述：</strong><br>缓存击穿是，热点信息缓存中没有但数据库中有的数据（一般是缓存时间到期），这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成压力过大<br><strong>解决方案：</strong></p>
 <ol>
 <li>设置热点数据永远不过期</li>
 <li>加互斥锁</li>
