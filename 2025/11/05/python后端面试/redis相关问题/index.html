@@ -24,7 +24,7 @@
 <meta property="og:description" content="Redis为什么这么快？请从至少5个方面详细解释。 reid 是直接从内存读取的减少了i&#x2F;o读取时间 redise 是key-value存储，且包含 多种数据结构，数据结构简单，性能高 reid 是单线程的 避免多线程的上下文切换 redis是非阻塞I&#x2F;O： 一步处理网络请求，不阻塞主线程 redis 是C写的，更接近底层  在电商网站中，如何使用Redis的不同数据结构来实现以下功能？ 商品详情">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-05T05:35:27.000Z">
-<meta property="article:modified_time" content="2025-11-06T08:23:13.574Z">
+<meta property="article:modified_time" content="2025-11-11T03:28:20.073Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary_large_image">
@@ -342,7 +342,7 @@
 <li><p>内存碎片整理策略<br>一般启用redis的自动内存整理配置，可以设置redis 内存碎片大小阈值，百分比阈值<br>碎片内存计算： 计算机识别的内存-实际使用内存</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># </span><br>activedefrag <span class="hljs-built_in">yes</span><br>active-defrag-ignore-bytes 100mb<br>active-defrag-threshold-lower 10<br></code></pre></td></tr></table></figure></li>
 <li><p>数据过期和淘汰策略配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">noeviction 不淘汰， 超过后默认报错。（默认淘汰策略）// 数据不能丢失的<br><span class="hljs-comment"># 所有键：</span><br>1. allkeys-lru最 近最少使用。  // 纯缓存系统<br>2. allkeys-random 随机淘汰  // 简单缓存<br>3. allkeys-lfu 访问频率最低的 // 长期热点识别<br><span class="hljs-comment"># 过期键</span><br>1. volatile-lru 最近最少使用 // 混合数据 持久化+缓存<br>2. volatile-ttl 剩余时间最短的 // 尽快释放过期内存<br>3. volatile-lfu 访问频率最低的 // 智能缓存系统<br>4. volatile-lru 随机淘汰 // 缓存数据<br><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">noeviction 不淘汰， 超过后默认报错。（默认淘汰策略）// 数据不能丢失的<br><span class="hljs-comment"># 所有键：</span><br>1. allkeys-lru最近最少使用。  // 纯缓存系统<br>2. allkeys-random 随机淘汰  // 简单缓存<br>3. allkeys-lfu 访问频率最低的 // 长期热点识别<br><span class="hljs-comment"># 过期键</span><br>1. volatile-lru 最近最少使用 // 混合数据 持久化+缓存<br>2. volatile-ttl 剩余时间最短的 // 尽快释放过期内存<br>3. volatile-lfu 访问频率最低的 // 智能缓存系统<br>4. volatile-lru 随机淘汰 // 缓存数据<br><br></code></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="问题：Redis-Cluster集群扩容时，如何保证数据迁移期间的服务可用性？"><a href="#问题：Redis-Cluster集群扩容时，如何保证数据迁移期间的服务可用性？" class="headerlink" title="问题：Redis Cluster集群扩容时，如何保证数据迁移期间的服务可用性？"></a>问题：Redis Cluster集群扩容时，如何保证数据迁移期间的服务可用性？</h3><p>一致性哈希算法的具体实现原理<br>槽位迁移的详细过程<br>迁移期间的读写请求如何处理？<br>如何监控迁移进度和解决数据倾斜问题？</p>
 <h3 id="问题：请设计一个工业级的缓存方案，解决以下问题："><a href="#问题：请设计一个工业级的缓存方案，解决以下问题：" class="headerlink" title="问题：请设计一个工业级的缓存方案，解决以下问题："></a>问题：请设计一个工业级的缓存方案，解决以下问题：</h3><ol>
@@ -438,6 +438,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/11/10/python%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/%E7%AE%80%E5%8D%95%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE/" title="简单算法题目">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">简单算法题目</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -24,7 +24,7 @@
 <meta property="og:description" content="1.python 运算符的重载12345678910111213141516171819202122232425262728293031323334class Vector:    def __init__(self, a, b, c ):        self.a &#x3D; a        self.b &#x3D; b        self.c &#x3D; c    def __add__(self, othe">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-02T07:10:40.000Z">
-<meta property="article:modified_time" content="2025-11-05T13:14:08.155Z">
+<meta property="article:modified_time" content="2025-11-11T02:07:39.162Z">
 <meta property="article:author" content="ShanCe">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          21k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          162 分钟
+          177 分钟
         
       </span>
     
@@ -338,6 +338,19 @@
 <p>解释： 元类是创建类的类。就像类是用来创建实例的模板一样，元类是用来创建类的模板。<br><strong>new</strong> 创建类对象是调用<br><strong>init</strong> 初始化类对象是调用<br><strong>call</strong> 是元类的一个特殊方法，当类被实例化时，<strong>call</strong> 方法会被调用。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AutoRegisterMeta</span>(<span class="hljs-title class_ inherited__">type</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;自动注册模型类&quot;&quot;&quot;</span><br>    registry = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls, name, bases, attrs</span>):<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;__doc__&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> attrs:<br>            <span class="hljs-keyword">raise</span> TypeError(<span class="hljs-string">f&quot;请为模型类<span class="hljs-subst">&#123;name&#125;</span>添加文档注释&quot;</span>)<br><br>        attrs[<span class="hljs-string">&quot;create_at&quot;</span>] = time.time()<br>        attrs[<span class="hljs-string">&quot;created_at_str&quot;</span>] = datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)<br><br><br>        new_class = <span class="hljs-built_in">super</span>().__new__(cls, name, bases, attrs)<br>        <span class="hljs-keyword">if</span> name <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> cls.registry:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;注册模型类：&quot;</span>, name)<br>            cls.registry[name] = new_class<br>        <span class="hljs-keyword">return</span> new_class<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, bases, attrs</span>):<br>        <span class="hljs-built_in">super</span>().__init__(name, bases, attrs)    <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_class_info</span>(<span class="hljs-params">cls</span>):<br>            <span class="hljs-string">&quot;&quot;&quot;获取所有注册的模型类信息&quot;&quot;&quot;</span><br>            <span class="hljs-keyword">return</span> cls.__name__, cls.__doc__, <span class="hljs-built_in">getattr</span>(cls, <span class="hljs-string">&quot;created_at_str&quot;</span>, <span class="hljs-string">&#x27;unknown&#x27;</span>)<br>        <br>        self.get_class_info = <span class="hljs-built_in">classmethod</span>(get_class_info)<br><br>    <br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        instance = <span class="hljs-built_in">super</span>().__call__(*args, **kwargs)<br>        instance._instance_created_at = time.time()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(metaclass=AutoRegisterMeta):<br>    <span class="hljs-string">&quot;&quot;&quot;这是一个测试模型&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name</span>):<br>        self.name = name<br><br><span class="hljs-comment"># 自动获得的功能：</span><br><span class="hljs-built_in">print</span>(MyModel.get_class_info())  <span class="hljs-comment"># 输出类信息</span><br><span class="hljs-built_in">print</span>(AutoRegisterMeta.registry)  <span class="hljs-comment"># 查看所有注册的类</span><br></code></pre></td></tr></table></figure>
 
+<h3 id="请实现一个装饰器，具有以下功能："><a href="#请实现一个装饰器，具有以下功能：" class="headerlink" title="请实现一个装饰器，具有以下功能："></a>请实现一个装饰器，具有以下功能：</h3><ul>
+<li>记录函数的执行时间</li>
+<li>支持设置是否打印日志（通过装饰器参数控制）</li>
+<li>如果函数执行时间超过指定阈值（可配置），输出警告信息</li>
+<li>统计函数被调用的次数</li>
+<li>要求：</li>
+<li>装饰器要支持带参数：@timer(enable_log=True, timeout=1.0)</li>
+<li>当不传参数时，使用默认设置：@timer</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">timer</span>(<span class="hljs-params">enable_log=<span class="hljs-literal">True</span>, timeout=<span class="hljs-number">0.5</span></span>):<br>    <br>    func_count = &#123;&#125;<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">func</span>):<br><span class="hljs-meta">        @wraps(<span class="hljs-params">func</span>)</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner</span>(<span class="hljs-params">*args, **kwargs</span>):<br><br>            start_time = time.time()<br>            func_count[func.__name__] = func_count.get(func.__name__, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span><br>            res = func(*args, **kwargs)<br>            end_time = time.time()<br>            <span class="hljs-keyword">if</span> enable_log:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;func.__name__&#125;</span> called <span class="hljs-subst">&#123;func_count[func.__name__]&#125;</span> times, time cost: <span class="hljs-subst">&#123;end_time - start_time&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">if</span> timeout &lt; end_time - start_time:<br>                <span class="hljs-keyword">raise</span> TimeoutError(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;func.__name__&#125;</span> timeout&quot;</span>)<br>            <span class="hljs-keyword">return</span> res<br>        <span class="hljs-keyword">return</span> inner<br>    <span class="hljs-keyword">return</span> wrapper<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用线程实现真正意义上的超时</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">timer2</span>(<span class="hljs-params">enable_log=<span class="hljs-literal">True</span>, timeout=<span class="hljs-number">0.5</span></span>):<br>    <br>    func_count = &#123;&#125;<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">func</span>):<br><span class="hljs-meta">        @wraps(<span class="hljs-params">func</span>)</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner</span>(<span class="hljs-params">*args, **kwargs</span>):<br>            result = [<span class="hljs-literal">None</span>]<br>            <span class="hljs-keyword">def</span> <span class="hljs-title function_">work</span>():<br>                result[<span class="hljs-number">0</span>] = func(*args, **kwargs)<br><br>            start_time = time.time()<br>            func_count[func.__name__] = func_count.get(func.__name__, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span><br>            thread = Thread(target=work)<br>            thread.start()<br>            thread.join(timeout)<br>            <span class="hljs-comment"># res = func(*args, **kwargs)</span><br>            end_time = time.time()<br>            <span class="hljs-keyword">if</span> enable_log:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;func.__name__&#125;</span> called <span class="hljs-subst">&#123;func_count[func.__name__]&#125;</span> times, time cost: <span class="hljs-subst">&#123;end_time - start_time&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">if</span> thread.is_alive():<br>                <span class="hljs-keyword">raise</span> TimeoutError(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;func.__name__&#125;</span> timeout&quot;</span>)<br>            <span class="hljs-keyword">return</span> result[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">return</span> inner<br>    <span class="hljs-keyword">return</span> wrapper<br><br></code></pre></td></tr></table></figure>
+
 <h3 id="请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。"><a href="#请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。" class="headerlink" title="请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。"></a>请解释Python中列表（List）的内存分配策略，并编写代码演示列表的动态扩容机制。</h3><p>要求：</p>
 <p>解释列表的过度分配（over-allocation）策略</p>
 <p>演示列表扩容时的内存增长模式</p>
@@ -395,6 +408,37 @@
 </ol>
 <p>迭代器和生成器：</p>
 <p>相同点： </p>
+<h3 id="生成器和列表推导式"><a href="#生成器和列表推导式" class="headerlink" title="生成器和列表推导式"></a>生成器和列表推导式</h3><ol>
+<li>内存使用差异</li>
+</ol>
+<p>列表推导式：一次性生成所有结果存储在内存中</p>
+<p>list_comp = [x**2 for x in range(1000000)]  # 立即占用大量内存</p>
+<p>生成器表达式/函数：惰性计算，按需生成</p>
+<p>gen_exp = (x**2 for x in range(1000000))    # 几乎不占内存，使用时才计算</p>
+<ol start="2">
+<li>性能特点</li>
+</ol>
+<p>列表推导式：创建时耗时，但访问元素快（O(1)）</p>
+<p>生成器：创建时几乎不耗时，但每次访问都需要计算</p>
+<ol start="3">
+<li>使用场景</li>
+</ol>
+<p>使用列表推导式：</p>
+<p>数据量较小</p>
+<p>需要多次访问或随机访问数据</p>
+<p>需要列表特有的方法（如排序、切片等）</p>
+<p>使用生成器：</p>
+<p>处理大量数据或无限序列</p>
+<p>数据管道处理（一个接一个处理）</p>
+<p>内存敏感的场景</p>
+<p>只需要遍历一次的数据</p>
+<ol start="4">
+<li>生成器的主要优点</li>
+</ol>
+<p>内存高效：不预计算所有结果</p>
+<p>支持无限序列：可以表示无限的数据流</p>
+<p>惰性求值：需要时才计算，避免不必要的计算</p>
+<p>可组合性：多个生成器可以串联形成处理管道</p>
 <h3 id="请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。"><a href="#请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。" class="headerlink" title="请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。"></a>请解释Python中自定义对象（类实例）的内存分配机制，并分析如何优化对象的内存使用。</h3><p>要求：</p>
 <p>解释Python对象的内存布局（__dict__vs __slots__）</p>
 <p>说明__slots__如何减少内存占用及其使用场景</p>
